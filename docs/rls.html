@@ -353,11 +353,11 @@ Y_i &amp;= \beta_0 + \beta_1X_i + \epsilon_i,\\
 ## 4        10.7 17.5
 ## 5        13.0 14.6
 ## 6        13.1 12.8</code></pre>
-<p>En este caso, se tienen registros de la <code>Resistencia</code> y la <code>Edad</code> de <code>{r NROW(datos)}</code> soldaduras.</p>
+<p>En este caso, se tienen registros de la <code>Resistencia</code> y la <code>Edad</code> de 100 soldaduras.</p>
 <p>Con miras explorar si existe una relación entre estas dos variables, procedemos a construir un gráfico de dispersión en <code>R</code> de la siguiente manera:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="rls.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico de dispersión</span></span>
 <span id="cb6-2"><a href="rls.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(datos, <span class="fu">plot</span>(Edad, Resistencia, <span class="at">las =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>De la figura se concluye que, aparentemente, cuanto mayor sea la <code>Edad</code> de la soldadura <em>menor</em> será su <code>Resistencia</code>. Por lo tanto, decimos que la relación entre <code>Edad</code> y <code>Resistencia</code> es <em>inversamente proporcional</em>.</p>
 
 <div class="rmdwarning">
@@ -751,14 +751,14 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <span id="cb30-2"><a href="rls.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
 <span id="cb30-3"><a href="rls.html#cb30-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">durbinWatsonTest</span>(modelo)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1     -0.02653343      2.050609   0.858
+##    1     -0.02653343      2.050609     0.8
 ##  Alternative hypothesis: rho != 0</code></pre>
 <p>Basados en el valor <span class="math inline">\(p\)</span>, <em>no</em> es posible rechazar <span class="math inline">\(H_0\)</span> puesto que el valor <span class="math inline">\(p\)</span> de la prueba de Durbin-Watson es superior a un nivel de significancia <span class="math inline">\(\alpha\)</span> del 5%. Por lo tanto, concluimos que los residuales del modelo ajustados <em>son</em> independientes.</p>
 <p>Para graficar la ACF podemos hacer:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="rls.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ACF de los residuales</span></span>
 <span id="cb32-2"><a href="rls.html#cb32-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo)  <span class="do">## cálculo de los residuales</span></span>
 <span id="cb32-3"><a href="rls.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Para concluir que los residuales del modelo ajustado son <em>independientes</em> basados en la ACF, ninguna de las barras verticales, llamadas correlaciones, debe superar las bandas de color azul para <span class="math inline">\(\text{Lag} &gt; 0\)</span>. En nuestro caso, podemos concluir que los residuales <em>son</em> independientes.</p>
 <p>Formalmente, probar el <strong>supuesto de normalidad</strong> de los errores equivale a realizar el siguiente procedimiento de prueba de hipótesis:</p>
 <p><span class="math display">\[
@@ -795,13 +795,13 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="rls.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q-Q plot básico</span></span>
 <span id="cb35-2"><a href="rls.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&#39;&#39;</span>)</span>
 <span id="cb35-3"><a href="rls.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(r, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>Para más detalles, escribir <code>?qqnorm</code> en la consola del <code>R</code>. La idea fundamental es que los residuales del modelo (i.e., puntos en la gráfica) deben estar alrededor de la línea de color <em>rojo</em> para concluir, al menos gráficamente, que los residuales siguen una distribución Normal. En este caso, existen varios puntos por fuera de la línea, lo cual nos hace sospechar que esas observaciones <em>outliers</em> afectan el supesto.</p>
 <p><strong>Utilizando el paquete car</strong></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="rls.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q-Q plot usando el paquete car</span></span>
 <span id="cb36-2"><a href="rls.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb36-3"><a href="rls.html#cb36-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">qqPlot</span>(r, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <pre><code>## [1] 77 18</code></pre>
 <p>Aunque la elaboración de este gráfico es mucho más compleja, su interpretación es simple: diremos que los residuales del modelo ajustado <em>cumplen</em> con el supuesto de Normalidad si <em>todos</em> los puntos en encuentran <strong>dentro</strong> de las bandas de color <em>azul</em>. En este caso, las observaciones <code>5</code> y <code>6</code> parecen ser las responsables de que el supuesto de Normalidad no se cumpla.</p>
 <p>Formalmente la validación del <strong>supuesto de media cero</strong> para los errores consiste en probar</p>
@@ -877,7 +877,7 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <span id="cb42-12"><a href="rls.html#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
 <span id="cb42-13"><a href="rls.html#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&#39;r vs. Edad&#39;</span>), <span class="at">ylab =</span> <span class="st">&#39;Residuals&#39;</span>)</span>
 <span id="cb42-14"><a href="rls.html#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>De los gráficos anteriores se concluye que la varianza del modelo de <em>constante</em>.</p>
 <!-- ### Identificaciónd de _outliers_{-} -->
 <!-- ### Observaciones influenciales{-} -->

@@ -47,7 +47,7 @@ datos <- read.table(file = file, header = TRUE)
 head(datos) 
 ```
 
-En este caso, se tienen registros de la `Resistencia` y la `Edad` de `{r NROW(datos)}` soldaduras.
+En este caso, se tienen registros de la `Resistencia` y la `Edad` de `r NROW(datos)` soldaduras.
 
 Con miras explorar si existe una relación entre estas dos variables, procedemos a construir un gráfico de dispersión en `R` de la siguiente manera:
 
