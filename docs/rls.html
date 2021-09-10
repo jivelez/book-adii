@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 2 Regresión Lineal Simple | Modelos de Regresión para Ingeniería: Una aproximación práctica</title>
+  <title>Capítulo 2 Regresión Lineal Simple | Modelos de Regresión: Una aproximación práctica con R</title>
   <meta name="description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 2 Regresión Lineal Simple | Modelos de Regresión para Ingeniería: Una aproximación práctica" />
+  <meta property="og:title" content="Capítulo 2 Regresión Lineal Simple | Modelos de Regresión: Una aproximación práctica con R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/jivelez/book-adii" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 2 Regresión Lineal Simple | Modelos de Regresión para Ingeniería: Una aproximación práctica" />
+  <meta name="twitter:title" content="Capítulo 2 Regresión Lineal Simple | Modelos de Regresión: Una aproximación práctica con R" />
   
   <meta name="twitter:description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
   
@@ -155,7 +155,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Análisis de Datos en Ingeniería</a></li>
+<li><a href="./">Modelos de Regresión con R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenido</a>
@@ -299,7 +299,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión para Ingeniería: Una aproximación práctica</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión: Una aproximación práctica con R</a>
           </h1>
         </div>
 
@@ -341,22 +341,23 @@ Y_i &amp;= \beta_0 + \beta_1X_i + \epsilon_i,\\
 <p>En la práctica, se tiene o toma una muestra aleatoria de tamaño <span class="math inline">\(n\)</span> de una población o proceso de producción/servicios, y se quieren estimar, a partir de dicha muestra, el valor de <span class="math inline">\((\beta_0, \beta_1, \sigma^2\)</span>), conocidos como los <strong>parámetros</strong> del modelo. Los términos <span class="math inline">\((\beta_0, \beta_1)\)</span> corresponden a los <strong>coeficientes del modelo</strong>, mientras <span class="math inline">\(\sigma^2\)</span> es <strong>la varianza</strong>.</p>
 <p>Consideremos por ejemplo los siguientes datos:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="rls.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## lectura de datos en URL</span></span>
-<span id="cb4-2"><a href="rls.html#cb4-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
+<span id="cb4-2"><a href="rls.html#cb4-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://www.dropbox.com/s/h4abseyfnvfwgxq/data_rls.txt?dl=1&quot;</span></span>
 <span id="cb4-3"><a href="rls.html#cb4-3" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> file, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb4-4"><a href="rls.html#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-5"><a href="rls.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## primeras 6 filas de los datos</span></span>
 <span id="cb4-6"><a href="rls.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos) </span></code></pre></div>
-<pre><code>##   Resistencia  Edad
-## 1     2158.70 15.50
-## 2     1678.15 23.75
-## 3     2316.00  8.00
-## 4     2061.30 17.00
-## 5     2207.50  5.50
-## 6     1708.30 19.00</code></pre>
-<p>Ahora, utilicemos <code>R</code> para realizar una gráfico de dispersión:</p>
+<pre><code>##   Resistencia Edad
+## 1        10.9 18.7
+## 2        10.6 19.1
+## 3        13.4  9.3
+## 4        10.7 17.5
+## 5        13.0 14.6
+## 6        13.1 12.8</code></pre>
+<p>En este caso, se tienen registros de la <code>Resistencia</code> y la <code>Edad</code> de <code>{r NROW(datos)}</code> soldaduras.</p>
+<p>Con miras explorar si existe una relación entre estas dos variables, procedemos a construir un gráfico de dispersión en <code>R</code> de la siguiente manera:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="rls.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico de dispersión</span></span>
 <span id="cb6-2"><a href="rls.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(datos, <span class="fu">plot</span>(Edad, Resistencia, <span class="at">las =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>De la figura se concluye que, aparentemente, cuanto mayor sea la <code>Edad</code> de la soldadura <em>menor</em> será su <code>Resistencia</code>. Por lo tanto, decimos que la relación entre <code>Edad</code> y <code>Resistencia</code> es <em>inversamente proporcional</em>.</p>
 
 <div class="rmdwarning">
@@ -380,7 +381,7 @@ Y_i &amp;= \beta_0 + \beta_1X_i + \epsilon_i,\\
 <p>Con los datos del ejemplo, se tiene entonces que:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="rls.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## coeficiente de correlación</span></span>
 <span id="cb7-2"><a href="rls.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(datos, <span class="fu">cor</span>(Edad, Resistencia))</span></code></pre></div>
-<pre><code>## [1] -0.9496533</code></pre>
+<pre><code>## [1] -0.8827718</code></pre>
 <p>A la luz de estos resultados concluimos que, en definitiva, la relación entre la <code>Edad</code> de la soldadura y su <code>Resistencia</code> es <em>inversamente proporcional</em>.</p>
 </div>
 <div id="minimos" class="section level2" number="2.2">
@@ -389,21 +390,32 @@ Y_i &amp;= \beta_0 + \beta_1X_i + \epsilon_i,\\
 <p>En nuestro ejemplo, los datos se organizan de la siguiente forma:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="rls.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## muestra los primeros 10 pares de datos</span></span>
 <span id="cb9-2"><a href="rls.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos, <span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##    Resistencia  Edad
-## 1      2158.70 15.50
-## 2      1678.15 23.75
-## 3      2316.00  8.00
-## 4      2061.30 17.00
-## 5      2207.50  5.50
-## 6      1708.30 19.00
-## 7      1784.70 24.00
-## 8      2575.00  2.50
-## 9      2357.90  7.50
-## 10     2256.70 11.00</code></pre>
-<p>En estos datos, el tamaño de muestra es</p>
+<pre><code>##    Resistencia Edad
+## 1         10.9 18.7
+## 2         10.6 19.1
+## 3         13.4  9.3
+## 4         10.7 17.5
+## 5         13.0 14.6
+## 6         13.1 12.8
+## 7         12.1 16.0
+## 8         14.3  7.0
+## 9         11.9 14.9
+## 10        11.1 15.6</code></pre>
+<p>Así, los pares <span class="math inline">\((x_1,y_1)\)</span> y <span class="math inline">\((x_5, y_5)\)</span> corresponden a <span class="math inline">\((18.7, 10.9)\)</span> y <span class="math inline">\((14.6, 13.0)\)</span>, respectivamente.</p>
+<p>Para determinar el tamaño de la muestra, hacemos</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="rls.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## número total de observaciones</span></span>
 <span id="cb11-2"><a href="rls.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">NROW</span>(datos) </span></code></pre></div>
-<pre><code>## [1] 20</code></pre>
+<pre><code>## [1] 100</code></pre>
+<!-- Una forma de realizar una primera aproximación descriptiva a los datos que tenemos es a partir de la función `summary` del paquete `skimr` \index{skimr}[@skimr]: -->
+<!-- ```{r, message=FALSE} -->
+<!-- require(skimr) -->
+<!-- skim_without_charts(datos) -->
+<!-- ``` -->
+<!-- Etos resultados indican que: -->
+<!-- 1. El objeto `datos` es un `data.frame` con 100 filas y  2 columnas; -->
+<!-- 2. La `Resistencia` promedio de las soldaduras es 12.6, la desviación estándar de 1.25, con valores mínimos y máximos de 10.6 y 16.3, respectivamente; -->
+<!-- 3. La `Edad` de las soldaduras varía entre 5 y 19.8 años, con un promedio de 12.9 años y una desviación estándar de 4.53 años; -->
+<!-- 4. La disribución de la `Resistencia` es sesgada a la izquierda, mientras la distribución de la `Edad` es sesgada a la derecha. -->
 <p>Usualmente, el modelo de RLS puede estimarse utilizando el método de <a href="rls.html#minimos">mínimos cuadrados</a>. A partir del modelo ajustado es posible <strong>predicir el valor esperado</strong> de <span class="math inline">\(Y\)</span> para valores <strong>conocidos</strong> de <span class="math inline">\(X\)</span>, es decir, calcular <span class="math inline">\(\widehat{E[Y|X=x_0]}\)</span>, donde <span class="math inline">\(x_0\)</span> es un <strong>valor conocido</strong> del factor controlable <span class="math inline">\(X\)</span>. Adicionalmente, podemos calcular intervalos de confianza e intervalos de predicción para <span class="math inline">\(\widehat{E[Y|X=x_0]}\)</span>.</p>
 <p>Observe que para un valor específico de <span class="math inline">\(X\)</span>, digamos <span class="math inline">\(x_i\)</span>, se tiene el valor correspondiente de <span class="math inline">\(Y\)</span> es <span class="math inline">\(y_i\)</span>. En otras palabras, la <span class="math inline">\(i\)</span>-ésima unidad experimental se produjo cuando <span class="math inline">\(X = x_i\)</span> y que, bajo estas condiciones, se obtuvo que <span class="math inline">\(Y = y_i\)</span>.</p>
 <p>La estimación de los parámetros <span class="math inline">\((\beta_0, \beta_1,\sigma^2)\)</span> se realiza utilizando el <strong>Método de Mínimos Cuadrados Ordinarios</strong>, también conocido como MCO. La idea fundamental es minizar la expresión</p>
@@ -440,23 +452,20 @@ S_{xy} = \sum_{i=1}^nx_iy_i - n\frac{1}{n}\sum_{i=1}^n x_i\sum_{i=1}^n y_i.
 <div class="rmdtip">
 En la práctica, <span class="math inline">\(\widehat{\beta}_1\)</span> se interpreta como <strong>el cambio unitario</strong> sobre el valor esperado de <span class="math inline">\(Y\)</span>, <span class="math inline">\(E[Y|X]\)</span>, por cada cambio unitario del <strong>factor controlable</strong> <span class="math inline">\(X\)</span>.
 </div>
-<p>En <code>R</code> podemos el siguiente conjunto de instrucciones para estimar el modelo de RLS para los datos de las soldaduras:</p>
+<p>En <code>R</code> la función clave paara ajustar modelos de RLS es <code>lm</code>. Para mayor información, puede consultar la ayuda de la función escribiendo <code>?lm</code> en la consola, o en la <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html">página</a> oficial.</p>
+<p>A continuación procedemos a estimar el modelo de RLS para los datos de las soldaduras:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="rls.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ajuste del modelo de RLS</span></span>
-<span id="cb13-2"><a href="rls.html#cb13-2" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data =</span> datos)</span>
-<span id="cb13-3"><a href="rls.html#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="rls.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">## reportamos sólo los coeficientes</span></span>
-<span id="cb13-5"><a href="rls.html#cb13-5" aria-hidden="true" tabindex="-1"></a>modelo</span></code></pre></div>
+<span id="cb13-2"><a href="rls.html#cb13-2" aria-hidden="true" tabindex="-1"></a>(modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data =</span> datos))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Resistencia ~ Edad, data = datos)
 ## 
 ## Coefficients:
 ## (Intercept)         Edad  
-##     2627.82       -37.15</code></pre>
-<p>Los resultados muestran los valores de <span class="math inline">\(\widehat{\beta}_0\)</span> y <span class="math inline">\(\widehat{\beta}_1\)</span>, por lo que <span class="math inline">\(\widehat{\beta}_0 = 2627.82\)</span> y <span class="math inline">\(\widehat{\beta}_1 = -37.15\)</span>.</p>
-<p>Por lo tanto, el modelo de RLS ajustado está dado por</p>
+##     15.7427      -0.2438</code></pre>
+<p>Los resultados muestran los valores de <span class="math inline">\(\widehat{\beta}_0\)</span> y <span class="math inline">\(\widehat{\beta}_1\)</span>, por lo que <span class="math inline">\(\widehat{\beta}_0 = 15.74\)</span> y <span class="math inline">\(\widehat{\beta}_1 = -0.244\)</span>. Por lo tanto, el modelo de RLS ajustado está dado por</p>
 <p><span class="math display">\[\begin{align}
-\widehat{\text{Resistencia}}_i &amp;= 2627.82 -37.15\,\text{Edad}_i ,\\ 
+\widehat{\text{Resistencia}}_i &amp;= 15.74 -0.244\,\text{Edad}_i ,\\ 
 \epsilon_i &amp;\sim N(0, \sigma^2), \\
 \sigma^2 &amp;= \text{constante}.
 \end{align}\]</span></p>
@@ -464,8 +473,8 @@ En la práctica, <span class="math inline">\(\widehat{\beta}_1\)</span> se inter
 <div class="rmdnote">
 <p>Cómo interpretamos <span class="math inline">\(\widehat{\beta}_0\)</span> y <span class="math inline">\(\widehat{\beta}_1\)</span>?</p>
 <ol style="list-style-type: decimal">
-<li>Se espera que, por cada semana que transcurre, la resistencia de la soldadura disminuya <span class="math inline">\(37.15\)</span> psi.</li>
-<li>Una soldadura <em>nueva</em> <span class="math inline">\((\text{Edad} = 0)\)</span> iene una resistencia promedio de <span class="math inline">\(2627.82\)</span> psi
+<li>Se espera que, por cada semana que transcurre, la resistencia de la soldadura disminuya <span class="math inline">\(0.244\)</span> psi.</li>
+<li>Una soldadura <em>nueva</em> <span class="math inline">\((\text{Edad} = 0)\)</span> tiene una resistencia promedio de <span class="math inline">\(15.74\)</span> psi
 </div></li>
 </ol>
 <p>Observe que aún no tenemos el valor estimado de <span class="math inline">\(\sigma\)</span>. Este parámetro del modelo de RLS puede obtenerse a partir de la Tabla ANOVA que describiremos a continuación.</p>
@@ -511,22 +520,22 @@ SSE &amp;= L = \sum_{i=1}^n\widehat{\epsilon}_i^2 = \sum_{i=1}^n(y_i-\hat{y}_i)^
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -215.98  -50.68   28.74   66.61  106.76 
+## -1.6852 -0.3543  0.0209  0.4225  1.8004 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 2627.822     44.184   59.48  &lt; 2e-16 ***
-## Edad         -37.154      2.889  -12.86 1.64e-10 ***
+## (Intercept)  15.7427     0.1787   88.11   &lt;2e-16 ***
+## Edad         -0.2438     0.0131  -18.60   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 96.11 on 18 degrees of freedom
-## Multiple R-squared:  0.9018, Adjusted R-squared:  0.8964 
-## F-statistic: 165.4 on 1 and 18 DF,  p-value: 1.643e-10</code></pre>
-<p>Con estos resultados se concluye que <span class="math inline">\(\hat{\sigma} = 96.11\)</span>. Por lo tanto, el modelo complejo ajustado puede expresarse como</p>
+## Residual standard error: 0.5909 on 98 degrees of freedom
+## Multiple R-squared:  0.7793, Adjusted R-squared:  0.777 
+## F-statistic:   346 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Con estos resultados se concluye que <span class="math inline">\(\hat{\sigma} = 0.591\)</span>. Por lo tanto, el modelo complejo ajustado puede expresarse como</p>
 <p><span class="math display">\[\begin{align}
 \widehat{\text{Resistencia}}_i &amp;\sim N(\hat{\mu}_i, \hat{\sigma}^2),\\ \hat{\mu}_i &amp;\sim 2627.82 - 37.15\,\text{Edad}, \\
-\sigma^2 &amp;= 96.11^2 = 9237.13.
+\sigma^2 &amp;= 0.591^2 = 0.349.
 \end{align}\]</span></p>
 </div>
 <div id="inferencia-para-sigma2" class="section level3 unnumbered">
@@ -551,13 +560,13 @@ donde</p>
 <span id="cb17-3"><a href="rls.html#cb17-3" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo)</span>
 <span id="cb17-4"><a href="rls.html#cb17-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> resultados<span class="sc">$</span>sigma</span>
 <span id="cb17-5"><a href="rls.html#cb17-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> resultados<span class="sc">$</span>df[<span class="dv">2</span>]</span>
-<span id="cb17-6"><a href="rls.html#cb17-6" aria-hidden="true" tabindex="-1"></a>lower_limit <span class="ot">&lt;-</span> df<span class="sc">*</span>sigma<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="fu">qchisq</span>(alpha<span class="sc">/</span><span class="dv">2</span>, df)</span>
-<span id="cb17-7"><a href="rls.html#cb17-7" aria-hidden="true" tabindex="-1"></a>upper_limit <span class="ot">&lt;-</span> df<span class="sc">*</span>sigma<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="fu">qchisq</span>(<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>, df)</span>
-<span id="cb17-8"><a href="rls.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(lower_limit, <span class="at">sigma2_hat =</span>sigma<span class="sc">^</span><span class="dv">2</span>, upper_limit)</span></code></pre></div>
-<pre><code>##   lower_limit sigma2_hat upper_limit
-## 1    20199.24   9236.381    5273.516</code></pre>
-<p>Finalmente, con una confianza del 95%, <span class="math inline">\(\sigma^2 \in(20199.2, 5273.52)\)</span>.</p>
-<p>Para obtener un intervalo de confianza del 95% para <span class="math inline">\(\sigma\)</span>, basta calcular la raíz cuadrada de estos límites. Por lo tanto, <span class="math inline">\(\sigma \in(142.12, 72.62)\)</span>.</p>
+<span id="cb17-6"><a href="rls.html#cb17-6" aria-hidden="true" tabindex="-1"></a>upper_limit <span class="ot">&lt;-</span> df<span class="sc">*</span>sigma<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="fu">qchisq</span>(alpha<span class="sc">/</span><span class="dv">2</span>, df)</span>
+<span id="cb17-7"><a href="rls.html#cb17-7" aria-hidden="true" tabindex="-1"></a>lower_limit <span class="ot">&lt;-</span> df<span class="sc">*</span>sigma<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="fu">qchisq</span>(<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>, df)</span>
+<span id="cb17-8"><a href="rls.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">lower_limit =</span> lower_limit, <span class="at">sigma2_hat =</span>sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">upper_limit =</span> upper_limit)</span></code></pre></div>
+<pre><code>## lower_limit  sigma2_hat upper_limit 
+##   0.2688068   0.3491253   0.4719150</code></pre>
+<p>Finalmente, con una confianza del 95%, <span class="math inline">\(\sigma^2 \in(0.269, 0.472)\)</span>.</p>
+<p>Para obtener un intervalo de confianza del 95% para <span class="math inline">\(\sigma\)</span>, basta calcular la raíz cuadrada de estos límites. Por lo tanto, <span class="math inline">\(\sigma \in(0.519, 0.687)\)</span>.</p>
 </div>
 <div id="coeficiente-de-determinación-r2" class="section level3 unnumbered">
 <h3>Coeficiente de determinación <span class="math inline">\(R^2\)</span></h3>
@@ -567,7 +576,7 @@ donde</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="rls.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## coeficiente de determinación</span></span>
 <span id="cb19-2"><a href="rls.html#cb19-2" aria-hidden="true" tabindex="-1"></a>rho_est <span class="ot">&lt;-</span> <span class="fu">with</span>(datos, <span class="fu">cor</span>(Resistencia, Edad))</span>
 <span id="cb19-3"><a href="rls.html#cb19-3" aria-hidden="true" tabindex="-1"></a>rho_est<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
-<pre><code>## [1] 0.9018414</code></pre>
+<pre><code>## [1] 0.7792861</code></pre>
 
 <div class="rmdtip">
 En la práctica, el <span class="math inline">\(R^2\)</span> puede interpretarse como <strong>el porcentaje de variabilidad total</strong> de la respuesta <span class="math inline">\(Y\)</span> que puede ser explicado por el modelo de RLS.
@@ -575,8 +584,8 @@ En la práctica, el <span class="math inline">\(R^2\)</span> puede interpretarse
 <p>Utilizando el objeto en <code>R</code> que contiene el modelo ajustado, podemos hacer</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="rls.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## obtención del R^2 a partir de un objeto lm</span></span>
 <span id="cb21-2"><a href="rls.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared    </span></code></pre></div>
-<pre><code>## [1] 0.9018414</code></pre>
-<p>para obtener el coeficiente de determinación. Por lo tanto, podemos concluir, con base en nuestro modelo estimado de RLS, que la <code>Edad</code> de la soldadura explica alrededor del 91% de la varabilidad total de la <code>Resistencia</code>.</p>
+<pre><code>## [1] 0.7792861</code></pre>
+<p>para obtener el coeficiente de determinación. Por lo tanto, podemos concluir, con base en nuestro modelo estimado de RLS, que la <code>Edad</code> de la soldadura explica alrededor del 78% de la varabilidad total de la <code>Resistencia</code>.</p>
 <p>A partir de esta definición y los valores de <span class="math inline">\(SST\)</span>, <span class="math inline">\(SSR\)</span> y <span class="math inline">\(SSE\)</span> es fácil llegar a que</p>
 <p><span class="math display">\[R^2 = 1-\frac{SSE}{SST}\]</span>
 Técnicamente, <span class="math inline">\(0\leq R^2 \leq 1\)</span>, donde <span class="math inline">\(R^2 \rightarrow 0\)</span> y <span class="math inline">\(R^2 \rightarrow 1\)</span> representan modelos de RLS con desempeños deficientes e ideales, respectivamente. Sin embargo, en el Capítulo <a href="rlm.html#rlm">3</a> estudiaremos otras medidas que nos permiten determinar si nuestro modelo es lo suficientemente bueno. Al final, el objetivo es seleccionar <strong>el mejor modelo</strong> de regresión que nos permite explicar, correctamente, una variable respuesta de interés en función de una o más variables explicativas o controlables.</p>
@@ -612,12 +621,12 @@ Técnicamente, <span class="math inline">\(0\leq R^2 \leq 1\)</span>, donde <spa
 </ul>
 <p>Bajo <span class="math inline">\(H_0\)</span>, el estadístico <span class="math inline">\(F_\text{calculado}\sim F_{1,n-2}\)</span>. Para un nivel de significancia <span class="math inline">\(\alpha \in (0,1)\)</span>, rechazamos <span class="math inline">\(H_0\)</span> si</p>
 <ol style="list-style-type: decimal">
-<li><p><span class="math inline">\(F_\text{calculado} &gt; F_{1-\alpha,1,n-1}\)</span>, donde <span class="math inline">\(F_{\alpha/2,1,n-2}\)</span> es el percentil <span class="math inline">\(1-\alpha\)</span> de una distribución <span class="math inline">\(F\)</span> con 1 y <span class="math inline">\(n-2\)</span> grados de libertad. En <code>R</code>, estos percentiles pueden calcularse utilizando la función <code>qf</code>. Por ejemplo, <span class="math inline">\(F_{0.95,1,n-1}\)</span> es 4.04 y se obtiene como <code>qf(0.95, 1, 49)</code>.</p></li>
+<li><p><span class="math inline">\(F_\text{calculado} &gt; F_{1-\alpha,1,n-1}\)</span>, donde <span class="math inline">\(F_{\alpha/2,1,n-2}\)</span> es el percentil <span class="math inline">\(1-\alpha\)</span> de una distribución <span class="math inline">\(F\)</span> con 1 y <span class="math inline">\(n-2\)</span> grados de libertad. En <code>R</code>, estos percentiles pueden calcularse utilizando la función <code>qf</code>. Por ejemplo, <span class="math inline">\(F_{0.95,1,98}\)</span> es 3.94 y se obtiene como <code>qf(0.95, 1, 98)</code>.</p></li>
 <li><p>El valor <span class="math inline">\(p\)</span>, calculado como <span class="math inline">\(p=P(F_{1,n-1}&gt;F_\text{calculado})\)</span>, es <strong>menor</strong> que <span class="math inline">\(\alpha\)</span>. Por ejemplo, si <span class="math inline">\(F_\text{calculado} = 7.34\)</span>, el valor <span class="math inline">\(p\)</span> para <span class="math inline">\(n=49\)</span> será 0.009. Este valor se obtiene con la función <code>pf()</code> haciendo <code>pf(7.34, 1, 49, lower.tail = FALSE)</code></p></li>
 </ol>
 <p>La prueba de significancia global se realiza de manera automática cuando empleamos usamos <code>summary(modelo)</code>. La parte relevante de los resultados corresponde a la <em>última línea</em> de la salida del <code>R</code>, es decir, a</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="rls.html#cb23-1" aria-hidden="true" tabindex="-1"></a>F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">165.4</span> on <span class="dv">1</span> and <span class="dv">18</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="fl">1.643e-10</span></span></code></pre></div>
-<p>En este caso, <code>F-statistic</code> corresponde al estadístico de prueba calculado <span class="math inline">\(F_\text{calculado}\)</span>, y los valores <code>1</code> y <code>18</code> a los grados de libertad del <span class="math inline">\(MSR\)</span> y <span class="math inline">\(MSE\)</span>, respectivamente. Finalmente, el valor <span class="math inline">\(p\)</span> es <span class="math inline">\(p=1.64\times10^{10}\)</span>, por lo que <strong>rechazamos</strong> <span class="math inline">\(H_0\)</span>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="rls.html#cb23-1" aria-hidden="true" tabindex="-1"></a>F<span class="sc">-</span>statistic<span class="sc">:</span>   <span class="dv">346</span> on <span class="dv">1</span> and <span class="dv">98</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div>
+<p>En este caso, <code>F-statistic</code> corresponde al estadístico de prueba calculado <span class="math inline">\(F_\text{calculado}\)</span>, y los valores <code>1</code> y <code>98</code> a los grados de libertad del <span class="math inline">\(MSR\)</span> y <span class="math inline">\(MSE\)</span>, respectivamente. Finalmente, el valor <span class="math inline">\(p\)</span> es <span class="math inline">\(p=2.2\times10^{16}\)</span>, por lo que <strong>rechazamos</strong> <span class="math inline">\(H_0\)</span>.</p>
 <p>Cuando utilizamos <strong>la distribución <span class="math inline">\(t\)</span> de Student</strong>, podemos probar</p>
 <p><span class="math display">\[
 \begin{split}
@@ -636,10 +645,10 @@ Técnicamente, <span class="math inline">\(0\leq R^2 \leq 1\)</span>, donde <spa
 \widehat{\sigma}_{\widehat{\beta}_1}^2 &amp;=\sqrt{\frac{\hat{\sigma}^2}{SS_x}}
 \end{align}\]</span></p>
 <p>Así, el estadístico de prueba será</p>
-<p><span class="math display">\[t_{\text{calculado}} = \frac{\hat{\beta}_1-0}{\widehat{\sigma}_{\widehat{\beta}_1}}\]</span></p>
-<p>donde <span class="math inline">\(t_{n-2}\)</span> corresponde a la distribución <span class="math inline">\(t\)</span> con <span class="math inline">\(n-1\)</span> grados de libertad. Bajo <span class="math inline">\(H_0\)</span>, <span class="math inline">\(t_{\text{calculado}} \sim t_{n-2}\)</span>. Para un nivel de significancia <span class="math inline">\(\alpha \in (0,1)\)</span>, rechazamos <span class="math inline">\(H_0\)</span> si</p>
+<p><span class="math display">\[t_{\text{calculado}} = \frac{\hat{\beta}_1}{\widehat{\sigma}_{\widehat{\beta}_1}}\]</span></p>
+<p>donde <span class="math inline">\(t_{n-2}\)</span> corresponde a la distribución <span class="math inline">\(t\)</span> con <span class="math inline">\(n-2\)</span> grados de libertad. Bajo <span class="math inline">\(H_0\)</span>, <span class="math inline">\(t_{\text{calculado}} \sim t_{n-2}\)</span>. Para un nivel de significancia <span class="math inline">\(\alpha \in (0,1)\)</span>, rechazamos <span class="math inline">\(H_0\)</span> si</p>
 <ol style="list-style-type: decimal">
-<li><p><span class="math inline">\(|t_\text{calculado}| &gt; t_{1-\alpha/2, n-1}\)</span>, donde <span class="math inline">\(t_{1-\alpha/2, n-2}\)</span> es el percentil <span class="math inline">\(1-\alpha/2\)</span> de una distribución <span class="math inline">\(t\)</span> con <span class="math inline">\(n-2\)</span> grados de libertad. En <code>R</code>, estos percentiles pueden calcularse utilizando la función <code>qt</code>. Por ejemplo, <span class="math inline">\(t_{0.95,49}\)</span> es 1.68 y se obtiene como <code>qt(0.95, 49)</code>.</p></li>
+<li><p><span class="math inline">\(|t_\text{calculado}| &gt; t_{1-\alpha/2, n-2}\)</span>, donde <span class="math inline">\(t_{1-\alpha/2, n-2}\)</span> es el percentil <span class="math inline">\(1-\alpha/2\)</span> de una distribución <span class="math inline">\(t\)</span> con <span class="math inline">\(n-2\)</span> grados de libertad. En <code>R</code>, estos percentiles pueden calcularse utilizando la función <code>qt</code>. Por ejemplo, <span class="math inline">\(t_{0.95,98}\)</span> es 1.66 y se obtiene como <code>qt(0.95, 98)</code>.</p></li>
 <li><p>El valor <span class="math inline">\(p\)</span>, calculado como <span class="math inline">\(p=2\,P(t_{n-2} &gt; |t_\text{calculado}|\)</span>, es <strong>menor</strong> que <span class="math inline">\(\alpha\)</span>. Por ejemplo, si <span class="math inline">\(t_\text{calculado} = 2.54\)</span> cuando <span class="math inline">\(n=60\)</span>, el valor <span class="math inline">\(p\)</span> será 0.014. Para calcularlo, usamos <code>2*pt(abs(2.54), 58, lower.tail = FALSE)</code> en <code>R</code>.</p></li>
 </ol>
 
@@ -671,39 +680,38 @@ Cuando <span class="math inline">\(n-2 &gt; 30\)</span>, podemos aproximar la di
 <div class="rmdtip">
 Decimos que, a nivel poblacional, <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> son estadísticamente cero si el intervalo de confianza contienen dicho valor.
 </div>
-<p>Continuando con nuestro ejemplo, podemos obtener los estadísticos de prueba para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> utilizando el objeto <code>modelo</code> que contiene los resultados del modelo de RLS:</p>
+<p>Para nuestro ejemplo, podemos obtener los estadísticos de prueba para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> utilizando el objeto <code>modelo</code> que contiene los resultados del modelo de RLS:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="rls.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## estadísticos de prueba para beta_0 y beta_1</span></span>
 <span id="cb24-2"><a href="rls.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(<span class="fu">summary</span>(modelo))</span></code></pre></div>
 <pre><code>##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 2627.82236  44.183912  59.47464 4.063559e-22
-## Edad         -37.15359   2.889107 -12.85989 1.643344e-10</code></pre>
-<p>En este caso, el estadístico para <span class="math inline">\(\beta_0\)</span> es <span class="math inline">\(t_0=59.47\)</span> y el estadístico para <span class="math inline">\(\beta_1\)</span> es <span class="math inline">\(t_1 = -12.86\)</span>, que corresponden a la tercera columna de la salida del <code>R</code>. Los valores <span class="math inline">\(p\)</span> son, respectivamente, <span class="math inline">\(4.06\times 10^{-22}\)</span> y <span class="math inline">\(1.64\times 10^{-10}\)</span>. Puesto que ambos valores <span class="math inline">\(p\)</span> son <em>inferiores</em> a 0.05, concluimos que ambos parámetros son significativos (i.e., su efecto es diferente de cero) a nivel poblacional con una confianza del 95%.</p>
+## (Intercept) 15.7427499 0.17868164  88.10502 3.989520e-95
+## Edad        -0.2437636 0.01310455 -18.60144 6.394519e-34</code></pre>
+<p>En este caso, el estadístico para <span class="math inline">\(\beta_0\)</span> es <span class="math inline">\(t_0=88.1\)</span> y el estadístico para <span class="math inline">\(\beta_1\)</span> es <span class="math inline">\(t_1 = -18.6\)</span>, que corresponden a la columna <code>t value</code> de la salida del <code>R</code>. Los valores <span class="math inline">\(p\)</span> se encuentran en la columna <code>Pr(&gt;|t|)</code> y son, respectivamente, <span class="math inline">\(3.98\times 10^{-95}\)</span> y <span class="math inline">\(6.39\times 10^{-34}\)</span>. Puesto que ambos valores <span class="math inline">\(p\)</span> son <em>inferiores</em> a 0.05, concluimos que ambos parámetros son significativos (i.e., son diferentes de cero) a nivel poblacional con una confianza del 95%.</p>
 <p>Para el mismo nivel de significancia, los intervalos de confianza pueden calcularse como:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="rls.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalos de confianza del (1-alpha)100% para los betas</span></span>
 <span id="cb26-2"><a href="rls.html#cb26-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
 <span id="cb26-3"><a href="rls.html#cb26-3" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo)</span>
 <span id="cb26-4"><a href="rls.html#cb26-4" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">coefficients</span>(resultados)</span>
-<span id="cb26-5"><a href="rls.html#cb26-5" aria-hidden="true" tabindex="-1"></a>lower_limit <span class="ot">&lt;-</span> betas[, <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span><span class="sc">-</span>alpha, resultados<span class="sc">$</span>df[<span class="dv">2</span>])<span class="sc">*</span>betas[, <span class="dv">2</span>]</span>
-<span id="cb26-6"><a href="rls.html#cb26-6" aria-hidden="true" tabindex="-1"></a>upper_limit <span class="ot">&lt;-</span> betas[, <span class="dv">1</span>] <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span><span class="sc">-</span>alpha, resultados<span class="sc">$</span>df[<span class="dv">2</span>])<span class="sc">*</span>betas[, <span class="dv">2</span>]</span>
+<span id="cb26-5"><a href="rls.html#cb26-5" aria-hidden="true" tabindex="-1"></a>lower_limit <span class="ot">&lt;-</span> betas[, <span class="dv">1</span>] <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>, resultados<span class="sc">$</span>df[<span class="dv">2</span>])<span class="sc">*</span>betas[, <span class="dv">2</span>]</span>
+<span id="cb26-6"><a href="rls.html#cb26-6" aria-hidden="true" tabindex="-1"></a>upper_limit <span class="ot">&lt;-</span> betas[, <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>, resultados<span class="sc">$</span>df[<span class="dv">2</span>])<span class="sc">*</span>betas[, <span class="dv">2</span>]</span>
 <span id="cb26-7"><a href="rls.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(lower_limit, <span class="at">beta_hat =</span> betas[, <span class="dv">1</span>], upper_limit)</span></code></pre></div>
 <pre><code>##             lower_limit   beta_hat upper_limit
-## (Intercept)   2704.4401 2627.82236  2551.20465
-## Edad           -32.1437  -37.15359   -42.16349</code></pre>
+## (Intercept)  15.3881620 15.7427499   16.097338
+## Edad         -0.2697692 -0.2437636   -0.217758</code></pre>
+<p>Una manera más simple y rápida de construir intervalos de confianza del 95% para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> es utilizar la función <code>confint.default</code>:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="rls.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalos de confianza via confint</span></span>
+<span id="cb28-2"><a href="rls.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint.default</span>(modelo)</span></code></pre></div>
+<pre><code>##                 2.5 %     97.5 %
+## (Intercept) 15.392540 16.0929595
+## Edad        -0.269448 -0.2180791</code></pre>
 <p>Por lo tanto, con una confianza del 95%,</p>
 <p><span class="math display">\[\begin{align}
-\beta_0 &amp;\in(2551.2 2704.4) \\
+\beta_0 &amp;\in(15.39, 16.09) \\
 \beta_1 &amp;\in(-42.16,-32.14)
 \end{align}\]</span></p>
-<p>Una manera más simple y rápida de construir intervalos de confianza del 95% para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> es utilizar la función <code>confint</code>:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="rls.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalos de confianza via confint</span></span>
-<span id="cb28-2"><a href="rls.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modelo)</span></code></pre></div>
-<pre><code>##                  2.5 %    97.5 %
-## (Intercept) 2534.99540 2720.6493
-## Edad         -43.22338  -31.0838</code></pre>
-<p>Por lo tanto, <span class="math inline">\(\beta_0 \in (2541.2, 2714.42)\)</span> y <span class="math inline">\(\beta_1 \in(-42.81, -31.49)\)</span>.</p>
 
 <div class="rmdnote">
-Los intervalos de confianza construidos con la función <code>confint</code> difieren levemente de aquellos basados en la distribución <span class="math inline">\(t\)</span>. Esto se debe a que <code>confint</code> utiliza <a href="https://stats.stackexchange.com/questions/5304/why-is-there-a-difference-between-manually-calculating-a-logistic-regression-95">likelihood profiling</a>.
+También es posible construir intervalos de confianza para los coeficientes del modelo utilizando la función <code>confint</code>. Sin embargo, estos difieren levemente de aquellos basados en la distribución <span class="math inline">\(t\)</span> o los construidos con la función <code>confint.default</code>. Esto se debe a que <code>confint</code> utiliza <a href="https://stats.stackexchange.com/questions/5304/why-is-there-a-difference-between-manually-calculating-a-logistic-regression-95">likelihood profiling</a>.
 </div>
 </div>
 </div>
@@ -740,16 +748,17 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 </ul>
 <p>En <code>R</code> podemos realizar la prueba de Durbin-Watson haciendo:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="rls.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## prueba de Durbin-Watson </span></span>
-<span id="cb30-2"><a href="rls.html#cb30-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">durbinWatsonTest</span>(modelo)</span></code></pre></div>
+<span id="cb30-2"><a href="rls.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb30-3"><a href="rls.html#cb30-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">durbinWatsonTest</span>(modelo)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.02777111      1.841781     0.7
+##    1     -0.02653343      2.050609   0.858
 ##  Alternative hypothesis: rho != 0</code></pre>
-<p>Basados en el valor <span class="math inline">\(p\)</span>, <em>no</em> es posible rechazar <span class="math inline">\(H_0\)</span>. Por lo tanto, concluimos que los residuales del modelo ajustados <em>son</em> independientes.</p>
+<p>Basados en el valor <span class="math inline">\(p\)</span>, <em>no</em> es posible rechazar <span class="math inline">\(H_0\)</span> puesto que el valor <span class="math inline">\(p\)</span> de la prueba de Durbin-Watson es superior a un nivel de significancia <span class="math inline">\(\alpha\)</span> del 5%. Por lo tanto, concluimos que los residuales del modelo ajustados <em>son</em> independientes.</p>
 <p>Para graficar la ACF podemos hacer:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="rls.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ACF de los residuales</span></span>
 <span id="cb32-2"><a href="rls.html#cb32-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo)  <span class="do">## cálculo de los residuales</span></span>
 <span id="cb32-3"><a href="rls.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Para concluir que los residuales del modelo ajustado son <em>independientes</em> basados en la ACF, ninguna de las barras verticales, llamadas correlaciones, debe superar las bandas de color azul para <span class="math inline">\(\text{Lag} &gt; 0\)</span>. En nuestro caso, podemos concluir que los residuales <em>son</em> independientes.</p>
 <p>Formalmente, probar el <strong>supuesto de normalidad</strong> de los errores equivale a realizar el siguiente procedimiento de prueba de hipótesis:</p>
 <p><span class="math display">\[
@@ -779,21 +788,21 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  r
-## W = 0.87514, p-value = 0.01449</code></pre>
+## W = 0.98872, p-value = 0.5629</code></pre>
 <p>Estos resultados indican que el valor <span class="math inline">\(p\)</span> de la prueba de Normalidad es <span class="math inline">\(p = 0.0149\)</span>. Como <span class="math inline">\(p &lt; 0.05\)</span>, rechazamos <span class="math inline">\(H_0\)</span> y concluimos que los residuales del modelo ajustado de RLS <strong>no</strong> siguen una distribución Normal.</p>
 <p>En <code>R</code>, podemos graficar un Q-Q plot de 2 formas:</p>
 <p><strong>Vía gráficos básicos</strong></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="rls.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q-Q plot básico</span></span>
 <span id="cb35-2"><a href="rls.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&#39;&#39;</span>)</span>
 <span id="cb35-3"><a href="rls.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(r, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>Para más detalles, escribir <code>?qqnorm</code> en la consola del <code>R</code>. La idea fundamental es que los residuales del modelo (i.e., puntos en la gráfica) deben estar alrededor de la línea de color <em>rojo</em> para concluir, al menos gráficamente, que los residuales siguen una distribución Normal. En este caso, existen varios puntos por fuera de la línea, lo cual nos hace sospechar que esas observaciones <em>outliers</em> afectan el supesto.</p>
 <p><strong>Utilizando el paquete car</strong></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="rls.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q-Q plot usando el paquete car</span></span>
 <span id="cb36-2"><a href="rls.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb36-3"><a href="rls.html#cb36-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">qqPlot</span>(r, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
-<pre><code>## [1] 5 6</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<pre><code>## [1] 77 18</code></pre>
 <p>Aunque la elaboración de este gráfico es mucho más compleja, su interpretación es simple: diremos que los residuales del modelo ajustado <em>cumplen</em> con el supuesto de Normalidad si <em>todos</em> los puntos en encuentran <strong>dentro</strong> de las bandas de color <em>azul</em>. En este caso, las observaciones <code>5</code> y <code>6</code> parecen ser las responsables de que el supuesto de Normalidad no se cumpla.</p>
 <p>Formalmente la validación del <strong>supuesto de media cero</strong> para los errores consiste en probar</p>
 <p><span class="math display">\[
@@ -810,13 +819,13 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 ##  One Sample t-test
 ## 
 ## data:  r
-## t = -3.2684e-16, df = 19, p-value = 1
+## t = -3.6292e-16, df = 99, p-value = 1
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
-##  -43.77938  43.77938
+##  -0.1166475  0.1166475
 ## sample estimates:
 ##     mean of x 
-## -6.836545e-15</code></pre>
+## -2.133551e-17</code></pre>
 <p>De este resultado es fácil ver que el valor <span class="math inline">\(p\)</span> de la prueba es <span class="math inline">\(p=1\)</span>, por lo que <strong>no</strong> rechazamos H_0. Finalmente concluimos, con una confianza del 95%, que la media de los residuales es cero a nivel poblacional.</p>
 <p>Por último, pero no menos importante, debemos validar el <strong>supuesto de varianza constante</strong>. Formalmente esto es equivalente a probar</p>
 <p><span class="math display">\[
@@ -839,7 +848,7 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <span id="cb40-2"><a href="rls.html#cb40-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">ncvTest</span>(modelo)</span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
-## Chisquare = 0.01662119, Df = 1, p = 0.89742</code></pre>
+## Chisquare = 12.55073, Df = 1, p = 0.00039605</code></pre>
 <p>Como el valor <span class="math inline">\(p\)</span> de la prueba es mayor que 0.05, concluimos que la varianza del modelo es costante.</p>
 <p><strong>Aproximación gráfica</strong></p>
 <p>Al usar esta aproximación, lo que buscamos es que los gráficos resultantes tenga un patrón aleatorio. En términos generales, podemos hacer gráficos de</p>
@@ -868,7 +877,7 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <span id="cb42-12"><a href="rls.html#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
 <span id="cb42-13"><a href="rls.html#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&#39;r vs. Edad&#39;</span>), <span class="at">ylab =</span> <span class="st">&#39;Residuals&#39;</span>)</span>
 <span id="cb42-14"><a href="rls.html#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
 <p>De los gráficos anteriores se concluye que la varianza del modelo de <em>constante</em>.</p>
 <!-- ### Identificaciónd de _outliers_{-} -->
 <!-- ### Observaciones influenciales{-} -->
@@ -902,14 +911,14 @@ Observe que, aunque el intervalo de confianza y el intervalo de predicción est�
 <p>Consideremos una soldadura con <span class="math inline">\(\text{Edad} = 20\)</span>, es decir, <span class="math inline">\(x_0=20\)</span>. Con el objeto <code>modelo</code>, podemos construir el intervalo de confianza del 95% haciendo</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="rls.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalo de confianza del 95% para E[Resistencia|Edad = 20]</span></span>
 <span id="cb43-2"><a href="rls.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Edad =</span> <span class="dv">20</span>), <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
-<pre><code>##        fit     lwr      upr
-## 1 1884.751 1824.24 1945.261</code></pre>
+<pre><code>##        fit      lwr      upr
+## 1 10.86748 10.64805 11.08691</code></pre>
 <p>Este resultado implica que, si medimos la Resistencia de <em>varias</em> soldaduras con <span class="math inline">\(\text{Edad} = 20\)</span>, se espera que la Resistencia promedio sea 1884.75 psi, y que, a nivel <em>poblacional</em>, dicho promedio se encuentre en el intervalo <span class="math inline">\((1824.24, 1945.26)\)</span> con una confianza del 95%.</p>
 <p>Finalmente, el intervalo de predicción cuando <span class="math inline">\(\text{Edad} = 20\)</span> será:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="rls.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalo de confianza del 95% para Resistencia|Edad = 20</span></span>
 <span id="cb45-2"><a href="rls.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Edad =</span> <span class="dv">20</span>), <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
-## 1 1884.751 1673.967 2095.534</code></pre>
+## 1 10.86748 9.674564 12.06039</code></pre>
 <p>Por lo tanto, se espera que en <em>una</em> próxima soldadura de <span class="math inline">\(\text{Edad} = 20\)</span> el valor de Resistencia sea 1884.75 psi. Dicho valor estará contenido en el intervalo <span class="math inline">\((1673.97, 2045.53)\)</span> el 95% de las veces.</p>
 <!-- ## Ejemplos -->
 <!-- 1. -->

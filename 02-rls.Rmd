@@ -40,14 +40,16 @@ Consideremos por ejemplo los siguientes datos:
 
 ```{r}
 ## lectura de datos en URL
-file <- "https://raw.githubusercontent.com/fhernanb/datos/master/propelente"
+file <- "https://www.dropbox.com/s/h4abseyfnvfwgxq/data_rls.txt?dl=1"
 datos <- read.table(file = file, header = TRUE)
 
 ## primeras 6 filas de los datos
 head(datos) 
 ```
 
-Ahora, utilicemos `R` para realizar una gráfico de dispersión:
+En este caso, se tienen registros de la `Resistencia` y la `Edad` de `{r NROW(datos)}` soldaduras.
+
+Con miras explorar si existe una relación entre estas dos variables, procedemos a construir un gráfico de dispersión en `R` de la siguiente manera:
 
 ```{r}
 ## gráfico de dispersión
@@ -94,12 +96,29 @@ En nuestro ejemplo, los datos se organizan de la siguiente forma:
 ## muestra los primeros 10 pares de datos
 head(datos, 10)
 ```
-En estos datos, el tamaño de muestra es 
+
+Así, los pares $(x_1,y_1)$ y $(x_5, y_5)$ corresponden a $(18.7, 10.9)$ y $(14.6, 13.0)$, respectivamente.
+
+Para determinar el tamaño de la muestra, hacemos
 
 ```{r}
 ## número total de observaciones
 NROW(datos) 
 ```
+
+<!-- Una forma de realizar una primera aproximación descriptiva a los datos que tenemos es a partir de la función `summary` del paquete `skimr` \index{skimr}[@skimr]: -->
+
+<!-- ```{r, message=FALSE} -->
+<!-- require(skimr) -->
+<!-- skim_without_charts(datos) -->
+<!-- ``` -->
+
+<!-- Etos resultados indican que: -->
+
+<!-- 1. El objeto `datos` es un `data.frame` con 100 filas y  2 columnas; -->
+<!-- 2. La `Resistencia` promedio de las soldaduras es 12.6, la desviación estándar de 1.25, con valores mínimos y máximos de 10.6 y 16.3, respectivamente; -->
+<!-- 3. La `Edad` de las soldaduras varía entre 5 y 19.8 años, con un promedio de 12.9 años y una desviación estándar de 4.53 años; -->
+<!-- 4. La disribución de la `Resistencia` es sesgada a la izquierda, mientras la distribución de la `Edad` es sesgada a la derecha. -->
 
 Usualmente, el modelo de RLS puede estimarse utilizando el método de [mínimos cuadrados](#minimos). A partir del modelo ajustado es posible **predicir el valor esperado** de $Y$ para valores **conocidos** de $X$, es decir, calcular $\widehat{E[Y|X=x_0]}$, donde $x_0$ es un **valor conocido** del factor controlable $X$. Adicionalmente, podemos calcular intervalos de confianza e intervalos de predicción para $\widehat{E[Y|X=x_0]}$.
 
@@ -157,23 +176,20 @@ Otra forma de escribirlo es
 En la práctica, $\widehat{\beta}_1$ se interpreta como **el cambio unitario** sobre el valor esperado de $Y$, $E[Y|X]$, por cada cambio unitario del **factor controlable** $X$.
 ```
 
-En `R` podemos el siguiente conjunto de instrucciones para estimar el modelo de RLS para los datos de las soldaduras:
+En `R` la función clave paara ajustar modelos de RLS es `lm`. Para mayor información, puede consultar la ayuda de la función escribiendo `?lm` en la consola, o en la [página](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html) oficial. 
+
+
+A continuación procedemos a estimar el modelo de RLS para los datos de las soldaduras:
 
 ```{r}
 ## ajuste del modelo de RLS
-modelo <- lm(Resistencia ~ Edad, data = datos)
-
-## reportamos sólo los coeficientes
-modelo
+(modelo <- lm(Resistencia ~ Edad, data = datos))
 ```
-Los resultados muestran los valores de  $\widehat{\beta}_0$ y  $\widehat{\beta}_1$, por lo que $\widehat{\beta}_0 = 2627.82$ y  $\widehat{\beta}_1 = -37.15$.
-
-
-Por lo tanto, el modelo de RLS ajustado está dado por 
+Los resultados muestran los valores de  $\widehat{\beta}_0$ y  $\widehat{\beta}_1$, por lo que $\widehat{\beta}_0 = 15.74$ y  $\widehat{\beta}_1 = -0.244$. Por lo tanto, el modelo de RLS ajustado está dado por 
 
 
 \begin{align}
-\widehat{\text{Resistencia}}_i &= 2627.82 -37.15\,\text{Edad}_i ,\\ 
+\widehat{\text{Resistencia}}_i &= 15.74 -0.244\,\text{Edad}_i ,\\ 
 \epsilon_i &\sim N(0, \sigma^2), \\
 \sigma^2 &= \text{constante}.
 \end{align}
@@ -181,8 +197,8 @@ Por lo tanto, el modelo de RLS ajustado está dado por
 ```{block2, type='rmdnote'}
 Cómo interpretamos $\widehat{\beta}_0$ y  $\widehat{\beta}_1$?
   
-1. Se espera que, por cada semana que transcurre, la resistencia de la soldadura disminuya $37.15$ psi.
-2. Una soldadura _nueva_ $(\text{Edad} = 0)$ iene una resistencia promedio de $2627.82$ psi
+1. Se espera que, por cada semana que transcurre, la resistencia de la soldadura disminuya $0.244$ psi.
+2. Una soldadura _nueva_ $(\text{Edad} = 0)$ tiene una resistencia promedio de $15.74$ psi
 ```
 
 Observe que aún no tenemos el valor estimado de $\sigma$. Este parámetro del modelo de RLS puede obtenerse a partir de la Tabla ANOVA que describiremos a continuación.
@@ -235,12 +251,12 @@ En `R`, podemos utilizar la función `summary()` sobre el objeto que contiene el
 summary(modelo)
 ```
 
-Con estos resultados se concluye que $\hat{\sigma} = 96.11$. Por lo tanto, el modelo complejo ajustado puede expresarse como
+Con estos resultados se concluye que $\hat{\sigma} = 0.591$. Por lo tanto, el modelo complejo ajustado puede expresarse como
 
 
 \begin{align}
 \widehat{\text{Resistencia}}_i &\sim N(\hat{\mu}_i, \hat{\sigma}^2),\\ \hat{\mu}_i &\sim 2627.82 - 37.15\,\text{Edad}, \\
-\sigma^2 &= 96.11^2 = 9237.13.
+\sigma^2 &= 0.591^2 = 0.349.
 \end{align}
 
 ### Inferencia para $\sigma^2${-}
@@ -275,14 +291,14 @@ alpha <- 0.05
 resultados <- summary(modelo)
 sigma <- resultados$sigma
 df <- resultados$df[2]
-lower_limit <- df*sigma^2/qchisq(alpha/2, df)
-upper_limit <- df*sigma^2/qchisq(1-alpha/2, df)
-data.frame(lower_limit, sigma2_hat =sigma^2, upper_limit)
+upper_limit <- df*sigma^2/qchisq(alpha/2, df)
+lower_limit <- df*sigma^2/qchisq(1-alpha/2, df)
+c(lower_limit = lower_limit, sigma2_hat =sigma^2, upper_limit = upper_limit)
 ```
 
-Finalmente, con una confianza del 95\%, $\sigma^2 \in(20199.2, 5273.52)$. 
+Finalmente, con una confianza del 95\%, $\sigma^2 \in(0.269, 0.472)$. 
 
-Para obtener un intervalo de confianza del 95\% para $\sigma$, basta calcular la raíz cuadrada de estos límites. Por lo tanto, $\sigma \in(142.12, 72.62)$.
+Para obtener un intervalo de confianza del 95\% para $\sigma$, basta calcular la raíz cuadrada de estos límites. Por lo tanto, $\sigma \in(0.519, 0.687)$.
 
 
 
@@ -311,7 +327,7 @@ Utilizando el objeto en `R` que contiene el modelo ajustado, podemos hacer
 summary(modelo)$r.squared    
 ```
 
-para obtener el coeficiente de determinación.  Por lo tanto, podemos concluir, con base en nuestro modelo estimado de RLS, que la `Edad` de la soldadura explica alrededor del 91% de la varabilidad total de la `Resistencia`.
+para obtener el coeficiente de determinación.  Por lo tanto, podemos concluir, con base en nuestro modelo estimado de RLS, que la `Edad` de la soldadura explica alrededor del 78% de la varabilidad total de la `Resistencia`.
 
 
 
@@ -355,7 +371,7 @@ El estadístico $F_\text{calculado}$ contrasta qué tanto de la varianza de $Y$ 
 
 Bajo $H_0$, el estadístico $F_\text{calculado}\sim F_{1,n-2}$. Para un nivel de significancia $\alpha \in (0,1)$, rechazamos $H_0$ si
 
-1. $F_\text{calculado} >  F_{1-\alpha,1,n-1}$, donde $F_{\alpha/2,1,n-2}$ es el percentil $1-\alpha$ de una distribución $F$ con 1 y $n-2$ grados de libertad. En `R`, estos percentiles pueden calcularse utilizando la función `qf`. Por ejemplo, $F_{0.95,1,n-1}$ es `r round(qf(.95, 1, 49), 2)` y se obtiene como `qf(0.95, 1, 49)`.
+1. $F_\text{calculado} >  F_{1-\alpha,1,n-1}$, donde $F_{\alpha/2,1,n-2}$ es el percentil $1-\alpha$ de una distribución $F$ con 1 y $n-2$ grados de libertad. En `R`, estos percentiles pueden calcularse utilizando la función `qf`. Por ejemplo, $F_{0.95,1,98}$ es `r round(qf(.95, 1, 98), 2)` y se obtiene como `qf(0.95, 1, 98)`.
 
 
 2. El valor $p$, calculado como $p=P(F_{1,n-1}>F_\text{calculado})$, es **menor** que $\alpha$. Por ejemplo, si $F_\text{calculado} = 7.34$, el valor $p$ para $n=49$ será `r round(pf(7.34, 1, 49, lower.tail = FALSE), 3)`. Este valor se obtiene con la función `pf()` haciendo `pf(7.34, 1, 49, lower.tail = FALSE)`
@@ -364,10 +380,10 @@ Bajo $H_0$, el estadístico $F_\text{calculado}\sim F_{1,n-2}$. Para un nivel de
 La prueba de significancia global se realiza de manera automática cuando empleamos usamos `summary(modelo)`. La parte relevante de los resultados corresponde a la _última línea_ de la salida del `R`, es decir, a
 
 ```{r, eval=FALSE}
-F-statistic: 165.4 on 1 and 18 DF,  p-value: 1.643e-10
+F-statistic:   346 on 1 and 98 DF,  p-value: < 2.2e-16
 ```
 
-En este caso,  `F-statistic` corresponde al estadístico de prueba calculado $F_\text{calculado}$, y los valores `1` y `18` a los grados de libertad del $MSR$ y $MSE$, respectivamente. Finalmente, el valor $p$ es $p=1.64\times10^{10}$, por lo que **rechazamos** $H_0$.
+En este caso,  `F-statistic` corresponde al estadístico de prueba calculado $F_\text{calculado}$, y los valores `1` y `98` a los grados de libertad del $MSR$ y $MSE$, respectivamente. Finalmente, el valor $p$ es $p=2.2\times10^{16}$, por lo que **rechazamos** $H_0$.
 
 
 Cuando utilizamos **la distribución $t$ de Student**, podemos probar  
@@ -395,11 +411,11 @@ donde
 
 Así, el estadístico de prueba será
 
-$$t_{\text{calculado}} = \frac{\hat{\beta}_1-0}{\widehat{\sigma}_{\widehat{\beta}_1}}$$
+$$t_{\text{calculado}} = \frac{\hat{\beta}_1}{\widehat{\sigma}_{\widehat{\beta}_1}}$$
 
-donde $t_{n-2}$ corresponde a la distribución $t$ con $n-1$ grados de libertad. Bajo $H_0$, $t_{\text{calculado}} \sim t_{n-2}$. Para un nivel de significancia $\alpha \in (0,1)$, rechazamos $H_0$ si
+donde $t_{n-2}$ corresponde a la distribución $t$ con $n-2$ grados de libertad. Bajo $H_0$, $t_{\text{calculado}} \sim t_{n-2}$. Para un nivel de significancia $\alpha \in (0,1)$, rechazamos $H_0$ si
 
-1. $|t_\text{calculado}| >  t_{1-\alpha/2, n-1}$, donde $t_{1-\alpha/2, n-2}$ es el percentil $1-\alpha/2$ de una distribución $t$ con $n-2$ grados de libertad. En `R`, estos percentiles pueden calcularse utilizando la función `qt`. Por ejemplo, $t_{0.95,49}$ es `r round(qt(.95, 49), 2)` y se obtiene como `qt(0.95, 49)`. 
+1. $|t_\text{calculado}| >  t_{1-\alpha/2, n-2}$, donde $t_{1-\alpha/2, n-2}$ es el percentil $1-\alpha/2$ de una distribución $t$ con $n-2$ grados de libertad. En `R`, estos percentiles pueden calcularse utilizando la función `qt`. Por ejemplo, $t_{0.95,98}$ es `r round(qt(.95, 98), 2)` y se obtiene como `qt(0.95, 98)`. 
 
 
 2. El valor $p$, calculado como $p=2\,P(t_{n-2} > |t_\text{calculado}|$, es **menor** que $\alpha$. Por ejemplo, si $t_\text{calculado} = 2.54$ cuando $n=60$,  el valor $p$ será `r 2*round(pt(2.54, 58, lower.tail = FALSE), 3)`. Para calcularlo, usamos `2*pt(abs(2.54), 58, lower.tail = FALSE)` en `R`.
@@ -440,14 +456,14 @@ Decimos que, a nivel poblacional, $\beta_0$ y $\beta_1$ son estadísticamente ce
 ```
 
 
-Continuando con nuestro ejemplo, podemos obtener los estadísticos de prueba para $\beta_0$ y $\beta_1$ utilizando el objeto `modelo` que contiene los resultados del modelo de RLS:
+Para nuestro ejemplo, podemos obtener los estadísticos de prueba para $\beta_0$ y $\beta_1$ utilizando el objeto `modelo` que contiene los resultados del modelo de RLS:
 
 ```{r}
 ## estadísticos de prueba para beta_0 y beta_1
 coefficients(summary(modelo))
 ```
 
-En este caso, el estadístico para $\beta_0$ es $t_0=59.47$ y el estadístico para $\beta_1$ es $t_1 = -12.86$, que corresponden a la tercera columna de la salida del `R`. Los valores $p$ son, respectivamente, $4.06\times 10^{-22}$ y $1.64\times 10^{-10}$. Puesto que ambos valores $p$ son _inferiores_ a 0.05, concluimos que ambos parámetros son significativos (i.e., su efecto es diferente de cero) a nivel poblacional con una confianza del 95\%. 
+En este caso, el estadístico para $\beta_0$ es $t_0=88.1$ y el estadístico para $\beta_1$ es $t_1 = -18.6$, que corresponden a la columna `t value` de la salida del `R`. Los valores $p$ se encuentran en la columna `Pr(>|t|)` y son, respectivamente, $3.98\times 10^{-95}$ y $6.39\times 10^{-34}$. Puesto que ambos valores $p$ son _inferiores_ a 0.05, concluimos que ambos parámetros son significativos (i.e., son diferentes de cero) a nivel poblacional con una confianza del 95\%. 
 
 Para el mismo nivel de significancia, los intervalos de confianza pueden calcularse como:
 
@@ -456,28 +472,28 @@ Para el mismo nivel de significancia, los intervalos de confianza pueden calcula
 alpha <- 0.05
 resultados <- summary(modelo)
 betas <- coefficients(resultados)
-lower_limit <- betas[, 1] + qt(1-alpha, resultados$df[2])*betas[, 2]
-upper_limit <- betas[, 1] - qt(1-alpha, resultados$df[2])*betas[, 2]
+lower_limit <- betas[, 1] - qt(1-alpha/2, resultados$df[2])*betas[, 2]
+upper_limit <- betas[, 1] + qt(1-alpha/2, resultados$df[2])*betas[, 2]
 data.frame(lower_limit, beta_hat = betas[, 1], upper_limit)
 ```
-Por lo tanto, con una confianza del 95\%,  
 
-\begin{align}
-\beta_0 &\in(2551.2 2704.4) \\
-\beta_1 &\in(-42.16,-32.14)
-\end{align}
-
-Una manera más simple y rápida de construir intervalos de confianza del 95\% para $\beta_0$ y $\beta_1$ es utilizar la función `confint`:
+Una manera más simple y rápida de construir intervalos de confianza del 95\% para $\beta_0$ y $\beta_1$ es utilizar la función `confint.default`:
 
 ```{r}
 ## intervalos de confianza via confint
-confint(modelo)
+confint.default(modelo)
 ```
-Por lo tanto, $\beta_0 \in (2541.2, 2714.42)$ y $\beta_1 \in(-42.81, -31.49)$. 
+
+Por lo tanto, con una confianza del 95\%,  
+
+\begin{align}
+\beta_0 &\in(15.39, 16.09) \\
+\beta_1 &\in(-42.16,-32.14)
+\end{align}
 
 
 ```{block2, type='rmdnote'}
-Los intervalos de confianza construidos con la función `confint` difieren levemente de aquellos basados en la distribución $t$. Esto se debe a que `confint` utiliza [likelihood profiling](https://stats.stackexchange.com/questions/5304/why-is-there-a-difference-between-manually-calculating-a-logistic-regression-95).
+También es posible construir intervalos de confianza para los coeficientes del modelo utilizando la función `confint`. Sin embargo, estos difieren levemente de aquellos basados en la distribución $t$ o los construidos con la función `confint.default`. Esto se debe a que `confint` utiliza [likelihood profiling](https://stats.stackexchange.com/questions/5304/why-is-there-a-difference-between-manually-calculating-a-logistic-regression-95).
 ```
 
 
@@ -515,24 +531,23 @@ Para validar el **supuesto de independencia** de los errores se recomiendan dos 
 
 En `R` podemos realizar la prueba de Durbin-Watson haciendo:
 
-```{r}
+```{r, message=FALSE}
 ## prueba de Durbin-Watson 
+require(car)
 car:::durbinWatsonTest(modelo)
 ```
 
-Basados en el valor $p$,  _no_ es posible rechazar $H_0$. Por lo tanto, concluimos que los residuales del modelo ajustados _son_ independientes.
+Basados en el valor $p$,  _no_ es posible rechazar $H_0$ puesto que el valor $p$ de la prueba de Durbin-Watson es superior a un nivel de significancia $\alpha$ del 5%. Por lo tanto, concluimos que los residuales del modelo ajustados _son_ independientes.
 
 Para graficar la ACF podemos hacer:
 
-```{r}
+```{r, fig.align='center'}
 ## ACF de los residuales
 r <- residuals(modelo)  ## cálculo de los residuales
 acf(r, las = 1, main = "")
 ```
 
 Para concluir que los residuales del modelo ajustado son _independientes_ basados en la ACF, ninguna de las barras verticales, llamadas correlaciones, debe superar las bandas de color azul para  $\text{Lag} > 0$. En nuestro caso, podemos concluir que los residuales _son_ independientes.
-
-
 
 
 Formalmente, probar el **supuesto de normalidad** de los errores equivale a realizar el siguiente procedimiento de prueba de hipótesis:

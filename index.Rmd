@@ -1,5 +1,5 @@
 --- 
-title: "Modelos de Regresión para Ingeniería: Una aproximación práctica"
+title: "Modelos de Regresión: Una aproximación práctica con R"
 author: "Jorge I. Vélez"
 date: "`r Sys.Date()`"
 affiliation: Universidad del Norte, Barranquilla, Colombia
