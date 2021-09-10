@@ -316,7 +316,7 @@ div.csl-indent {
 <li>Garantizar que la cantidad de producto empacado cumpla con las especificaciones del proceso y/o del cliente;</li>
 <li>Determinar las condiciones óptimas de operación que minimizan los costos asociados y, posiblemente, los desperdicios de producto.</li>
 </ol>
-<p>Los Modelos de Regresión Lineal son ampliamente utilizados en la práctica ingenieril cuando, en un proceso productivo como el anterior, se quiere dar respuesta los numerales 1, 2 y 3. En un sentido menos amplio, los modelos de regresión lineal se utilizan para <em>predecir</em> futuros valores de una variable respuesta para valores valores <em>específicos</em> de las variables <em>controlables</em> del proceso.</p>
+<p>Los Modelos de Regresión Lineal son ampliamente utilizados en la práctica ingenieril cuando, en un proceso productivo como el anterior, se quiere dar respuesta los numerales 1, 2 y 3. En un sentido menos amplio, los modelos de regresión lineal se utilizan para estudiar la relación entre una variable numérica, que denominamos <em>variable respuesta</em>, y un conjunto de variables <em>controlables</em> de dicho proceso. Una vez entendemos dicha relación, podemos entonces <em>predecir</em> futuros valores de la variable respuesta para valores <em>específicos y conocidos</em> de las variabes controlables.</p>
 
 <div class="rmdnote">
 Por <strong>variable controlable</strong> entendemos aquellas variables de proceso que pueden medirse fácilmente y se mantienen <em>fijas</em> durante la operación.
@@ -742,7 +742,7 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="rls.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## prueba de Durbin-Watson </span></span>
 <span id="cb30-2"><a href="rls.html#cb30-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">durbinWatsonTest</span>(modelo)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.02777111      1.841781   0.726
+##    1      0.02777111      1.841781     0.7
 ##  Alternative hypothesis: rho != 0</code></pre>
 <p>Basados en el valor <span class="math inline">\(p\)</span>, <em>no</em> es posible rechazar <span class="math inline">\(H_0\)</span>. Por lo tanto, concluimos que los residuales del modelo ajustados <em>son</em> independientes.</p>
 <p>Para graficar la ACF podemos hacer:</p>
