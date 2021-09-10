@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Regresión Lineal Múltiple | Modelos de Regresión para Ingeniería: Una aproximación práctica</title>
+  <meta name="description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Regresión Lineal Múltiple | Modelos de Regresión para Ingeniería: Una aproximación práctica" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
+  <meta name="github-repo" content="https://github.com/jivelez/book-adii" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Regresión Lineal Múltiple | Modelos de Regresión para Ingeniería: Una aproximación práctica" />
+  
+  <meta name="twitter:description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
+  
+
+<meta name="author" content="Jorge I. Vélez" />
+
+
+<meta name="date" content="2021-09-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="rls.html"/>
+<link rel="next" href="glm.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de Datos en Ingeniería</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenido</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#estructura-del-libro"><i class="fa fa-check"></i>Estructura del libro</a></li>
+<li><a href="index.html#por-qué-r">Por qué <code>R</code>?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-y-convenciones"><i class="fa fa-check"></i>Software y convenciones</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#bloques-informativos"><i class="fa fa-check"></i>Bloques informativos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedicatoria"><i class="fa fa-check"></i>Dedicatoria</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#sobre-el-autor"><i class="fa fa-check"></i>Sobre el autor</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#análisis-exploratorio-de-datos"><i class="fa fa-check"></i><b>1.1</b> Análisis Exploratorio de Datos</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#conceptos-básicos"><i class="fa fa-check"></i><b>1.2</b> Conceptos básicos</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#gráficos-básicos"><i class="fa fa-check"></i><b>1.3</b> Gráficos básicos</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#r-como-herramienta"><i class="fa fa-check"></i><b>1.4</b> <code>R</code> como herramienta</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#qué-es-r"><i class="fa fa-check"></i><b>1.4.1</b> Qué es <code>R</code>?</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#cran"><i class="fa fa-check"></i><b>1.4.2</b> <code>CRAN</code></a></li>
+<li class="chapter" data-level="1.4.3" data-path="intro.html"><a href="intro.html#descarga"><i class="fa fa-check"></i><b>1.4.3</b> Descarga</a></li>
+<li class="chapter" data-level="1.4.4" data-path="intro.html"><a href="intro.html#operaciones-básicas"><i class="fa fa-check"></i><b>1.4.4</b> Operaciones básicas</a></li>
+<li class="chapter" data-level="1.4.5" data-path="intro.html"><a href="intro.html#creación-de-funciones"><i class="fa fa-check"></i><b>1.4.5</b> Creación de funciones</a></li>
+<li class="chapter" data-level="1.4.6" data-path="intro.html"><a href="intro.html#modelos-básicos"><i class="fa fa-check"></i><b>1.4.6</b> Modelos básicos</a></li>
+<li class="chapter" data-level="1.4.7" data-path="intro.html"><a href="intro.html#modelos-avanzados"><i class="fa fa-check"></i><b>1.4.7</b> Modelos avanzados</a></li>
+<li class="chapter" data-level="1.4.8" data-path="intro.html"><a href="intro.html#cursos-online"><i class="fa fa-check"></i><b>1.4.8</b> Cursos <em>online</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rls.html"><a href="rls.html"><i class="fa fa-check"></i><b>2</b> Regresión Lineal Simple</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="rls.html"><a href="rls.html#formulación-básica-del-modelo-de-rls"><i class="fa fa-check"></i><b>2.1</b> Formulación básica del modelo de RLS</a></li>
+<li class="chapter" data-level="2.2" data-path="rls.html"><a href="rls.html#minimos"><i class="fa fa-check"></i><b>2.2</b> Estimación</a></li>
+<li class="chapter" data-level="2.3" data-path="rls.html"><a href="rls.html#tabla-anova-y-medidas-de-desempeño"><i class="fa fa-check"></i><b>2.3</b> Tabla ANOVA y medidas de desempeño</a>
+<ul>
+<li><a href="rls.html#estimación-de-sigma2">Estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li><a href="rls.html#inferencia-para-sigma2">Inferencia para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li><a href="rls.html#coeficiente-de-determinación-r2">Coeficiente de determinación <span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#validación-del-modelo-de-rls"><i class="fa fa-check"></i>Validación del modelo de RLS</a></li>
+<li><a href="rls.html#inferencia-para-beta_0-y-beta_1">Inferencia para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="rls.html"><a href="rls.html#residuales"><i class="fa fa-check"></i><b>2.4</b> Análisis de Residuales</a>
+<ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#validación-de-supuestos"><i class="fa fa-check"></i>Validación de Supuestos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="rls.html"><a href="rls.html#predicción"><i class="fa fa-check"></i><b>2.5</b> Predicción</a>
+<ul>
+<li><a href="rls.html#intervalo-de-confianza-para-eyxx_0">Intervalo de confianza para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
+<li><a href="rls.html#intervalo-de-predicción-para-eyxx_0">Intervalo de predicción para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>3</b> Regresión Lineal Múltiple</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="rlm.html"><a href="rlm.html#formulación-básica-del-modelo-de-rlm"><i class="fa fa-check"></i><b>3.1</b> Formulación básica del modelo de RLM</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="rlm.html"><a href="rlm.html#estimacion"><i class="fa fa-check"></i><b>3.1.1</b> Estimación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="rlm.html"><a href="rlm.html#propiedades-de-los-estimadores-de-mathbfbeta"><i class="fa fa-check"></i><b>3.2</b> Propiedades de los estimadores de <span class="math inline">\(\mathbf{\beta}\)</span></a></li>
+<li class="chapter" data-level="3.3" data-path="rlm.html"><a href="rlm.html#estimación-de-sigma2-1"><i class="fa fa-check"></i><b>3.3</b> Estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="3.4" data-path="rlm.html"><a href="rlm.html#inferencia-para-mathbfbeta"><i class="fa fa-check"></i><b>3.4</b> Inferencia para <span class="math inline">\(\mathbf{\beta}\)</span></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="rlm.html"><a href="rlm.html#prueba-de-significancia-global"><i class="fa fa-check"></i><b>3.4.1</b> Prueba de significancia global</a></li>
+<li class="chapter" data-level="3.4.2" data-path="rlm.html"><a href="rlm.html#prueba-de-significancia-marginal"><i class="fa fa-check"></i><b>3.4.2</b> Prueba de significancia marginal</a></li>
+<li class="chapter" data-level="3.4.3" data-path="rlm.html"><a href="rlm.html#intervalos-de-confianza-para-beta_j"><i class="fa fa-check"></i><b>3.4.3</b> Intervalos de confianza para <span class="math inline">\(\beta_j\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="rlm.html"><a href="rlm.html#inferencia-para-emathbfymathbfx_0"><i class="fa fa-check"></i><b>3.5</b> Inferencia para <span class="math inline">\(E[\mathbf{Y}|\mathbf{x}_0]\)</span></a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="rlm.html"><a href="rlm.html#intervalos-de-confianza-para-emathbfymathbfx_0"><i class="fa fa-check"></i><b>3.5.1</b> Intervalos de confianza para <span class="math inline">\(E[\mathbf{Y}|\mathbf{x}_0]\)</span></a></li>
+<li class="chapter" data-level="3.5.2" data-path="rlm.html"><a href="rlm.html#intervalos-de-predicción-para-emathbfymathbfx_0"><i class="fa fa-check"></i><b>3.5.2</b> Intervalos de predicción para <span class="math inline">\(E[\mathbf{Y}|\mathbf{x}_0]\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="rlm.html"><a href="rlm.html#análisis-de-residuales"><i class="fa fa-check"></i><b>3.6</b> Análisis de Residuales</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="rlm.html"><a href="rlm.html#validación-de-supuestos-1"><i class="fa fa-check"></i><b>3.6.1</b> Validación de supuestos</a></li>
+<li class="chapter" data-level="3.6.2" data-path="rlm.html"><a href="rlm.html#identificación-de-outliers"><i class="fa fa-check"></i><b>3.6.2</b> Identificación de <em>outliers</em></a></li>
+<li class="chapter" data-level="3.6.3" data-path="rlm.html"><a href="rlm.html#identificación-de-observaciones-influenciales"><i class="fa fa-check"></i><b>3.6.3</b> Identificación de observaciones influenciales</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="rlm.html"><a href="rlm.html#análisis-de-multicolinealidad"><i class="fa fa-check"></i><b>3.7</b> Análisis de Multicolinealidad</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="rlm.html"><a href="rlm.html#cómo-determinar-que-existe-multicolinealidad"><i class="fa fa-check"></i><b>3.7.1</b> Cómo determinar que existe multicolinealidad?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="rlm.html"><a href="rlm.html#selección-de-modelos"><i class="fa fa-check"></i><b>3.8</b> Selección de Modelos</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="rlm.html"><a href="rlm.html#método-de-todas-las-regresiones-posibles"><i class="fa fa-check"></i><b>3.8.1</b> Método de Todas las Regresiones Posibles</a></li>
+<li class="chapter" data-level="3.8.2" data-path="rlm.html"><a href="rlm.html#selección-secuencial"><i class="fa fa-check"></i><b>3.8.2</b> Selección secuencial</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="rlm.html"><a href="rlm.html#ejercicios"><i class="fa fa-check"></i><b>3.9</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>4</b> Modelos de Regresión Avanzados</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="glm.html"><a href="glm.html#regresión-no-lineal"><i class="fa fa-check"></i><b>4.1</b> Regresión No Lineal</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="glm.html"><a href="glm.html#ejercicios-1"><i class="fa fa-check"></i><b>4.1.1</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="glm.html"><a href="glm.html#regresión-logística"><i class="fa fa-check"></i><b>4.2</b> Regresión Logística</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="glm.html"><a href="glm.html#ejercicios-2"><i class="fa fa-check"></i><b>4.2.1</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="glm.html"><a href="glm.html#regresión-poisson"><i class="fa fa-check"></i><b>4.3</b> Regresión Poisson</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="glm.html"><a href="glm.html#variaciones"><i class="fa fa-check"></i><b>4.3.1</b> Variaciones</a></li>
+<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#ejercicios-3"><i class="fa fa-check"></i><b>4.3.2</b> Ejercicios</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>5</b> Introducción a Series de Tiempo</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="series.html"><a href="series.html#qué-es-una-serie-de-tiempo"><i class="fa fa-check"></i><b>5.1</b> Qué es una Serie de Tiempo?</a></li>
+<li class="chapter" data-level="5.2" data-path="series.html"><a href="series.html#definiciones-básicas"><i class="fa fa-check"></i><b>5.2</b> Definiciones básicas</a></li>
+<li class="chapter" data-level="5.3" data-path="series.html"><a href="series.html#por-qué-y-para-qué"><i class="fa fa-check"></i><b>5.3</b> Por qué y para qué?</a></li>
+<li class="chapter" data-level="5.4" data-path="series.html"><a href="series.html#modelos-básicos-1"><i class="fa fa-check"></i><b>5.4</b> Modelos básicos</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="series.html"><a href="series.html#método-de-descomposición"><i class="fa fa-check"></i><b>5.4.1</b> Método de Descomposición</a></li>
+<li class="chapter" data-level="5.4.2" data-path="series.html"><a href="series.html#métodos-de-suavizamiento"><i class="fa fa-check"></i><b>5.4.2</b> Métodos de Suavizamiento</a></li>
+<li class="chapter" data-level="5.4.3" data-path="series.html"><a href="series.html#metodología-box-jenkins"><i class="fa fa-check"></i><b>5.4.3</b> Metodología Box-Jenkins</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="series.html"><a href="series.html#validación-de-supuestos-2"><i class="fa fa-check"></i><b>5.5</b> Validación de supuestos</a></li>
+<li class="chapter" data-level="5.6" data-path="series.html"><a href="series.html#pronósticos"><i class="fa fa-check"></i><b>5.6</b> Pronósticos</a></li>
+<li class="chapter" data-level="5.7" data-path="series.html"><a href="series.html#ejercicios-4"><i class="fa fa-check"></i><b>5.7</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="enp.html"><a href="enp.html"><i class="fa fa-check"></i><b>6</b> Estadística No Paramétrica</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="enp.html"><a href="enp.html#por-qué-y-para-qué-1"><i class="fa fa-check"></i><b>6.1</b> Por qué y para qué?</a></li>
+<li class="chapter" data-level="6.2" data-path="enp.html"><a href="enp.html#modelos-básicos-2"><i class="fa fa-check"></i><b>6.2</b> Modelos básicos</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="enp.html"><a href="enp.html#prueba-de-signos"><i class="fa fa-check"></i><b>6.2.1</b> Prueba de signos</a></li>
+<li class="chapter" data-level="6.2.2" data-path="enp.html"><a href="enp.html#prueba-de-rangos-con-signos"><i class="fa fa-check"></i><b>6.2.2</b> Prueba de Rangos con Signos</a></li>
+<li class="chapter" data-level="6.2.3" data-path="enp.html"><a href="enp.html#prueba-de-mann-whitney-wilcoxon"><i class="fa fa-check"></i><b>6.2.3</b> Prueba de Mann-Whitney-Wilcoxon</a></li>
+<li class="chapter" data-level="6.2.4" data-path="enp.html"><a href="enp.html#prueba-de-kruskal-wallis"><i class="fa fa-check"></i><b>6.2.4</b> Prueba de Kruskal-Wallis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="enp.html"><a href="enp.html#ejercicios-5"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="palabras-finales.html"><a href="palabras-finales.html"><i class="fa fa-check"></i><b>7</b> Palabras Finales</a></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/jivelez/book-adii" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión para Ingeniería: Una aproximación práctica</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rlm" class="section level1" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Regresión Lineal Múltiple</h1>
+<p>Como se mencionó en el Capítulo <a href="rls.html#rls">2</a>, los modelos de regresión lineal pueden utilizarse para predecir futuros valores de una variable respuesta continua a partir de valores <em>específicos</em> de las variables <em>controlables</em> del proceso.</p>
+<p>En la práctica, pueden existir múltiples variables controlables en un proceso de producción o de servicios. Por ejemplo, en un proceso de pintura electrostática, puede ser de interés determinar el espesor de la capa de pintura (variable respuesta <span class="math inline">\(y\)</span>, en micrones) con la que se recubre una lámina de área determinada, a partir de valores conocidos de la presión de aire (variable <span class="math inline">\(x_1\)</span> en <em>psi</em>) y la velocidad de la banda transportadora (variable <span class="math inline">\(x_2\)</span> en m/s) en la que se desplaza dicha lámina. En este caso, el interés es:</p>
+<ol style="list-style-type: decimal">
+<li>Determinar la <em>magnitud de la influencia</em> de las variables <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> sobre el espesor de capa esperado;</li>
+<li>construir una función <span class="math inline">\(f(x_1,x_2)\)</span> que permita predecir el espesor de capa esperado; y</li>
+<li>construir intervalos de confianza y predicción para dicho valor.</li>
+</ol>
+<p>Si la variable respuesta <span class="math inline">\(y\)</span> es continua y aproximadamente simétrica, podemos desarrollar 1, 2 y 3 a partir de la estimación de un modelo de regresión lineal. Puesto que el número de variables controlables es <span class="math inline">\(k&gt;1\)</span>, una posibilidad es utilizar el modelo de Regresión Lineal Múltiple (RLM).</p>
+<div id="formulación-básica-del-modelo-de-rlm" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Formulación básica del modelo de RLM</h2>
+<p>Matemáticamente, el modelo de RLM puede expresarse como:</p>
+<p><span class="math display">\[\begin{align} \label{mod1}
+y_i &amp;= \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \cdots + \beta_1X_{ki} + \epsilon_i,\\ 
+\epsilon_i &amp;\sim N(0, \sigma^2), \\
+\sigma^2 &amp;= \text{constante}.
+\end{align}\]</span></p>
+<p>Este modelo es equivalente a</p>
+<p><span class="math display">\[\begin{align} \label{mod2}
+\mathbf{y} &amp;= \mathbf{X}\mathbf{\beta} + \mathbf{\epsilon}
+\end{align}\]</span></p>
+<p>donde <span class="math inline">\(\mathbf{y} = (y_1,y_2,\ldots,y_n)\)</span> es el vector respuesta, <span class="math inline">\(\mathbf{X} = (\mathbf{1}, \mathbf{x}_1, \mathbf{x}_2,\ldots,\mathbf{x}_k)_{n\times p}\)</span> es la matriz de diseño y <span class="math inline">\(\mathbf{\epsilon} = (\epsilon_1,\epsilon_2,\ldots,\epsilon_n)\)</span> es el error aleatorio.</p>
+<div id="estimacion" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Estimación</h3>
+<p>Similar a RLS, la estimación del modelo de RLM se realiza utilizando el método de mínimos cuadrados ordinarios (MCO).</p>
+<p>A partir de una muestra aleatoria de tamaño <span class="math inline">\(n\)</span> del proceso de producción, los datos se registran en una estructura rectangular similar a:</p>
+<center>
+<img src="images/datastructure.png" width="300" height="250">
+</center>
+<p>De esta forma, se tienen <span class="math inline">\(n\)</span> unidades experimentales para cada una de estas se determina el valor de la variable respuesta <span class="math inline">\(y_i\)</span> para condiciones fijas <span class="math inline">\(\mathbf{X}_i\)</span>. Por ejemplo, para la quinta unidad experimental, se obtuvo un valor la respuesta de <span class="math inline">\(y_6\)</span> y las variables controlables tomaron valores fijos <span class="math inline">\((x_{1,6}, x_{2,6}, \ldots, x_{k,6})\)</span>.</p>
+<p>Al igual que en RLS, la estimación del modelo de RLM realiza utilizando MCO. La idea fundamental consiste en minimizar</p>
+<p><span class="math display">\[\begin{eqnarray*}\label{L}
+L &amp;=&amp;\sum_{i=1}^n\epsilon_i^2 = \sum_{i=1}^n(Y_i-\beta_0-\beta_1X_{1,i} -\beta_2X_{2,i} - \ldots -\beta_kX_{k,i} )^2.
+\end{eqnarray*}\]</span></p>
+<p>Los estimadores de mínimos cuadrados deben satisfacer las siguientes dos condiciones fundamentales:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+  \frac{\partial L}{\partial \beta_0} | _{\hat{\beta}_0,\hat{\beta}_1,\ldots \hat{\beta}_k} &amp;=&amp; -2\sum_{i=1}^n \left(y_i-\hat{\beta}_0-\sum_{j=1}^k{\hat{\beta}_jx_{ij}}\right) = 0   \\ 
+  \frac{\partial L}{\partial \beta_j} | _{\hat{\beta}_0,\hat{\beta}_1,\ldots \hat{\beta}_k} &amp;=&amp; -2\sum_{i=1}^n \left(y_i-\hat{\beta}_0-\sum_{j=1}^k{\hat{\beta}_jx_{ij}}\right)x_{ij} = 0 
+  \end{eqnarray*}\]</span></p>
+<p>La solución al sistema de ecuaciones de condiciones fundamentales da origen al sistema de ecuaciones normales de mínimos cuadrados</p>
+<center>
+<img src="images/ecuaciones.png" width="500" height="200">
+</center>
+<p>Por lo tanto, las solución de estas ecuaciones permite determinar <span class="math inline">\(\hat{\mathbf{\beta}}\)</span>. Es fácil llegar a que el vector de coeficientes estimado para el modelo de RLM puede obtenerse como</p>
+<p><span class="math display">\[
+\hat{\mathbf{\beta}} = (\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime \mathbf{y}
+\]</span>
+<!-- donde $\mathbf{X}$ es la matriz de diseño. --></p>
+<p>Finalmente, el modelo estimado es <span class="math display">\[\hat{y}_i =  \hat{\beta}_0+\sum_{j=1}^k\hat{\beta}_jx_{ij},\]</span></p>
+<p>que, matricialmente, puede representarse como</p>
+<p><span class="math display">\[\hat{\mathbf{y}} =  \mathbf{X}\hat{\mathbf{\beta}}\]</span></p>
+<p>A partir del modelo ajustado, un valor específico <span class="math inline">\(y_i\)</span> puede calculase como:</p>
+<p><span class="math display">\[\hat{y}_i =  \hat{\beta}_0 + \hat{\beta}_1x_1 + \hat{\beta}_2x_2+\cdots+\hat{\beta}_kx_k\]</span></p>
+<p>Como ilustración, consideremos el siguiente ejemplo:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="rlm.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## lectura de datos</span></span>
+<span id="cb47-2"><a href="rlm.html#cb47-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>()</span>
+<span id="cb47-3"><a href="rlm.html#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="rlm.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="do">## modelo de RLM</span></span>
+<span id="cb47-5"><a href="rlm.html#cb47-5" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>()</span>
+<span id="cb47-6"><a href="rlm.html#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="rlm.html#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="do">## resultados</span></span>
+<span id="cb47-8"><a href="rlm.html#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+</div>
+</div>
+<div id="propiedades-de-los-estimadores-de-mathbfbeta" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Propiedades de los estimadores de <span class="math inline">\(\mathbf{\beta}\)</span></h2>
+<p>Cuando estimamos <span class="math inline">\(\hat{\mathbf{\beta}}\)</span>, los cálculos están basados en los resultados obtenidos al tomar una muestra aleatoria de tamaño <span class="math inline">\(n\)</span>. Como consecuencia, el valor de los estimadores <span class="math inline">\(\mathbf{\hat{\beta}} = (\hat{\beta}_0, \hat{\beta}_1, \ldots, \hat{\beta}_k)\)</span> cambian si cambiamos la muestra.</p>
+<p>Desde el punto de vista formal, los estimadores <span class="math inline">\(\mathbf{\hat{\beta}}\)</span> cumplen con las siguientes propiedades:</p>
+<ol style="list-style-type: decimal">
+<li>Los estimadores <span class="math inline">\(\mathbf{\hat\beta}\)</span> son insesgados. Esta propiedad implica que, al aumentar <span class="math inline">\(n\)</span>, el valor de los estimadores de <span class="math inline">\(\mathbf{\beta}\)</span> se aproximan a los verdaderos valores de los parámetros. Matemáticamente se tiene que:</li>
+</ol>
+<p><span class="math display">\[\begin{eqnarray}
+E[\mathbf{\hat\beta}] &amp;=&amp; E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{y}]\\\nonumber
+                  &amp;=&amp; E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime(\mathbf{X\beta} + \mathbf{\epsilon})]\\\nonumber
+                  &amp;=&amp; E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{X\beta} + (\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{\epsilon}]\\\nonumber
+                  &amp;=&amp; E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{X\beta}] + E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{\epsilon}]\\\nonumber
+                  &amp;=&amp; E[\mathbf\beta] + \mathbf{0} = \mathbf{\beta}\nonumber
+\end{eqnarray}\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>La varianza de <span class="math inline">\(\hat{\beta}_j\)</span> y la covarianza entre <span class="math inline">\(\hat\beta_{i}\)</span> y <span class="math inline">\(\hat\beta_{j}\)</span> están dadas por:</li>
+</ol>
+<p><span class="math display">\[\begin{eqnarray*}
+V(\hat\beta_{j}) &amp;=&amp; \sigma^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj} \hspace{0.5cm} 0,1,2,\ldots,p;\\
+\text{cov}(\hat\beta_{i}, \hat\beta_{j}) &amp;=&amp; \sigma^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{ij} \hspace{0.5cm} i\neq j.
+\end{eqnarray*}\]</span></p>
+<p>Ahora, a partir de <span class="math inline">\(E[\hat{\beta}_j]\)</span> y <span class="math inline">\(V(\hat\beta_{j})\)</span>, es posible hacer <strong>inferencia</strong> para el parámetro <span class="math inline">\(\beta_j\)</span>, <span class="math inline">\(j=1,2,\ldots,k.\)</span> Sin embargo, observe que <span class="math inline">\(V(\hat\beta_{j})\)</span> depende de <span class="math inline">\(\sigma^2\)</span>, la varianza del modelo de RLM. A continuación se muestra cómo se estima dicha cantidad.</p>
+</div>
+<div id="estimación-de-sigma2-1" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Estimación de <span class="math inline">\(\sigma^2\)</span></h2>
+<p>A partir <span class="math inline">\(\mathbf{\hat{\beta}}\)</span>, se tiene que</p>
+<p><span class="math display">\[\begin{eqnarray*}\label{L2}
+L &amp;=&amp;\sum_{i=1}^n\hat{\epsilon}_i^2 = \sum_{i=1}^n(Y_i-\hat{Y}_i^2)^2  \\
+  &amp;=&amp;\sum_{i=1}^n(Y_i-\hat{\beta}_0-\hat{\beta}_1X_{1,i} -\hat{\beta}_2X_{2,i} - \cdots -\hat{\beta}_kX_{k,i})^2 \\
+  &amp;=&amp; SSE
+\end{eqnarray*}\]</span></p>
+<p>Similar a como se observó en RLS, para el caso de RLM se tiene que</p>
+<p><span class="math display">\[\hat{\sigma}^2 = \frac{SSE}{n-p} = MSE\]</span></p>
+<p>donde <span class="math inline">\(p = k+1\)</span> es el número de coeficientes del modelo ajustado.</p>
+<p>Este resulado indica que la varianza de los errores, también conocida como la <strong>varianza del modelo</strong>, puede estimarse utilizando el MSE. El MSE se obtiene de la tabla ANOVA que tiene la siguiente forma:</p>
+<center>
+<img src="images/tablaanova.png" width="550" height="120">
+</center>
+<p>En RLM, también se cumple la misma relación que en RLS en cuanto que</p>
+<p><span class="math display">\[SST = SSR + SSE \]</span></p>
+<p>donde</p>
+<p><span class="math display">\[\begin{eqnarray}
+  SST = \sum_{i=1}^ny_i^2 - \frac{1}{n}\left(\sum_{i=1}^ny_i \right)^2, \hspace{1cm} SSE = \sum_{i=1}^n\hat{\epsilon}_i^2 \\\nonumber
+  \end{eqnarray}\]</span></p>
+<p>Recordemos que, adicional al MSE, a partir de la tabla ANOVA es posible calcular el porcentaje de variabilidad de la respuesta explicado por el modelo de RLM, también conocido como <strong>coeficiente de determinación</strong> o, simplemente, como <span class="math inline">\(R^2\)</span>:</p>
+<p><span class="math display">\[R^2 = SSR/SST = 1 - SSE/SST\]</span></p>
+<p>Puesto que <span class="math inline">\(R^2\)</span> incrementa a medida que el número de variables aumenta, en RLM es preferible usar</p>
+<p><span class="math display">\[R^2_{\text{ajustado}} = 1 - \frac{SSE/(n-p)}{SST/(n-1)}\]</span></p>
+</div>
+<div id="inferencia-para-mathbfbeta" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Inferencia para <span class="math inline">\(\mathbf{\beta}\)</span></h2>
+<p>Uno de los propósitos de la <strong>inferencia estadística</strong> es determinar el valor de los verdaderos parámetros de una población a partir de los resultados obtenidos en una muestra. En este caso, los parámetros poblacionales son <span class="math inline">\(\mathbf{{\beta}} = (\beta_0, \beta_1, \ldots, \beta_k)\)</span>, además de <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Con los valores muestrales, podemos construir pruebas de hipótesis de dos tipos para los parámetros del modelo de RLM:</p>
+<div id="prueba-de-significancia-global" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Prueba de significancia global</h3>
+<p>Esta prueba se utiliza para determinar la <strong>significancia total</strong> del modelo, es decir, para detemrinar si incluir las variables controlables en el modelo de regresión es mejor que no incluirlas para explicar la respuesta <span class="math inline">\(Y\)</span>. La idea fundamental es determinar si, en la población,</p>
+<p><span class="math display">\[\begin{eqnarray}
+  H_0&amp;:&amp; \beta_1=\beta_2=\cdots\beta_k=0 \\\nonumber
+  H_1&amp;:&amp; \text{Al menos un $\beta_j \neq 0$}\nonumber
+  \end{eqnarray}\]</span></p>
+<p>Este procedimiento de prueba de hipótesis se realiza a
+través de la tabla de ANOVA utilizando el estadístico <span class="math inline">\(F\)</span> dado por</p>
+<p><span class="math display">\[F_0 =  = \frac{SSR/k}{SSE/(n-p)} = \frac{MSR}{MSE} \sim F_{k, n-p}\]</span></p>
+<p>Rechazamos <span class="math inline">\(H_0: \beta_1=\beta_2=\cdots\beta_k=0\)</span> si <span class="math inline">\(F_0 &gt; F_{\alpha,k,n-p}\)</span>, donde <span class="math inline">\(\alpha\in(0,1)\)</span> es un nivel de significancia predeterminado. Cuando esto ocurre, concluimos que al menos un <span class="math inline">\(\beta_j\)</span> es estad'isticamente significativo al <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
+</div>
+<div id="prueba-de-significancia-marginal" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Prueba de significancia marginal</h3>
+<p>Esta prueba se realiza si rechazamos la prueba de significancia global. Lo que intentamos hacer es determinar si, a nivel poblacional, los coeficientes asociados a cada <span class="math inline">\(x_j\)</span> son o diferentes de cero. Esto es equivalente a probar:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+  H_0&amp;:&amp; \beta_j=0 \\\nonumber
+  H_1&amp;:&amp; \beta_j \neq 0\nonumber
+  \end{eqnarray*}\]</span></p>
+<p>Para <span class="math inline">\(j\)</span> fijo, el estadístico de prueba es</p>
+<p><span class="math display">\[t_j = \frac{\hat{\beta}_j - 0}{\text{s.e.}(\hat\beta_j)} = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj}}}\sim t_{n-p}\]</span></p>
+<p>Por lo tanto, rechazamos <span class="math inline">\(H_0\)</span> con un nivel de significancia de <span class="math inline">\(100\times(1-\alpha)\%\)</span> si <span class="math inline">\(|t_j| &gt; t_{\alpha/2, n-p}\)</span>.</p>
+</div>
+<div id="intervalos-de-confianza-para-beta_j" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Intervalos de confianza para <span class="math inline">\(\beta_j\)</span></h3>
+<p>Otra forma de realizar inferencia para <span class="math inline">\(\mathbf{\beta}\)</span> es a través de la construcción de intervalos de confianza del <span class="math inline">\(100\times(1-\alpha)100\%\)</span>. Es fácil mostrar que, para <span class="math inline">\(j\)</span> fijo,</p>
+<p><span class="math display">\[\begin{equation}\label{eq:icbeta}
+  \beta_j\in \left( \hat{\beta}_j - t_{\alpha/2, n-p} \sqrt{\hat{\sigma}^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj}}, \hat{\beta}_j + t_{\alpha/2, n-p} \sqrt{\hat{\sigma}^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj}} \right)
+  \end{equation}\]</span></p>
+<p>Otra alternativa para construir intervalos de confianza es es vía  o . Finalmente concluimos, con un nivel de confianza del <span class="math inline">\(100\times(1-\alpha)\%\)</span>, que <span class="math inline">\(\beta_j\)</span> está en el intervalo anterior.</p>
+</div>
+</div>
+<div id="inferencia-para-emathbfymathbfx_0" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Inferencia para <span class="math inline">\(E[\mathbf{Y}|\mathbf{x}_0]\)</span></h2>
+
+<div class="rmdwarning">
+El modelo de RLM ajustado puede utilizarse para predecir <span class="math inline">\(E[\mathbf{Y}|\mathbf{x}_0]\)</span> sólo si se validan <strong>todos los supuestos</strong>. Para más detalles ver <a href="rls.html#residuales">Análisis de Residuales</a>
+</div>
+<div id="intervalos-de-confianza-para-emathbfymathbfx_0" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Intervalos de confianza para <span class="math inline">\(E[\mathbf{Y}|\mathbf{x}_0]\)</span></h3>
+<p>A partir del modelo ajustado y para valores fijos de las variables controlables, digamos <span class="math inline">\(\mathbf{x}_0\)</span>, se tiene que
+<span class="math display">\[\begin{eqnarray}
+ \hat{\mu}_{\mathbf{Y} | \mathbf{x}_0} &amp;=&amp; \hat{E[\mathbf{Y} | \mathbf{x}_0]} = \mathbf{x}_0^\prime\hat{\mathbf{\beta}} \\\nonumber
+ V[\hat{\mu}_{\mathbf{Y} | \mathbf{x}_0}] &amp;=&amp; \hat{\sigma}^2\mathbf{x}_0^\prime(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{x}_0
+ \end{eqnarray}\]</span></p>
+<p>Finalmente, el intervalo de confianza del <span class="math inline">\(100\times(1-\alpha)\%\)</span> puede calcularse como</p>
+<p><span class="math display">\[\begin{eqnarray}
+ \hat{\mu}_{\mathbf{Y} | \mathbf{x}_0} \pm t_{\alpha/2,n-p}\sqrt{\hat{\sigma}^2\mathbf{x}_0^\prime(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{x}_0}
+ \end{eqnarray}\]</span></p>
+</div>
+<div id="intervalos-de-predicción-para-emathbfymathbfx_0" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Intervalos de predicción para <span class="math inline">\(E[\mathbf{Y}|\mathbf{x}_0]\)</span></h3>
+<p>Sea <span class="math inline">\(\hat{y}_0 = \hat{\mu}_{\mathbf{Y} | \mathbf{x}_0}\)</span>, donde <span class="math inline">\(\mathbf{x}_0\)</span> es el vector de covariables <em>futuro</em>. Un intervalo de predicción del <span class="math inline">\(100\times(1-\alpha)\%\)</span> para <span class="math inline">\(Y_0\)</span> está dado por:</p>
+<p><span class="math display">\[\begin{eqnarray}
+ \hat{y}_0 \pm t_{\alpha/2,n-p}\sqrt{\hat{\sigma}^2(1 + \mathbf{x}_0^\prime(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{x}_0)}
+ \end{eqnarray}\]</span></p>
+<p>Otra posibilidad para construir dicho intervalo es vía <em>bootstrap</em>. Observe que lo único que cambia en este intervalo en relación con el intervalo de confianza es la varianza de <span class="math inline">\(Y_0\)</span> <span class="math inline">\(-\)</span> existe más incertidumbre. Observe que en el intervalo de predicción estamos interesados en <span class="math inline">\(Y_0 | \mathbf{x}_0\)</span> y no <span class="math inline">\(\hat{\mu}_{\mathbf{Y} | \mathbf{x}_0}\)</span>.</p>
+</div>
+</div>
+<div id="análisis-de-residuales" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Análisis de Residuales</h2>
+<p>El análisis de residuales en RLM es fundamental para:</p>
+<ol style="list-style-type: decimal">
+<li>Validar los supuestos del error;</li>
+<li>identicar observaciones ; e</li>
+<li>identificar observaciones influenciales.</li>
+</ol>
+<div id="validación-de-supuestos-1" class="section level3" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Validación de supuestos</h3>
+<p>La validación de los supestos del error en el modelo de RLM se realiza de manera similar a como se mostró para el modelo de RLS. Para más detalles, ver <a href="rls.html#residuales">Análisis de Residuales</a>.</p>
+</div>
+<div id="identificación-de-outliers" class="section level3" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Identificación de <em>outliers</em></h3>
+<p>Los <em>outliers</em> son también conocidos como observaciones atípicas en los datos. Con los resultados del modelo ajustado, procedemos a calcular:</p>
+<ol style="list-style-type: decimal">
+<li><p>Residuales <em>crudos</em>
+<span class="math display">\[\hat{\epsilon}_i = y_i - \hat{y}_i\]</span></p></li>
+<li><p>Residuales <em>estandarizados</em>
+<span class="math display">\[d_i = \frac{\hat{\epsilon}_i}{\sqrt{\hat{\sigma}^2}} = \frac{\hat{\epsilon}_i}{\sqrt{\text{MSE}}} \]</span></p></li>
+<li><p>Residuales <em>estudentizados</em>
+<span class="math display">\[r_i = \frac{\hat{\epsilon}_i}{\sqrt{\hat{\sigma}^2(1-h_{ii})}} = \frac{\hat{\epsilon}_i}{\sqrt{\text{MSE}(1-h_{ii})}}\]</span></p>
+<p>donde <span class="math inline">\(h_{ii} = \mathbf{X}(\mathbf{X^\prime\mathbf{X}})^{-1}\mathbf{X}^\prime_{ii}\)</span> y <span class="math inline">\(\mathbf{X}(\mathbf{X^\prime\mathbf{X}})^{-1}\mathbf{X}\)</span> denominada la <a href="https://en.wikipedia.org/wiki/Projection_matrix">matriz <em>hat</em></a>.</p></li>
+</ol>
+
+<div class="rmdtip">
+La mejor manera de identificar <em>outliers</em> es a partir del cálculo de los residuales estudentizados. Decimos que la <span class="math inline">\(i\)</span>-ésima observación <strong>es</strong> un <em>outlier</em> si <span class="math inline">\(r_i\notin (-3, 3)\)</span>.
+</div>
+</div>
+<div id="identificación-de-observaciones-influenciales" class="section level3" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Identificación de observaciones influenciales</h3>
+<p>En ciertas ocasiones encontramos observaciones que lucen algo ‘anormales.’ Por lo tanto, es importante determinar si estas son <em>influenciales</em> o no.</p>
+<p>A diferencia de los <em>outliers</em>, las observaciones influenciales ‘controlan’ el modelo y por ello es importate determinar si el modelo ajustado es consistente cuando estas se remueven.</p>
+<p>La identificación de este tipo de observaciones se realiza utilizando la <a href="https://www.jstor.org/stable/1268249?seq=1#metadata_info_tab_contents"><em>Distancia de Cook</em></a>. Para la <span class="math inline">\(i\)</span>-ésima observación, esta distancia se calcula como</p>
+<p><span class="math display">\[  D_i = \frac{r_i^2}{p}\frac{h_{ii}}{(1-h_{ii})} = \frac{\hat{\epsilon}_i^2 \,h_{ii}}{p\,\hat{\sigma}^2(1-h_{ii})^2}\]</span></p>
+<p>donde <span class="math inline">\(p\)</span> es el número de variables controlables incluídas en el modelo.</p>
+
+<div class="rmdtip">
+Usualmente, observaciones en las que <span class="math inline">\(D_i&gt;1\)</span> decimos que la <span class="math inline">\(i\)</span>-ésima observacion <strong>es influencial</strong>. Sin embargo, se también se recomienda revisar las observaciones con <span class="math inline">\(D_i&gt;\frac{4}{n}\)</span> y <span class="math inline">\(D_i&gt;\frac{4}{n-k-1}\)</span>. Éste último criterio es el utilizado por la función <code>cooks.distance()</code> del <code>R</code>.
+</div>
+</div>
+</div>
+<div id="análisis-de-multicolinealidad" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Análisis de Multicolinealidad</h2>
+<p>Cuando se utiliza el modelo de RLM, se asume que las variables controlables <span class="math inline">\(X_1, X_2,\ldots,X_k\)</span> son independientes. Desde el punto de vista práctico, esto tiene consideraciones importantes puesto que permite evaluar la magnitud del efecto de sobre <span class="math inline">\(\widehat{E[Y]}\)</span> cuando modificamos, en una unidad, digamos <span class="math inline">\(x_j\)</span>, mientras se mantienen el resto de ellas constantes. Este efecto corresponde, sin duda, a <span class="math inline">\(\hat{\beta}_j\)</span>. Sin embargo, cuando estas variables controlables <strong>no</strong> son independientes, este efecto <em>no</em> puede calcularse de la misma forma.</p>
+
+<div class="rmdtip">
+Buscamos modelos en los que las covariables estén altamente correlacionadas con la respuesta, pero mínimamente entre ellas.
+</div>
+<p>Desde el punto de vista teórico, la existencia de <em>no</em> independencia en las variables controlables tiene consecuencias importantes sobre los estimadores de los parámetros del modelo dados por <span class="math inline">\(\mathbf{\beta} = (\beta_0, \beta_1, \beta_2, \ldots, \beta_k)\)</span>. Cuando se usa el <a href="rlm.html#estimacion">método de mínimos cuadrados</a>, los estimadores de <span class="math inline">\(\mathbf{\beta}\)</span> están dados por:</p>
+<p><span class="math display">\[
+\hat{\mathbf{\beta}}_{\text{OLS}} = (\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime \mathbf{y}
+\]</span></p>
+<p>La existencia de multicolinealidad es sinónimo de que no existe independencia en las variables controlables del modelo. Si esto es cierto, las columnas de la matriz de diseño <span class="math inline">\(\mathbf{X}\)</span> no son independientes, es decir, que la columna <span class="math inline">\(x_j\)</span> puede expresarse como una combinación lineal de las demás. Matemáticamente, esto es equivalente a escribir <span class="math inline">\(x_j \sim x_{-j}\)</span> para algún <span class="math inline">\(j\)</span>. Por ejemplo, para <span class="math inline">\(j=1\)</span> tendríamos</p>
+<p><span class="math display">\[
+x_1 \sim x_2 + x_3 + \cdots + x_k.
+\]</span></p>
+<p>Esta expresión indica que la variable independiente/controlable <span class="math inline">\(x_1\)</span> puede escribirse como una combinación lineal de las demás variables controlables. O, en otras palabras, que la información contenida en <span class="math inline">\(x_1\)</span> puede explicarse por las demás variables controlables medidas en el proceso durante la etapa de muestreo.</p>
+
+<div class="rmdtip">
+Una manera de interpretar la multicolinealidad es como sinónimo de <strong>redundancia</strong>. Esta redundancia se refiere a que existen variables controlables en el proceso de producción que contienen la misma <em>información</em> que las demás. Por lo tanto, basta con medir sólo aquellas que realmente determinan dicho proceso.
+</div>
+<p>En la expresión de <span class="math inline">\(\hat{\mathbf{\beta}}_{\text{OLS}}\)</span>, el término <span class="math inline">\((\mathbf{X}^\prime\mathbf{X})^{-1}\)</span> se refiere a la inversa de <span class="math inline">\(\mathbf{X}^\prime\mathbf{X}\)</span>. Si existe multicolinealidad,</p>
+<p><span class="math display">\[
+\text{det}(\mathbf{X}^\prime \mathbf{X}) \approx 0 \quad \rightarrow \quad  \frac{1}{|\mathbf{X}^\prime \mathbf{X}|} \rightarrow\infty
+\]</span></p>
+<p>Por lo tanto,</p>
+<p><span class="math display">\[
+\hat{\mathbf{\beta}}_{\text{OLS}} \rightarrow \infty
+\]</span></p>
+<div id="cómo-determinar-que-existe-multicolinealidad" class="section level3" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> Cómo determinar que existe multicolinealidad?</h3>
+<p>Existen varios indicadores para <em>sospechar</em> que existe multicolinealidad:</p>
+<ol style="list-style-type: decimal">
+<li>Una alta correlación en las variables independientes. Esto es posible determinarlo gráficamente a través de una matriz de dispersión (ver por ejemplo <code>?pairs</code> en la consola del <code>R</code>) o utilizando una <a href="https://revistas.usantotomas.edu.co/index.php/estadistica/article/view/1097/1332">prueba de independencia completa</a>.</li>
+<li>Que se rechace la prueba de significancia global pero no todas las pruebas de significancia marginal.</li>
+<li>Que ocurran ambios considerables en <span class="math inline">\(\hat{\mathbf{\beta}}\)</span> cuando se agrega o elimina una variable predictora.</li>
+</ol>
+<p>Para <em>probar que efectivamente</em> existe, podemos usar dos aproximaciones:</p>
+<ol style="list-style-type: decimal">
+<li>El número de condición de la matriz <span class="math inline">\(\mathbf{X}^\prime \mathbf{X}\)</span>. También conocido como <em>I-ll condicion number</em> o ICN, este número mide qué tan “enferma” se encuentra la matriz que debe ser invertida para calcular <span class="math display">\[\hat{\mathbf{\beta}}_{\text{OLS}}\]</span>. El ICN se calcula como</li>
+</ol>
+<p><span class="math display">\[\text{ICN}(\mathbf{X}^\prime\mathbf{X}) = \sqrt{\frac{\lambda_\text{máx}}{\lambda_\text{min}}}
+\]</span></p>
+<p>con <span class="math inline">\(\lambda_\text{máx}\)</span> y <span class="math inline">\(\lambda_\text{min}\)</span> los valores propios máximos y mínimos de <span class="math inline">\(\mathbf{X}^\prime \mathbf{X}\)</span>, obtenidos a partir de la descomposición espectral de dicha matriz.</p>
+
+<div class="rmdtip">
+Decimos que existe multicolinealidad cuando <span class="math inline">\(\text{ICN}(\mathbf{X}^\prime \mathbf{X}) &gt; 30\)</span>. El inconveniente con el ICN es que no nos da información acerca de cuál de las variables independentes es la más multicolineal (o redundante) en el sistema.
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>El factor de inflación de varianza (VIF). A través de este indicador podemos detectar cuál de las variables independientes es la más colineal de las <span class="math inline">\(k\)</span> medidas. Para la <span class="math inline">\(j\)</span>-ésima variable independiente,</li>
+</ol>
+<p><span class="math display">\[\text{VIF}_j = \frac{1}{1-R_j^2}\]</span></p>
+<p>donde <span class="math inline">\(R_j^2\)</span> es el <span class="math inline">\(R^2_\text{adjusted}\)</span> del modelo <span class="math inline">\(x_j\sim x_{-j}\)</span>.</p>
+
+<div class="rmdtip">
+Decimos que la variable <span class="math inline">\(x_j\)</span> es <em>responsable</em> por la multicolineal en el sistema si <span class="math inline">\(\text{VIF}_j &gt; 5\)</span>.
+</div>
+</div>
+</div>
+<div id="selección-de-modelos" class="section level2" number="3.8">
+<h2><span class="header-section-number">3.8</span> Selección de Modelos</h2>
+<div id="método-de-todas-las-regresiones-posibles" class="section level3" number="3.8.1">
+<h3><span class="header-section-number">3.8.1</span> Método de Todas las Regresiones Posibles</h3>
+</div>
+<div id="selección-secuencial" class="section level3" number="3.8.2">
+<h3><span class="header-section-number">3.8.2</span> Selección secuencial</h3>
+<div id="método" class="section level4 unnumbered">
+<h4>Método </h4>
+</div>
+<div id="método-1" class="section level4 unnumbered">
+<h4>Método </h4>
+</div>
+<div id="método-2" class="section level4 unnumbered">
+<h4>Método </h4>
+</div>
+</div>
+</div>
+<div id="ejercicios" class="section level2" number="3.9">
+<h2><span class="header-section-number">3.9</span> Ejercicios</h2>
+<ol style="list-style-type: decimal">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="rls.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="glm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jivelez/book-adii/edit/master/03-rlm.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/jivelez/book-adii/blob/master/03-rlm.Rmd",
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

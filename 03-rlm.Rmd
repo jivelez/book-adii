@@ -1,0 +1,398 @@
+# Regresión Lineal Múltiple{#rlm}
+Como se mencionó en el Capítulo [2](#rls), los modelos de regresión lineal pueden utilizarse para predecir futuros valores de una variable respuesta continua a partir de valores *específicos* de las variables *controlables* del proceso. 
+
+En la práctica, pueden existir múltiples variables controlables en un proceso de producción o de servicios. Por ejemplo, en un proceso de pintura electrostática, puede ser de interés determinar el espesor de la capa de pintura (variable respuesta $y$, en micrones) con la que se recubre una lámina de área determinada, a partir de valores conocidos de la presión de aire (variable $x_1$ en *psi*) y la velocidad de la banda transportadora (variable $x_2$  en m/s) en la que se desplaza dicha lámina.  En este caso, el interés es:
+
+1. Determinar la _magnitud de la influencia_ de las variables $x_1$ y $x_2$ sobre el espesor de capa esperado;
+2. construir una función $f(x_1,x_2)$ que permita predecir el espesor de capa esperado; y 
+3. construir intervalos de confianza y predicción para dicho valor.
+
+Si la variable respuesta $y$ es continua y aproximadamente simétrica, podemos desarrollar 1, 2 y 3 a partir de la estimación de un modelo de regresión lineal. Puesto que el número de variables controlables es $k>1$,  una posibilidad es utilizar el modelo de Regresión Lineal Múltiple (RLM).
+
+## Formulación básica del modelo de RLM
+Matemáticamente, el modelo de RLM puede expresarse como:
+
+\begin{align} \label{mod1}
+y_i &= \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \cdots + \beta_1X_{ki} + \epsilon_i,\\ 
+\epsilon_i &\sim N(0, \sigma^2), \\
+\sigma^2 &= \text{constante}.
+\end{align}
+
+Este modelo es equivalente a
+
+\begin{align} \label{mod2}
+\mathbf{y} &= \mathbf{X}\mathbf{\beta} + \mathbf{\epsilon}
+\end{align}
+
+donde $\mathbf{y} = (y_1,y_2,\ldots,y_n)$ es el vector respuesta, $\mathbf{X} = (\mathbf{1}, \mathbf{x}_1, \mathbf{x}_2,\ldots,\mathbf{x}_k)_{n\times p}$ es la matriz de diseño y $\mathbf{\epsilon} = (\epsilon_1,\epsilon_2,\ldots,\epsilon_n)$ es el error aleatorio. 
+
+
+### Estimación{#estimacion}
+Similar a RLS, la estimación del modelo de RLM se realiza utilizando el método de mínimos cuadrados ordinarios (MCO).
+
+A partir de una muestra aleatoria de tamaño $n$ del proceso de producción, los datos se registran en una estructura rectangular similar a:
+
+<center>
+<img src="images/datastructure.png" width="300" height="250">
+</center>
+
+De esta forma, se tienen $n$ unidades experimentales para cada una de estas se determina el valor de la variable respuesta $y_i$ para condiciones fijas $\mathbf{X}_i$. Por ejemplo, para la quinta unidad experimental, se obtuvo un valor la respuesta de $y_6$ y las variables controlables tomaron valores fijos $(x_{1,6}, x_{2,6}, \ldots, x_{k,6})$.
+
+
+Al igual que en RLS, la estimación del modelo de RLM realiza utilizando MCO. La idea fundamental consiste en minimizar
+
+\begin{eqnarray*}\label{L}
+L &=&\sum_{i=1}^n\epsilon_i^2 = \sum_{i=1}^n(Y_i-\beta_0-\beta_1X_{1,i} -\beta_2X_{2,i} - \ldots -\beta_kX_{k,i} )^2.
+\end{eqnarray*}
+
+Los estimadores de mínimos cuadrados deben satisfacer las siguientes dos condiciones fundamentales:
+
+\begin{eqnarray*}
+  \frac{\partial L}{\partial \beta_0} | _{\hat{\beta}_0,\hat{\beta}_1,\ldots \hat{\beta}_k} &=& -2\sum_{i=1}^n \left(y_i-\hat{\beta}_0-\sum_{j=1}^k{\hat{\beta}_jx_{ij}}\right) = 0   \\ 
+  \frac{\partial L}{\partial \beta_j} | _{\hat{\beta}_0,\hat{\beta}_1,\ldots \hat{\beta}_k} &=& -2\sum_{i=1}^n \left(y_i-\hat{\beta}_0-\sum_{j=1}^k{\hat{\beta}_jx_{ij}}\right)x_{ij} = 0 
+  \end{eqnarray*}
+  
+La solución al sistema de ecuaciones de condiciones fundamentales da origen al sistema de ecuaciones normales de mínimos cuadrados 
+
+<center>
+<img src="images/ecuaciones.png" width="500" height="200">
+</center>
+
+  
+Por lo tanto, las solución de estas ecuaciones permite determinar $\hat{\mathbf{\beta}}$. Es fácil llegar a que el vector de coeficientes estimado para el modelo de RLM puede obtenerse como
+
+$$
+\hat{\mathbf{\beta}} = (\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime \mathbf{y}
+$$
+<!-- donde $\mathbf{X}$ es la matriz de diseño. -->
+
+
+Finalmente, el modelo estimado es $$\hat{y}_i =  \hat{\beta}_0+\sum_{j=1}^k\hat{\beta}_jx_{ij},$$ 
+
+que, matricialmente, puede representarse como 
+
+$$\hat{\mathbf{y}} =  \mathbf{X}\hat{\mathbf{\beta}}$$
+
+A partir del modelo ajustado, un valor específico $y_i$ puede calculase como:
+
+$$\hat{y}_i =  \hat{\beta}_0 + \hat{\beta}_1x_1 + \hat{\beta}_2x_2+\cdots+\hat{\beta}_kx_k$$
+
+Como ilustración, consideremos el siguiente ejemplo:
+
+```{r, eval=FALSE}
+## lectura de datos
+datos <- read.table()
+
+## modelo de RLM
+modelo <- lm()
+
+## resultados
+summary(mod)
+```
+
+
+
+## Propiedades de los estimadores de $\mathbf{\beta}$
+
+Cuando estimamos $\hat{\mathbf{\beta}}$, los cálculos están basados en los resultados obtenidos al tomar una muestra aleatoria de tamaño $n$. Como consecuencia, el valor de los estimadores $\mathbf{\hat{\beta}} = (\hat{\beta}_0, \hat{\beta}_1, \ldots, \hat{\beta}_k)$ cambian si cambiamos la muestra.
+
+Desde el punto de vista formal, los estimadores $\mathbf{\hat{\beta}}$ cumplen con las siguientes propiedades:
+
+1. Los estimadores $\mathbf{\hat\beta}$ son insesgados. Esta propiedad implica que, al aumentar $n$, el valor de los estimadores de $\mathbf{\beta}$ se aproximan a los verdaderos valores de los parámetros. Matemáticamente se tiene que:
+
+\begin{eqnarray}
+E[\mathbf{\hat\beta}] &=& E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{y}]\\\nonumber
+                  &=& E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime(\mathbf{X\beta} + \mathbf{\epsilon})]\\\nonumber
+                  &=& E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{X\beta} + (\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{\epsilon}]\\\nonumber
+                  &=& E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{X\beta}] + E[(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime\mathbf{\epsilon}]\\\nonumber
+                  &=& E[\mathbf\beta] + \mathbf{0} = \mathbf{\beta}\nonumber
+\end{eqnarray}
+
+
+
+2. La varianza de $\hat{\beta}_j$ y la covarianza entre $\hat\beta_{i}$ y $\hat\beta_{j}$ están dadas por:
+
+\begin{eqnarray*}
+V(\hat\beta_{j}) &=& \sigma^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj} \hspace{0.5cm} 0,1,2,\ldots,p;\\
+\text{cov}(\hat\beta_{i}, \hat\beta_{j}) &=& \sigma^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{ij} \hspace{0.5cm} i\neq j.
+\end{eqnarray*}
+
+
+
+Ahora, a partir de $E[\hat{\beta}_j]$ y $V(\hat\beta_{j})$, es posible hacer **inferencia** para el parámetro $\beta_j$, $j=1,2,\ldots,k.$ Sin embargo, observe que $V(\hat\beta_{j})$ depende de $\sigma^2$, la varianza del modelo de RLM. A continuación se muestra cómo se estima dicha cantidad.
+
+
+## Estimación de $\sigma^2$
+ 
+A partir $\mathbf{\hat{\beta}}$, se tiene que
+
+\begin{eqnarray*}\label{L2}
+L &=&\sum_{i=1}^n\hat{\epsilon}_i^2 = \sum_{i=1}^n(Y_i-\hat{Y}_i^2)^2  \\
+  &=&\sum_{i=1}^n(Y_i-\hat{\beta}_0-\hat{\beta}_1X_{1,i} -\hat{\beta}_2X_{2,i} - \cdots -\hat{\beta}_kX_{k,i})^2 \\
+  &=& SSE
+\end{eqnarray*}
+
+Similar a como se observó en RLS, para el caso de RLM se tiene que
+
+$$\hat{\sigma}^2 = \frac{SSE}{n-p} = MSE$$
+
+donde $p = k+1$ es el número de coeficientes del modelo ajustado.
+
+Este resulado indica que la varianza de los errores, también conocida como la **varianza del modelo**, puede estimarse utilizando el MSE. El MSE se obtiene de la tabla ANOVA que tiene la siguiente forma:
+  
+  <center>
+<img src="images/tablaanova.png" width="550" height="120">
+</center>
+
+En RLM, también se cumple la misma relación que en RLS en cuanto que 
+
+$$SST = SSR + SSE $$
+  
+  donde   
+  
+  \begin{eqnarray}
+  SST = \sum_{i=1}^ny_i^2 - \frac{1}{n}\left(\sum_{i=1}^ny_i \right)^2, \hspace{1cm} SSE = \sum_{i=1}^n\hat{\epsilon}_i^2 \\\nonumber
+  \end{eqnarray}
+  
+  Recordemos que, adicional al MSE, a partir de la tabla ANOVA es posible calcular el porcentaje de variabilidad de la respuesta explicado por el modelo de RLM, también conocido como **coeficiente de determinación** o, simplemente, como $R^2$:
+  
+  $$R^2 = SSR/SST = 1 - SSE/SST$$
+  
+  Puesto que $R^2$ incrementa a medida que el número de variables aumenta, en RLM es preferible usar 
+  
+  $$R^2_{\text{ajustado}} = 1 - \frac{SSE/(n-p)}{SST/(n-1)}$$
+
+ 
+ 
+
+
+## Inferencia para $\mathbf{\beta}$
+
+Uno de los propósitos de la **inferencia estadística** es determinar el valor de los verdaderos parámetros de una población a partir de los resultados obtenidos en una muestra. En este caso, los parámetros poblacionales son $\mathbf{{\beta}} = (\beta_0, \beta_1, \ldots, \beta_k)$, además de $\sigma^2$.
+
+Con los valores muestrales, podemos construir pruebas de hipótesis de dos tipos para los parámetros del modelo de RLM:
+
+### Prueba de significancia global 
+Esta prueba se utiliza para determinar la **significancia total** del modelo, es decir, para detemrinar si incluir las variables controlables en el modelo de regresión es mejor que no incluirlas para explicar la respuesta $Y$. La idea fundamental es determinar si, en la población, 
+
+\begin{eqnarray}
+  H_0&:& \beta_1=\beta_2=\cdots\beta_k=0 \\\nonumber
+  H_1&:& \text{Al menos un $\beta_j \neq 0$}\nonumber
+  \end{eqnarray}  
+
+Este procedimiento de prueba de hipótesis se realiza a
+través de la tabla de ANOVA utilizando el estadístico $F$ dado por
+
+$$F_0 =  = \frac{SSR/k}{SSE/(n-p)} = \frac{MSR}{MSE} \sim F_{k, n-p}$$
+  
+Rechazamos $H_0: \beta_1=\beta_2=\cdots\beta_k=0$ si $F_0 > F_{\alpha,k,n-p}$, donde $\alpha\in(0,1)$ es un nivel de significancia predeterminado. Cuando esto ocurre, concluimos que al menos un $\beta_j$ es estad\'isticamente significativo al $100(1-\alpha)\%$.
+  
+  
+### Prueba de significancia marginal 
+Esta prueba se realiza si rechazamos la prueba de significancia global. Lo que intentamos hacer es determinar si, a nivel poblacional, los coeficientes asociados a cada $x_j$ son o diferentes de cero. Esto es equivalente a probar:
+
+  \begin{eqnarray*}
+  H_0&:& \beta_j=0 \\\nonumber
+  H_1&:& \beta_j \neq 0\nonumber
+  \end{eqnarray*}  
+  
+Para $j$ fijo, el estadístico de prueba es
+
+$$t_j = \frac{\hat{\beta}_j - 0}{\text{s.e.}(\hat\beta_j)} = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj}}}\sim t_{n-p}$$
+
+Por lo tanto, rechazamos $H_0$ con un nivel de significancia de $100\times(1-\alpha)\%$ si $|t_j| > t_{\alpha/2, n-p}$. 
+
+
+### Intervalos de confianza para $\beta_j$
+
+Otra forma de realizar inferencia para $\mathbf{\beta}$ es a través de la construcción de intervalos de confianza del $100\times(1-\alpha)100\%$. Es fácil mostrar que, para $j$ fijo,
+  
+  \begin{equation}\label{eq:icbeta}
+  \beta_j\in \left( \hat{\beta}_j - t_{\alpha/2, n-p} \sqrt{\hat{\sigma}^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj}}, \hat{\beta}_j + t_{\alpha/2, n-p} \sqrt{\hat{\sigma}^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj}} \right)
+  \end{equation}
+  
+  Otra alternativa para construir intervalos de confianza es  es vía \structure{\textit{bootstrap}} o \structure{\textit{likelihood profiling}}. Finalmente concluimos, con un nivel de confianza del $100\times(1-\alpha)\%$, que $\beta_j$ está en el intervalo anterior.
+  
+
+## Inferencia para $E[\mathbf{Y}|\mathbf{x}_0]$
+
+```{block2, type='rmdwarning'}
+El modelo de RLM ajustado puede utilizarse para predecir $E[\mathbf{Y}|\mathbf{x}_0]$ sólo si se validan **todos los supuestos**. Para más detalles ver [Análisis de Residuales](#residuales)
+```
+
+
+### Intervalos de confianza para $E[\mathbf{Y}|\mathbf{x}_0]$
+
+A partir del modelo ajustado y para valores fijos de las variables controlables, digamos $\mathbf{x}_0$, se tiene que 
+ \begin{eqnarray}
+ \hat{\mu}_{\mathbf{Y} | \mathbf{x}_0} &=& \hat{E[\mathbf{Y} | \mathbf{x}_0]} = \mathbf{x}_0^\prime\hat{\mathbf{\beta}} \\\nonumber
+ V[\hat{\mu}_{\mathbf{Y} | \mathbf{x}_0}] &=& \hat{\sigma}^2\mathbf{x}_0^\prime(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{x}_0
+ \end{eqnarray}
+
+Finalmente, el intervalo de confianza del $100\times(1-\alpha)\%$ puede calcularse como
+
+ \begin{eqnarray}
+ \hat{\mu}_{\mathbf{Y} | \mathbf{x}_0} \pm t_{\alpha/2,n-p}\sqrt{\hat{\sigma}^2\mathbf{x}_0^\prime(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{x}_0}
+ \end{eqnarray}
+
+
+### Intervalos de predicción para $E[\mathbf{Y}|\mathbf{x}_0]$
+
+Sea $\hat{y}_0 =  \hat{\mu}_{\mathbf{Y} | \mathbf{x}_0}$, donde $\mathbf{x}_0$ es el vector de covariables *futuro*.  Un intervalo de predicción del $100\times(1-\alpha)\%$ para $Y_0$ está dado por:
+
+ \begin{eqnarray}
+ \hat{y}_0 \pm t_{\alpha/2,n-p}\sqrt{\hat{\sigma}^2(1 + \mathbf{x}_0^\prime(\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{x}_0)}
+ \end{eqnarray}
+ 
+Otra posibilidad para construir dicho intervalo es vía *bootstrap*. Observe que lo único que cambia en este intervalo en relación con el intervalo de confianza es la varianza de $Y_0$ $-$ existe más incertidumbre. Observe que en el intervalo de predicción estamos interesados en $Y_0 | \mathbf{x}_0$ y no $\hat{\mu}_{\mathbf{Y} | \mathbf{x}_0}$.
+
+
+## Análisis de Residuales
+El análisis de residuales en RLM es fundamental para:
+
+1. Validar los supuestos del error;
+2. identicar observaciones \textit{outlier}; e
+3. identificar observaciones influenciales.
+
+### Validación de supuestos
+La validación de los supestos del error en el modelo de RLM se realiza de manera similar a como se mostró para el modelo de RLS. Para más detalles, ver  [Análisis de Residuales](#residuales). 
+
+### Identificación de *outliers*
+Los  *outliers* son también conocidos como observaciones atípicas en los datos. Con los resultados del modelo ajustado, procedemos a calcular:
+
+1. Residuales *crudos*
+	$$\hat{\epsilon}_i = y_i - \hat{y}_i$$
+	
+2. Residuales *estandarizados*
+	$$d_i = \frac{\hat{\epsilon}_i}{\sqrt{\hat{\sigma}^2}} = \frac{\hat{\epsilon}_i}{\sqrt{\text{MSE}}} $$
+	
+3. Residuales *estudentizados*
+$$r_i = \frac{\hat{\epsilon}_i}{\sqrt{\hat{\sigma}^2(1-h_{ii})}} = \frac{\hat{\epsilon}_i}{\sqrt{\text{MSE}(1-h_{ii})}}$$
+
+	donde $h_{ii} = \mathbf{X}(\mathbf{X^\prime\mathbf{X}})^{-1}\mathbf{X}^\prime_{ii}$ y $\mathbf{X}(\mathbf{X^\prime\mathbf{X}})^{-1}\mathbf{X}$ denominada la [matriz *hat*](https://en.wikipedia.org/wiki/Projection_matrix).
+
+
+
+
+```{block2, type='rmdtip'}
+La mejor manera de identificar *outliers* es a partir del cálculo de los residuales estudentizados. Decimos que la $i$-ésima observación **es** un *outlier* si $r_i\notin (-3, 3)$.
+```
+
+### Identificación de observaciones influenciales
+
+En ciertas ocasiones encontramos observaciones que lucen algo 'anormales'. Por lo tanto, es importante determinar si estas son *influenciales* o no. 
+
+A diferencia de los *outliers*, las observaciones influenciales 'controlan' el modelo y por ello es importate determinar si el modelo ajustado es consistente cuando estas se remueven. 
+
+La identificación de este tipo de observaciones se realiza utilizando la [*Distancia de Cook*](https://www.jstor.org/stable/1268249?seq=1#metadata_info_tab_contents). Para la $i$-ésima observación, esta distancia se calcula como 
+
+$$	D_i = \frac{r_i^2}{p}\frac{h_{ii}}{(1-h_{ii})} = \frac{\hat{\epsilon}_i^2 \,h_{ii}}{p\,\hat{\sigma}^2(1-h_{ii})^2}$$
+
+donde $p$ es el número de variables controlables incluídas en el modelo.
+
+
+```{block2, type='rmdtip'}
+Usualmente, observaciones en las que $D_i>1$ decimos que la $i$-ésima observacion **es influencial**. Sin embargo, se también se recomienda revisar las observaciones con $D_i>\frac{4}{n}$ y $D_i>\frac{4}{n-k-1}$. Éste último criterio es el utilizado por la función `cooks.distance()` del `R`.
+```
+
+
+## Análisis de Multicolinealidad
+Cuando se utiliza el modelo de RLM, se asume que las variables controlables $X_1, X_2,\ldots,X_k$ son independientes. Desde el punto de vista práctico, esto tiene consideraciones importantes puesto que permite evaluar la magnitud del efecto de sobre $\widehat{E[Y]}$ cuando modificamos, en una unidad, digamos $x_j$, mientras se mantienen el resto de ellas constantes. Este efecto corresponde, sin duda, a $\hat{\beta}_j$. Sin embargo, cuando estas variables controlables **no** son independientes, este efecto *no* puede calcularse de la misma forma.
+
+```{block2, type='rmdtip'}
+Buscamos modelos en los que las covariables estén altamente correlacionadas con la respuesta, pero mínimamente entre ellas.
+```
+
+Desde el punto de vista teórico, la existencia de *no* independencia en las variables controlables tiene consecuencias importantes sobre los estimadores de los parámetros del modelo dados por $\mathbf{\beta} = (\beta_0, \beta_1, \beta_2, \ldots, \beta_k)$. Cuando se usa el [método de mínimos cuadrados](#estimacion), los estimadores de $\mathbf{\beta}$ están dados por:
+
+$$
+\hat{\mathbf{\beta}}_{\text{OLS}} = (\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime \mathbf{y}
+$$
+
+
+La existencia de multicolinealidad es sinónimo de que no existe independencia en las variables controlables del modelo. Si esto es cierto, las columnas de la matriz de diseño $\mathbf{X}$ no son independientes, es decir, que la columna $x_j$ puede expresarse como una combinación lineal de las demás. Matemáticamente, esto es equivalente a escribir $x_j \sim x_{-j}$ para algún $j$. Por ejemplo, para $j=1$ tendríamos
+
+$$
+x_1 \sim x_2 + x_3 + \cdots + x_k.
+$$
+
+Esta expresión indica que la variable independiente/controlable $x_1$ puede escribirse como una combinación lineal de las demás variables controlables. O, en otras palabras, que la información contenida en $x_1$ puede explicarse por las demás variables controlables medidas en el proceso durante la etapa de muestreo. 
+
+```{block2, type='rmdtip'}
+Una manera de interpretar la multicolinealidad es como sinónimo de **redundancia**. Esta redundancia se refiere a que existen variables controlables en el proceso de producción que contienen la misma *información* que las demás. Por lo tanto, basta con medir sólo aquellas que realmente determinan dicho proceso.
+```
+
+En la expresión de $\hat{\mathbf{\beta}}_{\text{OLS}}$, el término $(\mathbf{X}^\prime\mathbf{X})^{-1}$ se refiere a la inversa de $\mathbf{X}^\prime\mathbf{X}$. Si existe multicolinealidad, 
+
+$$
+\text{det}(\mathbf{X}^\prime \mathbf{X}) \approx 0 \quad \rightarrow \quad  \frac{1}{|\mathbf{X}^\prime \mathbf{X}|} \rightarrow\infty
+$$
+
+Por lo tanto, 
+
+$$
+\hat{\mathbf{\beta}}_{\text{OLS}} \rightarrow \infty
+$$
+
+
+### Cómo determinar que existe multicolinealidad?
+
+Existen varios indicadores para *sospechar* que existe multicolinealidad:
+
+1. Una alta correlación en las variables independientes. Esto es posible determinarlo gráficamente a través de una matriz de dispersión (ver por ejemplo `?pairs` en la consola del `R`) o utilizando una [prueba de independencia completa](https://revistas.usantotomas.edu.co/index.php/estadistica/article/view/1097/1332).
+2. Que se rechace la prueba de significancia global pero no todas las pruebas de significancia marginal.
+3. Que ocurran ambios considerables en $\hat{\mathbf{\beta}}$ cuando se agrega o elimina una variable predictora.
+
+Para *probar que efectivamente* existe, podemos usar dos aproximaciones:
+
+1. El número de condición de la matriz $\mathbf{X}^\prime \mathbf{X}$. También conocido como *I-ll condicion number* o ICN, este número mide qué tan "enferma" se encuentra la matriz que debe ser invertida para calcular $$\hat{\mathbf{\beta}}_{\text{OLS}}$$. El ICN se calcula como
+
+
+$$\text{ICN}(\mathbf{X}^\prime\mathbf{X}) = \sqrt{\frac{\lambda_\text{máx}}{\lambda_\text{min}}}
+$$
+
+con  $\lambda_\text{máx}$ y $\lambda_\text{min}$ los valores propios máximos y mínimos de $\mathbf{X}^\prime \mathbf{X}$, obtenidos a partir de la descomposición espectral de dicha matriz.
+
+```{block2, type='rmdtip'}
+Decimos que existe multicolinealidad cuando $\text{ICN}(\mathbf{X}^\prime \mathbf{X}) > 30$. El inconveniente con el ICN es que no nos da información acerca de cuál de las variables independentes es la más multicolineal (o redundante) en el sistema. 
+```
+
+2. El factor de inflación de varianza (VIF). A través de este indicador podemos detectar cuál de las variables independientes es la más colineal de las $k$ medidas. Para la $j$-ésima variable independiente,
+
+$$\text{VIF}_j = \frac{1}{1-R_j^2}$$
+
+donde $R_j^2$ es el $R^2_\text{adjusted}$ del modelo $x_j\sim x_{-j}$.
+
+```{block2, type='rmdtip'}
+Decimos que la variable $x_j$ es _responsable_ por la multicolineal en el sistema si $\text{VIF}_j > 5$.
+```
+
+
+## Selección de Modelos
+
+### Método de Todas las Regresiones Posibles
+
+
+
+
+### Selección secuencial
+
+#### Método \textit{stepwise}{-}
+
+#### Método \textit{forward}{-}
+
+#### Método \textit{backward}{-}
+
+
+## Ejercicios
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+

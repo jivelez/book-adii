@@ -1,0 +1,35 @@
+# Modelos de Regresión Avanzados{#glm}
+
+Here is a review of existing methods.
+
+## Regresión No Lineal
+
+### Ejercicios
+1.
+2.
+3.
+4.
+5.
+
+## Regresión Logística
+
+### Ejercicios
+1.
+2.
+3.
+4.
+5.
+
+## Regresión Poisson
+
+### Variaciones
+Aunque no hace parte del contenido del curso, el modelo de Regresión Poisson tiene algunas variaciones. El tipo de model
+
+
+### Ejercicios
+1.
+2.
+3.
+4.
+5.
+

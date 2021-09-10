@@ -1,0 +1,748 @@
+# Regresión Lineal Simple{#rls}
+Diariamente, en muchos procesos productivos se controlan las condiciones de operación de un sistema y es de interés determinar cómo una variable de interés cambia dependiendo de dichas condiciones.  Por ejemplo, en un proceso de embutido de procesos cárnicos, es común encontrar que para ello se utilice una máquina que opera a cierta velocidad y a cierta temperatura,  y que la cantidad de producto empacado (en gramos, por ejemplo) depende de dichas condiciones de operación. 
+
+En la práctica, por supuesto, es fundamental
+
+1. Entender la relación entre la velocidad y la temperatura de operación;
+2. Garantizar que la cantidad de producto empacado cumpla con las especificaciones del proceso y/o del cliente;
+3. Determinar las condiciones óptimas de operación que minimizan los costos asociados y, posiblemente, los desperdicios de producto.
+
+
+Los Modelos de Regresión Lineal son ampliamente utilizados en la práctica ingenieril cuando, en un proceso productivo como el anterior,  se quiere dar respuesta los numerales 1, 2 y 3. En un sentido menos amplio, los modelos de regresión lineal se utilizan para *predecir* futuros valores de una variable respuesta para valores valores *específicos* de las variables *controlables* del proceso. 
+
+```{block2, type='rmdnote'}
+Por **variable controlable** entendemos aquellas variables de proceso que pueden medirse fácilmente y se mantienen *fijas* durante la operación. 
+```
+
+Los Modelos de Regresión Lineal pueden dividirse en _Modelo de Regresión Lineal Simple_ (RLS) y  _Modelo de Regresión Lineal Múltiple_ (RLM). 
+
+
+```{block2, type='rmdnote'}
+1. Cuando se tiene **sólo una** variable controlable, digamos $x$, hablamos de RLS.
+2. Cuando se tienen **más de una variable controlable**, digamos $x_1, x_2, \ldots, x_k$, hablamos de RLM. En el caso de proceso de embutidos, $x_1 = \text{velocidad}$  y $x_2 = \text{temperatura}$.
+```
+
+## Formulación básica del modelo de RLS
+El modelo de RLS surge ante la necesidad de *predecir* una variable respuesta $Y$, generalmente continua, como función de una variable *controlable* $X$. 
+
+Matemáticamente el modelo puede expresarse como:
+
+\begin{align} \label{mod1}
+Y_i &= \beta_0 + \beta_1X_i + \epsilon_i,\\ 
+\epsilon_i &\sim N(0, \sigma^2), \\
+\sigma^2 &= \text{constante}.
+\end{align}
+
+En la práctica, se tiene o toma una muestra aleatoria de tamaño $n$ de una población o proceso de producción/servicios, y se quieren estimar, a partir de dicha muestra, el valor de  $(\beta_0, \beta_1, \sigma^2$), conocidos como los **parámetros** del modelo. Los términos $(\beta_0, \beta_1)$ corresponden a los **coeficientes del modelo**, mientras $\sigma^2$ es **la varianza**.
+
+Consideremos por ejemplo los siguientes datos:
+
+```{r}
+## lectura de datos en URL
+file <- "https://raw.githubusercontent.com/fhernanb/datos/master/propelente"
+datos <- read.table(file = file, header = TRUE)
+
+## primeras 6 filas de los datos
+head(datos) 
+```
+
+Ahora, utilicemos `R` para realizar una gráfico de dispersión:
+
+```{r}
+## gráfico de dispersión
+with(datos, plot(Edad, Resistencia, las = 1))
+```
+
+De la figura se concluye que, aparentemente, cuanto mayor sea la `Edad` de la soldadura _menor_ será su `Resistencia`. Por lo tanto, decimos que la relación entre `Edad` y `Resistencia` es _inversamente proporcional_.
+
+```{block2, type='rmdwarning'}
+Una forma de establecer si existe una *posible* relación entre $X$ y $Y$ es 
+
+1. Calculando el coeficiente de correlación lineal muestral;
+2. Haciendo un gráfico de dispersión.
+```
+
+Recordemos que el **coeficiente de correlación** $\rho$ entre dos variables aleatorias $X$ e $Y$ determina la relación lineal que existe entre estas dos variables. A partir de los datos, dicho coeficiente puede calcularse como
+
+$$\hat{\rho}_{XY} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\sum_{i=1}^n{(x_i-\bar{x})(y_i-\bar{y})}}{\sqrt{\sum_{i=1}^n{(x_i-\bar{x})^2}\sum_{i=1}^n{(y_i-\bar{y})^2}}}$$
+
+```{block2, type='rmdwarning'}
+El coeficiente de correlación muestral $-1\leq \hat{\rho}_{XY} \leq 1$ determina el grado de relación **lineal** entre las variables $X$ y $Y$.
+
+*  $\hat{\rho}_{XY} \approx -1$ indica $X$ y $Y$ tienen una *relación lineal inversa*, es decir, que cuando $X$ aumenta, la variable $Y$ disminuye.
+*  $\hat{\rho}_{XY} \approx 0$ indica que **no existe** una relación lineal entre $X$ y $Y$. Sin embargo, este resultado no es suficiente para descartar que exista otro tipo de relación (por ejemplo cuadrática o cúbica) entre las dos variables.
+*  $\hat{\rho}_{XY} \approx 1$ indica $X$ y $Y$ tienen una *relación lineal positiva*, es decir, que cuando $X$ aumenta, la variable $Y$ también.
+```
+
+Con los datos del ejemplo, se tiene entonces que:
+
+```{r}
+## coeficiente de correlación
+with(datos, cor(Edad, Resistencia))
+```
+A la luz de estos resultados concluimos que, en definitiva, la relación entre la `Edad` de la soldadura y su `Resistencia` es _inversamente proporcional_.
+
+
+## Estimación {#minimos}
+
+Para estimar el modelo de RLS, se requiere una muestra aleatoria de tamaño $n$ de una población. Esta muestra puede corresponder a observaciones específicas de un proceso de producción/servicios. Por lo general, los datos para $n$ unidades experimentales de dicho proceso están constituidos por los pares  $$(x_1,y_1),(x_2,y_2),(x_3, y_3),\ldots,(x_n,y_n).$$
+
+En nuestro ejemplo, los datos se organizan de la siguiente forma:
+
+```{r}
+## muestra los primeros 10 pares de datos
+head(datos, 10)
+```
+En estos datos, el tamaño de muestra es 
+
+```{r}
+## número total de observaciones
+NROW(datos) 
+```
+
+Usualmente, el modelo de RLS puede estimarse utilizando el método de [mínimos cuadrados](#minimos). A partir del modelo ajustado es posible **predicir el valor esperado** de $Y$ para valores **conocidos** de $X$, es decir, calcular $\widehat{E[Y|X=x_0]}$, donde $x_0$ es un **valor conocido** del factor controlable $X$. Adicionalmente, podemos calcular intervalos de confianza e intervalos de predicción para $\widehat{E[Y|X=x_0]}$.
+
+Observe que para un valor específico de $X$, digamos $x_i$, se tiene el valor correspondiente de $Y$ es $y_i$. En otras palabras, la $i$-ésima unidad experimental se produjo cuando $X = x_i$ y que, bajo estas condiciones, se obtuvo que $Y = y_i$.
+
+
+La estimación de los parámetros $(\beta_0, \beta_1,\sigma^2)$ se realiza utilizando el **Método de Mínimos Cuadrados Ordinarios**, también conocido como MCO.  La idea fundamental es minizar la expresión
+
+\begin{eqnarray*}
+L &=&\sum_{i=1}^n\epsilon_i^2 = \sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2.
+\end{eqnarray*}
+
+Para encontrar los estimadores de $\beta_0$ y $\beta_1$ derivamos parcialmente e igualamos a cero las expresiones resultantes, esto es
+
+$$\frac{\partial L}{\partial \beta_0}=0, \hspace{1cm} \frac{\partial L}{\partial \beta_1}=0.$$
+
+Los estimadores $\beta_0$ y $\beta_1$ están dados por
+
+\begin{align}
+\widehat{\beta}_0&=\overline{Y}-\widehat{\beta}_1\overline{X}, \\ \widehat{\beta}_1&=\frac{S_{xy}}{S_{x}}
+\end{align}
+
+donde 
+
+$$
+S_{x} = \sum_{i=1}^nx_i^2 - \frac{1}{n}\left(\sum_{i=1}^n x_i\right)^2 \quad\text{y}\quad
+S_{xy} = \sum_{i=1}^nx_iy_i - n\frac{1}{n}\sum_{i=1}^n x_i\sum_{i=1}^n y_i.
+$$
+
+
+
+Finalmente, 
+
+\begin{align}
+\hat{\sigma}^2 &= \frac{L}{n-1} \\ &=\frac{1}{n-1}\sum_{i=1}^n\hat{\epsilon}_i^2 \\ &=\frac{1}{n-1}\sum_{i=1}^n(y_i-\hat{y}_i)^2 \\ &=\frac{1}{n-1}\sum_{i=1}^n(y_i-\hat{\beta}_0-\hat{\beta}_1X_i)^2
+\end{align}
+
+
+A partir de estas expresiones, se llega a que el modelo de RLS estimado es
+
+\begin{align} 
+\widehat{Y}_i &= \hat{\beta}_0 + \hat{\beta}_1X_i,\\ 
+\epsilon_i &\sim N(0, \hat{\sigma}^2), \\
+\hat{\sigma}^2 &= \text{constante}.
+\end{align}
+
+Otra forma de escribirlo es
+
+\begin{align} 
+\widehat{Y}_i &\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\
+\hat{\mu}_i &= \hat{\beta}_0 + \hat{\beta}_1X_i.
+\end{align}
+
+```{block2, type='rmdtip'}
+En la práctica, $\widehat{\beta}_1$ se interpreta como **el cambio unitario** sobre el valor esperado de $Y$, $E[Y|X]$, por cada cambio unitario del **factor controlable** $X$.
+```
+
+En `R` podemos el siguiente conjunto de instrucciones para estimar el modelo de RLS para los datos de las soldaduras:
+
+```{r}
+## ajuste del modelo de RLS
+modelo <- lm(Resistencia ~ Edad, data = datos)
+
+## reportamos sólo los coeficientes
+modelo
+```
+Los resultados muestran los valores de  $\widehat{\beta}_0$ y  $\widehat{\beta}_1$, por lo que $\widehat{\beta}_0 = 2627.82$ y  $\widehat{\beta}_1 = -37.15$.
+
+
+Por lo tanto, el modelo de RLS ajustado está dado por 
+
+
+\begin{align}
+\widehat{\text{Resistencia}}_i &= 2627.82 -37.15\,\text{Edad}_i ,\\ 
+\epsilon_i &\sim N(0, \sigma^2), \\
+\sigma^2 &= \text{constante}.
+\end{align}
+
+```{block2, type='rmdnote'}
+Cómo interpretamos $\widehat{\beta}_0$ y  $\widehat{\beta}_1$?
+  
+1. Se espera que, por cada semana que transcurre, la resistencia de la soldadura disminuya $37.15$ psi.
+2. Una soldadura _nueva_ $(\text{Edad} = 0)$ iene una resistencia promedio de $2627.82$ psi
+```
+
+Observe que aún no tenemos el valor estimado de $\sigma$. Este parámetro del modelo de RLS puede obtenerse a partir de la Tabla ANOVA que describiremos a continuación.
+
+
+## Tabla ANOVA y medidas de desempeño
+La tabla de análisis de varianza, también conocida como tabla ANOVA, es útil para 
+
+1. estimar la varianza del modelo de RLS, $\sigma^2$;
+2. calcular el coeficiente de determinación $R^2$;
+3. validar los supuestos del modelo y verificar la bondad de ajuste del modelo.
+
+En el modelo de RLS, la **varianza** total de la respuesta puede descomponerse como
+
+$$SST = SSR + SSE$$
+donde 
+
+\begin{align} 
+SSR &= \text{ varianza atribuible al factor controlable } x\\
+SSE &= \text{ varianza atribuible a factores no controlables} 
+\end{align}
+
+
+```{block2, type='rmdwarning'}
+Usualmente, el término $SSR$ se refiere a cuánto de la varianza observada en $Y$ puede ser **explicada por el factor controlable** $x$. Por otro lado, el término $SSE$ corresponde a cuánto de la varianza de $Y$ puede explicarse a través de otros factores que, desafortunadamente, **no fueron controlados ni medidos** durante la toma de la muestra.  Si el modelo es suficientemente bueno, $SSE\rightarrow 0$.
+```
+
+A partir de la muestra, 
+
+\begin{align}
+SST &= \sum_{i=1}^n(y_i-\bar{y})^2, \\
+SSR &= \sum_{i=1}^n(\hat{y}_i-\bar{y})^2=\widehat{\beta}_1S_{xy}, \\ 
+SSE &= L = \sum_{i=1}^n\widehat{\epsilon}_i^2 = \sum_{i=1}^n(y_i-\hat{y}_i)^2 \\
+\widehat{y}_i &= \widehat{\beta}_0-\widehat{\beta}1X_i \\
+\bar{y}_i &=\frac{1}{n}\sum_{i=1}^ny_i
+\end{align}
+
+
+### Estimación de $\sigma^2${-}
+A partir de los resultados una vez es estima el modelo, 
+
+$$\widehat{\sigma}^2 = \frac{L}{n-1} = \frac{SSE}{n-1} = MSE$$
+
+El término $MSE$ o *Mean Squared Error*, se obtiene de la tabla ANOVA. Al igual a como ocurre con el $SSE$, el $MSE\rightarrow 0$ para un modelo de RLS **ideal**. Aunque esto es deseable, es difícilmente observable en la práctica debido a las innumerables fuentes de variabilidad de los procesos de producción y de servicios. 
+
+En `R`, podemos utilizar la función `summary()` sobre el objeto que contiene el modelo ajustado para obtener el valor de $\hat{\sigma}^2$:
+
+```{r}
+## reporte completo del objeto 'modelo'
+summary(modelo)
+```
+
+Con estos resultados se concluye que $\hat{\sigma} = 96.11$. Por lo tanto, el modelo complejo ajustado puede expresarse como
+
+
+\begin{align}
+\widehat{\text{Resistencia}}_i &\sim N(\hat{\mu}_i, \hat{\sigma}^2),\\ \hat{\mu}_i &\sim 2627.82 - 37.15\,\text{Edad}, \\
+\sigma^2 &= 96.11^2 = 9237.13.
+\end{align}
+
+### Inferencia para $\sigma^2${-}
+A partir $\widehat{\sigma}^2$ es posible probar si
+
+\begin{align}
+H_0: \sigma^2 = \sigma^2_0 \\
+H_1: \sigma^2 \neq \sigma^2_0
+\end{align}
+
+donde $\sigma^2_0 > 0$ es un valor específico para $\sigma^2$.
+
+El resultado básico es
+
+$$\frac{(n-2)\,\widehat{\sigma}^2}{\sigma^2}\sim \chi^2_{n-2} $$
+Así, un intervalo de confianza del $(1-\alpha)100\%$ para $\sigma^2$ está dado por:
+
+$$\sigma^2 \in (a, b)$$
+donde 
+
+$$a = \frac{(n-2)\,\widehat{\sigma}^2}{\chi^2_{\alpha/2,n-2}}, \quad \quad b = \frac{(n-2)\widehat{\sigma}^2}{\chi^2_{1-\alpha/2,n-2}}
+$$
+
+Finalmente, diremos que $\sigma^2 \neq \sigma^2_0$ si el valor $\sigma^2_0$ **no se encuentra** en el intervalo $(a,b)$.
+
+
+En `R` todo este procedimiento puede hacerse de la siguiente manera:
+
+```{r}
+## intervalo de confianza para sigma^2
+alpha <- 0.05
+resultados <- summary(modelo)
+sigma <- resultados$sigma
+df <- resultados$df[2]
+lower_limit <- df*sigma^2/qchisq(alpha/2, df)
+upper_limit <- df*sigma^2/qchisq(1-alpha/2, df)
+data.frame(lower_limit, sigma2_hat =sigma^2, upper_limit)
+```
+
+Finalmente, con una confianza del 95\%, $\sigma^2 \in(20199.2, 5273.52)$. 
+
+Para obtener un intervalo de confianza del 95\% para $\sigma$, basta calcular la raíz cuadrada de estos límites. Por lo tanto, $\sigma \in(142.12, 72.62)$.
+
+
+
+### Coeficiente de determinación $R^2${-}
+En el modelo de RLS, una de las medidas más utilizadas para evaluar su desempeño o ajuste es el coeficiente de determinación $R^2$. Matemáticamente, el $R^2$ puede calcularse como
+
+$$R^2 = \widehat{\rho}_{XY}^2,$$
+
+donde $\widehat{\rho}_{XY}$ es el coeficiente de correlación muestral entre $X$ e $Y$, es un indicador de la calidad del modelo. En nuestro caso, una forma de hacerlo en  `R` es
+
+```{r}
+## coeficiente de determinación
+rho_est <- with(datos, cor(Resistencia, Edad))
+rho_est^2
+```
+
+
+```{block2, type='rmdtip'}
+En la práctica, el $R^2$ puede interpretarse como **el porcentaje de variabilidad total** de la respuesta $Y$ que puede ser explicado por el modelo de RLS. 
+```
+
+Utilizando el objeto en `R` que contiene el modelo ajustado, podemos hacer
+
+```{r}
+## obtención del R^2 a partir de un objeto lm
+summary(modelo)$r.squared    
+```
+
+para obtener el coeficiente de determinación.  Por lo tanto, podemos concluir, con base en nuestro modelo estimado de RLS, que la `Edad` de la soldadura explica alrededor del 91% de la varabilidad total de la `Resistencia`.
+
+
+
+
+A partir de esta definición y los valores de $SST$, $SSR$ y $SSE$ es fácil llegar a que
+
+$$R^2 = 1-\frac{SSE}{SST}$$
+Técnicamente, $0\leq R^2 \leq 1$, donde $R^2 \rightarrow 0$ y $R^2 \rightarrow 1$ representan modelos de RLS con desempeños deficientes e ideales, respectivamente. Sin embargo, en el Capítulo [3](#rlm) estudiaremos otras medidas que nos permiten determinar si nuestro modelo es lo suficientemente bueno. Al final, el objetivo es seleccionar **el mejor modelo** de regresión que nos permite explicar, correctamente, una variable respuesta de interés en función de una o más variables explicativas o controlables.
+
+
+### Validación del modelo de RLS{-}
+Al utilizar RLS queremos estar seguros de que el modelo ajustado es **considerablemente mejor** que no tener dicho modelo. Esto equivale a determinar si la contribución del factor controlable $X$ para predecir $E[Y|X=x_0]$ es sustancial. Formalmente, esto equivale a realizar una **prueba de significancia global**.
+
+```{block2, type='rmdtip'}
+La prueba de significancia global puede realizarse de dos maneras en RLS: 
+
+1. Utilizando los resultados de la tabla ANOVA;
+2. A través de un procedimiento de pruebas de hipótesis basado en la distribución $t$ de Student. 
+```
+
+En términos generales, la prueba de significancia global  equivale a probar
+
+$$
+\begin{split}
+&H_0: \beta_1 = 0 \\
+&H_A: \beta_1 \neq0 
+\end{split}
+$$
+
+Cuando utilizamos **la tabla ANOVA**, el estadístico de prueba es 
+
+$$F_\text{calculado} = \frac{MSR}{MSE} = \frac{SSR}{SSE/(n-2)}$$
+
+```{block2, type='rmdtip'}
+El estadístico $F_\text{calculado}$ contrasta qué tanto de la varianza de $Y$ puede explicarse con el factor controlable $X$ versus los factores incontrolables del proceso.
+  
+* $F_\text{calculado} <<< 1$ indica que los **factores incontrolables** explican más que el **factor controlable** $X$. Si este fuera el caso, deberíamos explorar otro factor $X$ para explicar $Y$.
+* Cuando $F_\text{calculado} \approx 1$, la varianza de $Y$ explicada por el **factor controlable** y  los **factores incontrolables** es similar. En esta situación, lo mejor es explorar otro factor $X$ para explicar $Y$.
+* Cuando $F_\text{calculado} >>> 1$ concluimos que la variabilidad de la respuesta puede ser explicada mayormente por el **factor controlable** que por aquellos **factores incontrolables*.  Este es el caso ideal.
+```
+
+Bajo $H_0$, el estadístico $F_\text{calculado}\sim F_{1,n-2}$. Para un nivel de significancia $\alpha \in (0,1)$, rechazamos $H_0$ si
+
+1. $F_\text{calculado} >  F_{1-\alpha,1,n-1}$, donde $F_{\alpha/2,1,n-2}$ es el percentil $1-\alpha$ de una distribución $F$ con 1 y $n-2$ grados de libertad. En `R`, estos percentiles pueden calcularse utilizando la función `qf`. Por ejemplo, $F_{0.95,1,n-1}$ es `r round(qf(.95, 1, 49), 2)` y se obtiene como `qf(0.95, 1, 49)`.
+
+
+2. El valor $p$, calculado como $p=P(F_{1,n-1}>F_\text{calculado})$, es **menor** que $\alpha$. Por ejemplo, si $F_\text{calculado} = 7.34$, el valor $p$ para $n=49$ será `r round(pf(7.34, 1, 49, lower.tail = FALSE), 3)`. Este valor se obtiene con la función `pf()` haciendo `pf(7.34, 1, 49, lower.tail = FALSE)`
+
+
+La prueba de significancia global se realiza de manera automática cuando empleamos usamos `summary(modelo)`. La parte relevante de los resultados corresponde a la _última línea_ de la salida del `R`, es decir, a
+
+```{r, eval=FALSE}
+F-statistic: 165.4 on 1 and 18 DF,  p-value: 1.643e-10
+```
+
+En este caso,  `F-statistic` corresponde al estadístico de prueba calculado $F_\text{calculado}$, y los valores `1` y `18` a los grados de libertad del $MSR$ y $MSE$, respectivamente. Finalmente, el valor $p$ es $p=1.64\times10^{10}$, por lo que **rechazamos** $H_0$.
+
+
+Cuando utilizamos **la distribución $t$ de Student**, podemos probar  
+
+$$
+\begin{split}
+&H_0: \beta_1 = 0 \\
+&H_A: \beta_1 \neq0 
+\end{split}
+$$
+
+a partir de las propiedades de los coeficientes estimados $(\widehat{\beta}_0,\widehat{\beta}_1)$. Bajo condiciones de regularidad, es fácil llegar a que
+
+\begin{align}
+\widehat{\beta}_0 \sim N(\beta_0, \widehat{\sigma}_{\widehat{\beta}_0}^2) \\
+\widehat{\beta}_1 \sim N(\beta_1, \widehat{\sigma}_{\widehat{\beta}_1}^2)
+\end{align}
+
+donde 
+
+\begin{align}
+\widehat{\sigma}_{\widehat{\beta}_0}^2 &= \sqrt{\hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}}{SS_x}\right)} \\
+\widehat{\sigma}_{\widehat{\beta}_1}^2 &=\sqrt{\frac{\hat{\sigma}^2}{SS_x}}
+\end{align}
+
+Así, el estadístico de prueba será
+
+$$t_{\text{calculado}} = \frac{\hat{\beta}_1-0}{\widehat{\sigma}_{\widehat{\beta}_1}}$$
+
+donde $t_{n-2}$ corresponde a la distribución $t$ con $n-1$ grados de libertad. Bajo $H_0$, $t_{\text{calculado}} \sim t_{n-2}$. Para un nivel de significancia $\alpha \in (0,1)$, rechazamos $H_0$ si
+
+1. $|t_\text{calculado}| >  t_{1-\alpha/2, n-1}$, donde $t_{1-\alpha/2, n-2}$ es el percentil $1-\alpha/2$ de una distribución $t$ con $n-2$ grados de libertad. En `R`, estos percentiles pueden calcularse utilizando la función `qt`. Por ejemplo, $t_{0.95,49}$ es `r round(qt(.95, 49), 2)` y se obtiene como `qt(0.95, 49)`. 
+
+
+2. El valor $p$, calculado como $p=2\,P(t_{n-2} > |t_\text{calculado}|$, es **menor** que $\alpha$. Por ejemplo, si $t_\text{calculado} = 2.54$ cuando $n=60$,  el valor $p$ será `r 2*round(pt(2.54, 58, lower.tail = FALSE), 3)`. Para calcularlo, usamos `2*pt(abs(2.54), 58, lower.tail = FALSE)` en `R`.
+
+
+```{block2, type='rmdtip'}
+Cuando $n-2 > 30$, podemos aproximar la distribución $t_{n-2}$ a la distribución Normal estándar. En `R`, utilizaríamos la `pnorm()` en lugar de `pt()`. Para más detalles, escriba `?pnorm` en la consola del `R`.
+```
+
+### Inferencia para $\beta_0$ y $\beta_1${-}
+
+A partir de las distribuciones muestrales de $\widehat{\beta}_0$ y $\widehat{\beta}_1$ es posible realizar **inferencia** sobre $\beta_0$ y $\beta_1$. Este trabajo inferencial puede hacerse a través de: 
+
+1. Pruebas de hipótesis
+2. Intervalos de confianza
+
+Cuando utilizamos **pruebas de hipótesis**, se prueban 
+
+* $H_0:\beta_0 = 0$ vs.  $H_1:\beta_0 \neq 0$ usando el estadístico de prueba 
+$$t_{\text{calc}} = \frac{\hat{\beta}_0-0}{\widehat{\sigma}_{\widehat{\beta}_0}}$$
+
+* $H_0:\beta_1 = 0$ vs.  $H_1:\beta_1 \neq 0$ usando el estadístico 
+$$t_{\text{calc}} = \frac{\hat{\beta}_1-0}{\widehat{\sigma}_{\widehat{\beta}_1}}$$
+
+y, en cualquiera de los dos casos, rechazamos $H_0$ si $|t_{\text{calculado}}| > t_{1-\alpha/2,n-2}$.
+
+
+Los **intervalos de confianza** del $(1-\alpha)100\%$ para los coeficientes de represión serán
+
+\begin{align}
+{\beta}_0 \in (\hat{\beta}_0 - t_{\alpha/2,n-2}\,\widehat{\sigma}_{\widehat{\beta}_0},\quad  \hat{\beta}_0 + t_{\alpha/2,n-2}\,\widehat{\sigma}_{\widehat{\beta}_0})\\
+{\beta}_1 \in (\hat{\beta}_1 - t_{\alpha/2,n-2}\,\widehat{\sigma}_{\widehat{\beta}_1},\quad \hat{\beta}_1 + t_{\alpha/2,n-2}\,\widehat{\sigma}_{\widehat{\beta}_1})
+\end{align}
+
+
+```{block2, type='rmdtip'}
+Decimos que, a nivel poblacional, $\beta_0$ y $\beta_1$ son estadísticamente cero si el intervalo de confianza contienen dicho valor. 
+```
+
+
+Continuando con nuestro ejemplo, podemos obtener los estadísticos de prueba para $\beta_0$ y $\beta_1$ utilizando el objeto `modelo` que contiene los resultados del modelo de RLS:
+
+```{r}
+## estadísticos de prueba para beta_0 y beta_1
+coefficients(summary(modelo))
+```
+
+En este caso, el estadístico para $\beta_0$ es $t_0=59.47$ y el estadístico para $\beta_1$ es $t_1 = -12.86$, que corresponden a la tercera columna de la salida del `R`. Los valores $p$ son, respectivamente, $4.06\times 10^{-22}$ y $1.64\times 10^{-10}$. Puesto que ambos valores $p$ son _inferiores_ a 0.05, concluimos que ambos parámetros son significativos (i.e., su efecto es diferente de cero) a nivel poblacional con una confianza del 95\%. 
+
+Para el mismo nivel de significancia, los intervalos de confianza pueden calcularse como:
+
+```{r}
+## intervalos de confianza del (1-alpha)100% para los betas
+alpha <- 0.05
+resultados <- summary(modelo)
+betas <- coefficients(resultados)
+lower_limit <- betas[, 1] + qt(1-alpha, resultados$df[2])*betas[, 2]
+upper_limit <- betas[, 1] - qt(1-alpha, resultados$df[2])*betas[, 2]
+data.frame(lower_limit, beta_hat = betas[, 1], upper_limit)
+```
+Por lo tanto, con una confianza del 95\%,  
+
+\begin{align}
+\beta_0 &\in(2551.2 2704.4) \\
+\beta_1 &\in(-42.16,-32.14)
+\end{align}
+
+Una manera más simple y rápida de construir intervalos de confianza del 95\% para $\beta_0$ y $\beta_1$ es utilizar la función `confint`:
+
+```{r}
+## intervalos de confianza via confint
+confint(modelo)
+```
+Por lo tanto, $\beta_0 \in (2541.2, 2714.42)$ y $\beta_1 \in(-42.81, -31.49)$. 
+
+
+```{block2, type='rmdnote'}
+Los intervalos de confianza construidos con la función `confint` difieren levemente de aquellos basados en la distribución $t$. Esto se debe a que `confint` utiliza [likelihood profiling](https://stats.stackexchange.com/questions/5304/why-is-there-a-difference-between-manually-calculating-a-logistic-regression-95).
+```
+
+
+## Análisis de Residuales{#residuales}
+
+El análisis de residuales es fundamental en RLS puesto que es posible establecer si:
+
+1.  Los errores del modelo ajustado cumplen con los supuestos;
+2.  Existen observaciones atípias y/u observaciones influenciales. 
+
+A continuación se describen las estrategias utilizadas para establecer 1 y 2.
+
+### Validación de Supuestos{-}
+En la formulación matemática del modelo, se estableció que
+
+$$\epsilon\sim N(0, \sigma^2), \hspace{1cm} \sigma^2 = \text{constante},$$
+y $\epsilon_1, \epsilon_2, \ldots, \epsilon_n$ son independientes.  Por lo tanto, cuando se ajusta un modelo de RLS, debemos validar los siguientes supuestos sobre el error:
+
+1. Independencia;
+2. Normalidad;
+3. Media cero; y
+4. Varianza $\sigma^2$ constante.
+
+```{block2, type='rmdwarning'}
+Sólo cuando se han validado **todos los supuestos del error**, podemos proceder a realizar predicción de futuros valores de la variable respuesta con el modelo de RLS ajustado.
+```
+
+Para validar el **supuesto de independencia** de los errores se recomiendan dos aproximaciones: la prueba formal de independencia de Durbin-Watson y la prueba gráfica basada en la Función de Autocorrelación (ACF en inglés). 
+
+```{block2, type='rmdnote'}
+* La prueba de Durbin-Watson está implementada en la función `durbinWatsonTest` del paquete `car`.
+* La ACF puede obtenerse utilizando la función `acf`. Para más información escriba `?acf` en la consola del `R`.
+```
+
+
+En `R` podemos realizar la prueba de Durbin-Watson haciendo:
+
+```{r}
+## prueba de Durbin-Watson 
+car:::durbinWatsonTest(modelo)
+```
+
+Basados en el valor $p$,  _no_ es posible rechazar $H_0$. Por lo tanto, concluimos que los residuales del modelo ajustados _son_ independientes.
+
+Para graficar la ACF podemos hacer:
+
+```{r}
+## ACF de los residuales
+r <- residuals(modelo)  ## cálculo de los residuales
+acf(r, las = 1, main = "")
+```
+
+Para concluir que los residuales del modelo ajustado son _independientes_ basados en la ACF, ninguna de las barras verticales, llamadas correlaciones, debe superar las bandas de color azul para  $\text{Lag} > 0$. En nuestro caso, podemos concluir que los residuales _son_ independientes.
+
+
+
+
+Formalmente, probar el **supuesto de normalidad** de los errores equivale a realizar el siguiente procedimiento de prueba de hipótesis:
+
+$$
+\begin{split}
+&H_0: \text{los errores siguen una distribución Normal.} \\
+&H_A: \text{los errores NO siguen una distribución Normal.}
+\end{split}
+$$
+
+Este supuesto puede validarse utilizando pruebas formales, o de manera gráfica utilizando histogramas, gráficos de densidad o un gráfico cuantil-cuantil, también conocido como [Q-Q plot](https://es.wikipedia.org/wiki/Gr%C3%A1fico_Q-Q).
+
+Existen diferentes pruebas de Normalidad, varias de ellas implementadas en `R`. 
+
+```{block2, type='rmdnote'}
+* Prueba Shapiro-Wilk, implementada en la función `shapiro.test`.
+* Prueba Anderson-Darling, implementada en la función `ad.test` del paquete `nortest`.
+* Prueba Cramer-von Mises, implementada en la función `cvm.test` del paquete `nortest`.
+* Prueba Lilliefors (Kolmogorov-Smirnov), implementada en la función `lillie.test` del paquete `nortest`.
+* Prueba Pearson basada en la distribución $\chi^2$, implementada en la función `pearson.test` del paquete `nortest`.
+* Prueba Shapiro-Francia, implementada en la función `sf.test` del paquete `nortest`).
+```
+
+El Q-Q plot compara los cuantiles teóricos de la distribución Normal con los cuantiles muestrales del error estimado. Existen también varias implementaciones del gráfico cuantil-cuantil en `R`, entre las que se encuentran la función `qqnorm` del paquete `base` y la función `qqPlot` del paquete `car`.
+
+Para realizar por ejemplo la prueba de Normalidad de Shapiro-Wilk sobre  los residuales del modelo ajustado, podemos proceder de la siguiente forma utilizando el objeto `R` que contiene los resultados de dicho modelo:
+
+```{r}
+## prueba de Normalidad de Shapiro-Wilk
+shapiro.test(r)
+```
+
+Estos resultados indican que el valor $p$ de la prueba de Normalidad es $p = 0.0149$. Como $p < 0.05$, rechazamos $H_0$ y concluimos que los residuales del modelo ajustado de RLS **no** siguen una distribución Normal.
+
+En `R`, podemos graficar un Q-Q plot de 2 formas: 
+
+**Vía gráficos básicos**
+
+```{r}
+## Q-Q plot básico
+qqnorm(r, las = 1, main = '')
+qqline(r, col = 2)
+```
+
+Para más detalles, escribir `?qqnorm` en la consola del `R`. La idea fundamental es que los residuales del modelo (i.e., puntos en la gráfica) deben estar alrededor de la línea de color _rojo_ para concluir, al menos gráficamente, que los residuales siguen una distribución Normal.  En este caso, existen varios puntos por fuera de la línea, lo cual nos hace sospechar que esas observaciones _outliers_ afectan el supesto.
+
+
+**Utilizando el paquete car**
+
+```{r}
+## Q-Q plot usando el paquete car
+library(car, quietly = TRUE)
+car:::qqPlot(r, las = 1)
+```
+
+Aunque la elaboración de este gráfico es mucho más compleja, su interpretación es simple: diremos que los residuales del modelo ajustado _cumplen_ con el supuesto de Normalidad si _todos_ los puntos  en encuentran **dentro** de las bandas de color _azul_. En este caso, las observaciones `5`  y `6` parecen ser las responsables de que el supuesto de Normalidad no se cumpla.
+
+
+Formalmente la validación del **supuesto de media cero** para los errores consiste en probar 
+
+$$
+\begin{split}
+&H_0: \mu_\epsilon=0 \\
+&H_A: \mu_\epsilon\neq0 
+\end{split}
+$$
+
+donde  $\mu_\epsilon$ es la media *poblacional* de $\epsilon$. 
+
+Teniendo en cuenta que los coeficientes del modelo de RLS ajustado se obtienen a partir de MCO, no es necesario validar este supuesto. Básicamente, el método de MCO garantiza no rechazar $H_0$. En caso de que se **requiera** hacerlo, podemos proceder de la siguiente manera en `R`:
+
+```{r}
+## validación media cero en RLS
+t.test(r, mu = 0)
+```
+
+De este resultado es fácil ver que el valor $p$ de la prueba es $p=1$, por lo que **no** rechazamos H_0.  Finalmente concluimos, con una confianza del 95\%, que la media de los residuales es cero  a nivel poblacional.
+
+Por último, pero no menos importante, debemos validar el **supuesto de varianza constante**. Formalmente esto es equivalente a probar
+
+$$
+\begin{split}
+&H_0:\sigma^2 \text{ es constante}\\
+&H_1:\sigma^2 \text{ NO es constante}
+\end{split}
+$$
+
+Esta prueba puede realizarse formalmente a través de diferentes pruebas estadísticas como la prueba de Breusch-Pagan, o utilizando métodos gráficos.
+
+```{block2, type='rmdnote'}
+* La prueba de Breusch-Pagan puede realizarse utilizando la función `ncvTest` del paquete `car`.
+* Los métodos gráficos consisten en construir gráficos de dispersión para  $\hat{y}$ vs. $y$, $\hat{y}$ vs. $x$ y $\hat{y}$ vs. el orden de medición. En el caso ideal,  estos gráficos no deberían exhibir ningún patrón.
+```
+
+
+**Prueba de Breusch-Pagan**
+
+Sin entrar en los detalles formales, la prueba de Breusch-Pagan busca determinar, estadísticamente, si la varianza del modelo de RLS ajustado es constante o no.  En `R` podemos realizar esta prueba de la siguiente manera:
+
+```{r}
+## prueba de Breusch-Pagan para varianza constante
+car:::ncvTest(modelo)
+```
+
+Como el valor $p$ de la prueba es mayor que 0.05, concluimos que la varianza del modelo es costante.
+
+
+**Aproximación gráfica**
+
+Al usar esta aproximación, lo que buscamos es que los gráficos resultantes tenga un patrón aleatorio. En términos generales, podemos hacer gráficos de
+
+1. $\hat{y}$ vs. $x$
+2. $\hat{y}$ vs. $r$
+3. $\hat{y}$ vs. orden.
+
+y evaluar los patrones observados.
+
+
+<!-- <center> -->
+<!-- <img src="images/tablaanova.png" width="550" height="120"> -->
+<!-- </center> -->
+
+Esencialmente, buscamos que ocurra el patrón del panel superior izquierdo [aquí](https://www.rhayden.us/regression-models/images/3682_282_85-heteroscedasticity.jpg).
+
+
+En `R` podemos proceder de la siguiente manera:
+
+
+```{r}
+## cálculos
+y_hat <- predict(modelo)
+x <- datos$Edad             # seleccionamos el predictor
+y <- datos$Resistencia      # seleccionamos la variable respuesta
+
+## gráfico de residuales vs. valores predichos
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1))
+plot(y_hat, r, las = 1, main = expression(hat(y) *' vs. r'), xlab = expression(hat(y)), ylab = 'Residuals')
+abline(h = 0, col = 2)
+plot(y_hat, las = 1, main = expression(hat(y) *' vs. orden'), xlab = 'Orden', ylab = expression(hat(y)))
+plot(y, r, las = 1, main = expression('r vs. y'), ylab = 'Residuals')
+abline(h = 0, col = 2)
+plot(x, r, las = 1, main = expression('r vs. Edad'), ylab = 'Residuals')
+abline(h = 0, col = 2)
+```
+
+De los gráficos anteriores se concluye que la varianza del modelo de _constante_.
+
+
+<!-- ### Identificaciónd de _outliers_{-} -->
+
+
+
+
+<!-- ### Observaciones influenciales{-} -->
+
+
+
+
+
+## Predicción
+
+Sólo cuando se validan **todos** los supuestos del modelo es posible realizar predicción. La idea fundamental es poder calcular $\widehat{E[Y|X=x_0]} = \widehat{\mu}|_{X=x_0}$, donde $x_0$ es un valor específico del factor controlable $X$.
+
+Adicionalmente, interesa construir intervalos de **confianza** e intervalos de **predicción** del $(1-\alpha)100\%$ para $\mu|_{X=x_0}$. Estos intervalos son fundamentales para determinar los valores máximos y mínimos del valor esperado de la respuesta $Y$ para  valores puntuales de $X$ a nivel **poblacional**. 
+
+
+### Intervalo de confianza para $E[Y|X=x_0]${-}
+Para $\alpha\in(0,1)$, el intervalo de confianza del  $(1-\alpha)100\%$ para $\mu |_{X=x_0}$ está dado por:
+
+$$\widehat{\mu} |_{X=x_0} \pm t_{\alpha/2,n-2}\,\hat{\sigma}\,\sqrt{\frac{1}{n} + \frac{(x_0-\bar{x})^2}{S_x}}$$
+
+### Intervalo de predicción para $E[Y|X=x_0]${-}
+Similarmente, el intervalo de predicción para $Y |_{X=x_0}$ será:
+
+$$\widehat{\mu} |_{X=x_0} \pm t_{\alpha/2,n-2}\,\hat{\sigma}\,\sqrt{1+\frac{1}{n} + \frac{(x_0-\bar{x})^2}{S_x}}$$
+Observe que, aunque el intervalo de confianza y el intervalo de predicción están centrados en el mismo valor,  el error estándar de $\widehat{\mu} |_{X=x_0}$ es mayor en el intervalo de predicción que en el intervalo de confianza, es decir,
+
+$$
+\sqrt{1+\frac{1}{n} + \frac{(x_0-\bar{x})^2}{S_x}} > \sqrt{\frac{1}{n} + \frac{(x_0-\bar{x})^2}{S_x}}
+$$
+
+Esto se debe a que, al construir intervalos de predicción, la **incertidumbre** de $\widehat{\mu} |_{X=x_0}$ es mayor para valores de $X$ por fuera de las condiciones de operación evaluadas al recolectar la muestra.
+
+
+```{block2, type='rmdnote'}
+* Los **intervalos de confianza** permiten determinar el rango donde se encontrará el valor promedio de $Y$ para un valor específico de $X$ cuando se producen varias unidades experimentales en  esas codiciones. Formalmente, esto es $\widehat{\mu}|_{X=x_0} = \widehat{E[Y|X=x_0]}$.
+* Los **intervalos de predicción** permiten determinar el rango donde se encontrará _el próximo valor_ de $Y$ cuando $X=x_0$.
+```
+
+Consideremos una soldadura con $\text{Edad} = 20$, es decir, $x_0=20$. Con el objeto `modelo`, podemos construir el intervalo de confianza del 95\% haciendo
+
+```{r}
+## intervalo de confianza del 95% para E[Resistencia|Edad = 20]
+predict(modelo, newdata = data.frame(Edad = 20), interval = "confidence")
+```
+
+Este resultado implica que, si medimos la Resistencia de _varias_ soldaduras con  $\text{Edad} = 20$, se espera que la Resistencia promedio sea 1884.75 psi, y que, a nivel _poblacional_, dicho promedio se encuentre en el intervalo $(1824.24, 1945.26)$ con una confianza del 95\%.
+
+
+Finalmente, el intervalo de predicción cuando $\text{Edad} = 20$ será:
+
+```{r}
+## intervalo de confianza del 95% para Resistencia|Edad = 20
+predict(modelo, newdata = data.frame(Edad = 20), interval = "prediction")
+```
+
+Por lo tanto,  se espera que en _una_ próxima soldadura de $\text{Edad} = 20$ el valor de Resistencia sea 1884.75 psi. Dicho valor estará contenido en el intervalo $(1673.97, 2045.53)$ el 95\% de las veces.
+
+<!-- ## Ejemplos -->
+<!-- 1. -->
+<!-- 2. -->
+
+

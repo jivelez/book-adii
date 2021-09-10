@@ -1,0 +1,86 @@
+--- 
+title: "Modelos de Regresión para Ingeniería: Una aproximación práctica"
+author: "Jorge I. Vélez"
+date: "`r Sys.Date()`"
+affiliation: Universidad del Norte, Barranquilla, Colombia
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: https://github.com/jivelez/book-adii
+description: "Este libro recopila mi años de experiencia en el aprendizaje de R [@R], y está escrito como una guía para aquellos que recién comienzan."
+---
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+
+# Bienvenido {-}
+Este libro está destinado para estudiantes de ingeniería, psicología, economía, estadística, matemáticas y áreas afines interesados en el análisis de datos, especialmente en la formulación, ajuste, validación e implementación de modelos de regresión avanzados, pronósticos en series de tiempo y métodos no paramétricos utilizando [`R`](https://www.r-project.org/). 
+
+En este texto se recopilan los elementos básicos del curso de [Análisis de Datos en Ingeniería II](https://pomelo.uninorte.edu.co/pls/prod/bwckctlg.p_disp_course_detail?cat_term_in=201910&subj_code_in=EST&crse_numb_in=1051) del [Programa de Ingeniería Industrial](https://www.uninorte.edu.co/web/ingenieria-industrial) de la [Universidad del Norte](https://www.uninorte.edu.co), y está pensado como una guía para dicho curso.
+  
+Por supuesto, los errores presentes a lo largo de todo el documento son sólo mi responsabilidad.
+
+
+## Estructura del libro{-}
+En el Capítulo \@ref(intro) se presentan algunos conceptos básicos de Análisis de Datos, además de qué es [`R`](https://www.r-project.org), cómo instalarlo, dónde y cómo buscar ayuda y la estructura básica del programa.
+
+En el capítulo \@ref(rls) se discute el Modelo de Regresión Lineal Simple y en el capítulo \@ref(rlm) el Modelo de Regresión Lineal Múltiple. En el capítulo \@ref(glm) se extienden estos modelos para el caso donde la variable respuesta puede tomar valores discretos, y se discuten los modelos de Regresión Logística y Regresión Poisson. 
+
+Posteriormente, en el capítulo \@ref(series), se realiza una corta Introducción a Series de Tiempo. Como parte de ello, se discuten algunos conceptos generales y se presentan tres estrategias diferentes para realizar pronósticos. 
+
+Finalmente, en el capítulo \@ref(enp), se introducen conceptos básicos de Estadística No Paramétrica entre los que se incluyen las pruebas de signo, rangos con signos, Mann-Whitney-Wilcoxon y Kruskal-Wallis, además de algunas estrategias para el análisis de tablas de contingencia.
+
+Para afianzar el proceso de aprendizaje, en cada capítulo se presentan una serie de ejercicios donde el estudiante puede poner en práctica los conceptos teóricos a través de la solución de problemas que comúnmente se presentan en ingeniería.
+
+## Por qué `R`?{-}
+
+
+## Software y convenciones {-} 
+Este libro está construido utilizando los paquetes `knitr`\index{knitr} [@xie2015] y `bookdown`\index{bookdown} [@R-bookdown] de `R`.
+
+En todo el libro se presentarán códigos que el lector puede seleccionar y posteriormente ejecutar en su consola de `R` para obtener los mismos resultados del libro. El código se destaca en una recuadro de color similar al que se muestra a continuación:
+
+```{r, eval=F, echo=TRUE}
+3 + 7 
+x <- c(2, 9, 11)
+5 * x
+1:5
+```
+
+
+Los _resultados_ obtenidos de cualquier código `R` se destacan con los símbolos `##` al inicio de cada renglón. Por ejemplo, el resultado de
+
+```{r, echo=TRUE, eval=FALSE}
+3 + 7
+```
+
+será mostrado como 
+
+```{r, eval=TRUE,echo=FALSE}
+3 + 7
+```
+
+## Bloques informativos {-}
+En varias partes del libro se usarán bloques informativos para resaltar algún aspecto importante:
+
+```{block2, type='rmdnote'}
+Nota aclaratoria.
+```
+
+```{block2, type='rmdtip'}
+Sugerencia.
+```
+
+```{block2, type='rmdwarning'}
+Advertencia.
+```
+
+## Dedicatoria {-}
+Dedicado a Lilyam y Abraham por su apoyo;  a Norma Botero por mostrarme el camino; a mis maestros y amigos, [Mauricio Arcos-Burgos](https://scholar.google.com.co/citations?user=MZlwFqgAAAAJ&hl=en) y [Juan Carlos Correa](http://ciencias.medellin.unal.edu.co/index.php/component/teachers/?escuela=Escuela%20de%20Estad%C3%ADstica&letra=&correo=jccorrea@unal.edu.co)  por sus enseñanzas y acompañamiento; a Yolima, por su amor incondicional, su infinita comprensión y paciencia; y a Gabriela, mi *monstruo peludo*, por darme fuerzas cuando no había razones para continuar.
+
+## Sobre el autor {-}
+[Jorge I. Vélez](https://jivelez.github.io) es Profesor Asistente del Departamento de Ingeniería Industrial de la Universidad del Norte en Barranquilla, Colombia en las áreas de Analítica de Datos y Diseño de Experimentos para los programas de Pregrado, Maestría y Doctorado. 
+Experto en Analítica de Datos, Bioinformática, Genómica Predictiva, Genética de Poblaciones, Epidemiología Genética y Estadística Computacional y Genética, el  Profesor Vélez es instructor en las áreas de  Genética de Poblaciones, Diseño de Experimentos, Bioinformática, y Bioestadística en los programas de Maestría y Doctorado en Ciencias Biomédicas del Departamento de Medicina de la Universidad del Norte. Sus intereses de investigación incluyen Analítica de Datos, Bioinformática y Genómica Predictiva aplicadas a enfermedad de Alzheimer, Trastorno de Déficit de Atención con Hiperactividad y Enfermedades Autoinmunes.

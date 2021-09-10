@@ -1,0 +1,45 @@
+# Introducción {#intro}
+
+El análisis de datos es el pilar fundamental de _Data Analytics_ y _Data Science_. Por supuesto, el uso herramientas computacionales es importante. A lo largo de este materal usaremos el [`R`](https://www.r-project.org/), pero muchos de los conceptos aquí expuestos pueden trabajarse, sin problema, en otro lenguaje como [`Python`](https://www.python.org/) o [`Julia`](https://julialang.org/).
+
+En la [Universidad del Norte](https://www.uninorte.edu.co/), los estudiantes tienen la posibilidad de tomar, a nivel de pregrado, cursos de Análisis de Datos. Parcticularmente, los estudiantes de la [División de Ingenierías](https://www.uninorte.edu.co/web/ingenierias) pueden tomar los cursos de :
+
+1. _Análisis de Datos en Ingeniería I_, ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/);
+2. _Análisis de Datos en Ingeniería II_, , ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/);
+3. _Machine Learning_, ofrecido por del [Departamento de Ingeniería Eléctrica y Electrónica](https://www.uninorte.edu.co/web/departamento-de-ingenieria-electrica-y-electronica) y
+4. _Analítica de Datos Avanzada_; ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/).
+
+Estos cursos, cuya dificultad aumenta conforme la enumeración anterior, permiten a los estudiantes de la División de Ingenierías tener herramientas básicas, intermedias y avanzadoas para convertir _datos_ en _información_.
+
+
+<!-- El curso de _Análisis de Datos en Ingeniería I_ introduce los conceptos básicos de analítica descriptiva, algunos elementos de probabilidad, el concepto de variables aleatorias, las distribuciones de probabilidad más utilizadas, así como pruebas de bondad de ajuste, procedimientos de pruebas de hipótesis y el modelo de Regresión Lineal Simple. -->
+
+
+## Análisis Exploratorio de Datos
+
+
+## Conceptos básicos
+
+
+## Gráficos básicos
+
+## `R` como herramienta
+
+### Qué es  `R`?
+
+### `CRAN`
+
+### Descarga
+
+### Operaciones básicas
+
+### Creación de funciones
+
+### Modelos básicos
+
+### Modelos avanzados
+
+
+### Cursos *online*
+
+[Jorge I. Vélez](https://jivelez.github.io), `r Sys.Date()`

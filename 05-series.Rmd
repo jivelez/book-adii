@@ -1,0 +1,37 @@
+# Introducción a Series de Tiempo{#series}
+
+## Qué es una Serie de Tiempo?
+
+
+## Definiciones básicas
+
+
+## Por qué y para qué?
+
+## Modelos básicos
+
+### Método de Descomposición
+
+### Métodos de Suavizamiento 
+
+### Metodología Box-Jenkins 
+
+
+## Validación de supuestos
+
+## Pronósticos
+
+
+## Ejercicios
+
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+
