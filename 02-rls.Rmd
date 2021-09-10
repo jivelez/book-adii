@@ -8,7 +8,8 @@ En la práctica, por supuesto, es fundamental
 3. Determinar las condiciones óptimas de operación que minimizan los costos asociados y, posiblemente, los desperdicios de producto.
 
 
-Los Modelos de Regresión Lineal son ampliamente utilizados en la práctica ingenieril cuando, en un proceso productivo como el anterior,  se quiere dar respuesta los numerales 1, 2 y 3. En un sentido menos amplio, los modelos de regresión lineal se utilizan para *predecir* futuros valores de una variable respuesta para valores valores *específicos* de las variables *controlables* del proceso. 
+Los Modelos de Regresión Lineal son ampliamente utilizados en la práctica ingenieril cuando, en un proceso productivo como el anterior,  se quiere dar respuesta los numerales 1, 2 y 3. En un sentido menos amplio, los modelos de regresión lineal se utilizan para estudiar la relación entre una variable numérica, que denominamos _variable respuesta_, y un conjunto de variables *controlables* de dicho proceso. Una vez entendemos dicha relación, podemos entonces  *predecir* futuros valores de la variable respuesta para valores valores *específicos* de las variabes controlables.
+ 
 
 ```{block2, type='rmdnote'}
 Por **variable controlable** entendemos aquellas variables de proceso que pueden medirse fácilmente y se mantienen *fijas* durante la operación. 
