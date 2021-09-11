@@ -165,6 +165,10 @@ S_{xx} = \sum_{i=1}^n(x_i-\bar{x})^2 \quad\text{y}\quad
 S_{xy} = \sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y}).
 $$
 
+```{block2, type='rmdtip'}
+En la práctica, $\widehat{\beta}_1$ se interpreta como **el cambio unitario** sobre el valor esperado de $Y$, $E[Y|X]$, por cada cambio unitario del **factor controlable** $X$.
+```
+
 
 Por otro lado, 
 
@@ -191,9 +195,6 @@ Otra forma de escribirlo es
 \hat{\mu}_i &= \hat{\beta}_0 + \hat{\beta}_1X_i.
 \end{align}
 
-```{block2, type='rmdtip'}
-En la práctica, $\widehat{\beta}_1$ se interpreta como **el cambio unitario** sobre el valor esperado de $Y$, $E[Y|X]$, por cada cambio unitario del **factor controlable** $X$.
-```
 
 A partir del modelo ajustado es posible **predicir el valor esperado** de $Y$ para valores **conocidos** de $X$, es decir, calcular $\widehat{E[Y|X=x_0]}$, donde $x_0$ es un **valor conocido** del factor controlable $X$. Adicionalmente, podemos calcular intervalos de confianza e intervalos de predicción para ${E[Y|X=x_0]}$.
 
@@ -691,7 +692,7 @@ Sin entrar en los detalles formales, la prueba de Breusch-Pagan busca determinar
 car:::ncvTest(modelo)
 ```
 
-Como el valor $p$ de la prueba es mayor que 0.05, concluimos que la varianza del modelo **es** costante.
+Como el valor $p$ de la prueba es mayor que 0.05, concluimos que la varianza del modelo **no** es costante.
 
 
 **Aproximación gráfica**
@@ -732,7 +733,7 @@ plot(x, r, las = 1, main = expression('r vs. Edad'), ylab = 'Residuals')
 abline(h = 0, col = 2)
 ```
 
-De los gráficos anteriores se concluye que la varianza del modelo de _constante_.
+De los gráficos anteriores se concluye que la varianza del modelo _no_ es constante.
 
 
 <!-- ### Identificación de _outliers_{-} -->
@@ -774,7 +775,9 @@ Esto se debe a que, al construir intervalos de predicción, la **incertidumbre**
 * Los **intervalos de predicción** permiten determinar el rango donde se encontrará _el próximo valor_ de $Y$ cuando $X=x_0$.
 ```
 
-Consideremos una soldadura con $\text{Edad} = 20$, es decir, $x_0=20$. Con el objeto `modelo`, podemos construir el intervalo de confianza del 95\% haciendo
+Aunque los residuales del modelo ajustado para los datos de soldadura **no** cumple con el supuesto de varianza constante, se mostrará cómo predecir la `Resistencia` de una soldadura con $\text{Edad} = 20$, es decir, $x_0=20$. 
+
+Con el objeto `modelo`, podemos construir el intervalo de confianza del 95\% haciendo
 
 ```{r}
 ## intervalo de confianza del 95% para E[Resistencia|Edad = 20]
@@ -791,7 +794,7 @@ Finalmente, el intervalo de predicción cuando $\text{Edad} = 20$ será:
 predict(modelo, newdata = data.frame(Edad = 20), interval = "prediction")
 ```
 
-Por lo tanto,  se espera que en _una_ próxima soldadura de $\text{Edad} = 20$ el valor de Resistencia sea 10.87 psi. Dicho valor estará contenido en el intervalo $(9.67, 12.06)$ el 95\% de las veces.
+Por lo tanto,  se espera que en _una_ próxima soldadura de $\text{Edad} = 20$ el valor de Resistencia sea 10.87 psi. A nivel poblacional, dicha `Resistencia` estará en el intervalo $(9.67, 12.06)$ el 95\% de las veces.
 
 <!-- ## Ejemplos -->
 <!-- 1. -->

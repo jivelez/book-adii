@@ -366,7 +366,7 @@ Y_i &amp;= \beta_0 + \beta_1X_i + \epsilon_i,\\
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="rls.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico de dispersión</span></span>
 <span id="cb6-2"><a href="rls.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
 <span id="cb6-3"><a href="rls.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos, <span class="fu">aes</span>(<span class="at">x =</span> Edad, <span class="at">y =</span> Resistencia)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Observe que, aparentemente, cuanto mayor sea la <code>Edad</code> de la soldadura <em>menor</em> será su <code>Resistencia</code>. Por lo tanto, podemos decir que la relación entre <code>Edad</code> y <code>Resistencia</code> es <em>inversamente proporcional</em>.</p>
 <p>El <strong>coeficiente de correlación</strong> <span class="math inline">\(\rho\)</span> entre dos variables aleatorias <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> determina la <em>relación lineal</em> que existe entre ellas. A partir de una muestra de tamaño <span class="math inline">\(n\)</span>, dicho coeficiente puede calcularse como</p>
 <p><span class="math display">\[\begin{eqnarray}
@@ -440,6 +440,10 @@ L &amp;=&amp;\sum_{i=1}^n\epsilon_i^2 = \sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2.
 S_{xx} = \sum_{i=1}^n(x_i-\bar{x})^2 \quad\text{y}\quad
 S_{xy} = \sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y}).
 \]</span></p>
+
+<div class="rmdtip">
+En la práctica, <span class="math inline">\(\widehat{\beta}_1\)</span> se interpreta como <strong>el cambio unitario</strong> sobre el valor esperado de <span class="math inline">\(Y\)</span>, <span class="math inline">\(E[Y|X]\)</span>, por cada cambio unitario del <strong>factor controlable</strong> <span class="math inline">\(X\)</span>.
+</div>
 <p>Por otro lado,</p>
 <p><span class="math display">\[\begin{align}
 \hat{\sigma}^2 &amp;= \frac{L}{n-2} \\ &amp;=\frac{1}{n-2}\sum_{i=1}^n\hat{\epsilon}_i^2 \\ &amp;=\frac{1}{n-2}\sum_{i=1}^n(y_i-\hat{y}_i)^2 \\ &amp;=\frac{1}{n-2}\sum_{i=1}^n(y_i-\hat{\beta}_0-\hat{\beta}_1X_i)^2 \\
@@ -458,10 +462,6 @@ S_{xy} = \sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y}).
 \widehat{Y}_i &amp;\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\
 \hat{\mu}_i &amp;= \hat{\beta}_0 + \hat{\beta}_1X_i.
 \end{align}\]</span></p>
-
-<div class="rmdtip">
-En la práctica, <span class="math inline">\(\widehat{\beta}_1\)</span> se interpreta como <strong>el cambio unitario</strong> sobre el valor esperado de <span class="math inline">\(Y\)</span>, <span class="math inline">\(E[Y|X]\)</span>, por cada cambio unitario del <strong>factor controlable</strong> <span class="math inline">\(X\)</span>.
-</div>
 <p>A partir del modelo ajustado es posible <strong>predicir el valor esperado</strong> de <span class="math inline">\(Y\)</span> para valores <strong>conocidos</strong> de <span class="math inline">\(X\)</span>, es decir, calcular <span class="math inline">\(\widehat{E[Y|X=x_0]}\)</span>, donde <span class="math inline">\(x_0\)</span> es un <strong>valor conocido</strong> del factor controlable <span class="math inline">\(X\)</span>. Adicionalmente, podemos calcular intervalos de confianza e intervalos de predicción para <span class="math inline">\({E[Y|X=x_0]}\)</span>.</p>
 <p>Observe que para un valor específico de <span class="math inline">\(X\)</span>, digamos <span class="math inline">\(x_i\)</span>, se tiene el valor correspondiente de <span class="math inline">\(Y\)</span> es <span class="math inline">\(y_i\)</span>. En otras palabras, la <span class="math inline">\(i\)</span>-ésima unidad experimental se produjo cuando <span class="math inline">\(X = x_i\)</span> y que, bajo estas condiciones, se obtuvo que <span class="math inline">\(Y = y_i\)</span>.</p>
 <p>En <code>R</code> la función clave paara ajustar modelos de RLS es <code>lm</code>. Para mayor información, puede consultar la ayuda de la función escribiendo <code>?lm</code> en la consola, o en la <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html">página</a> oficial.</p>
@@ -747,7 +747,7 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="rls.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ACF de los residuales</span></span>
 <span id="cb31-2"><a href="rls.html#cb31-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo)  <span class="do">## cálculo de los residuales</span></span>
 <span id="cb31-3"><a href="rls.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-54-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Para concluir que los residuales del modelo ajustado son <em>independientes</em> basados en la ACF, ninguna de las barras verticales, llamadas correlaciones, debe superar las bandas de color azul para <span class="math inline">\(\text{Lag} &gt; 0\)</span>. En nuestro caso, podemos concluir que los residuales <em>son</em> independientes.</p>
 </div>
 <div id="normalidad" class="section level4 unnumbered">
@@ -787,13 +787,13 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="rls.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q-Q plot básico</span></span>
 <span id="cb34-2"><a href="rls.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span>
 <span id="cb34-3"><a href="rls.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(r, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-57-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-43-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Para más detalles, escribir <code>?qqnorm</code> en la consola del <code>R</code>. La idea fundamental es que los residuales del modelo (i.e., puntos en la gráfica) deben estar alrededor de la línea de color <em>rojo</em> para concluir, al menos gráficamente, que los residuales siguen una distribución Normal. En este caso, existen varios puntos por fuera de la línea, lo cual nos hace sospechar que esas observaciones <em>outliers</em> afectan el supesto.</p>
 <p><strong>Utilizando el paquete car</strong></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="rls.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q-Q plot usando el paquete car</span></span>
 <span id="cb35-2"><a href="rls.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb35-3"><a href="rls.html#cb35-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">qqPlot</span>(r, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-58-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 77 18</code></pre>
 <p>Aunque la elaboración de este gráfico es mucho más compleja, su interpretación es simple: diremos que los residuales del modelo ajustado <em>cumplen</em> con el supuesto de Normalidad si <em>todos</em> los puntos en encuentran <strong>dentro</strong> de las bandas de color <em>azul</em>. En este caso, las observaciones <code>18</code> y <code>77</code> parecen ser extremas.</p>
 </div>
@@ -847,7 +847,7 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 12.55073, Df = 1, p = 0.00039605</code></pre>
-<p>Como el valor <span class="math inline">\(p\)</span> de la prueba es mayor que 0.05, concluimos que la varianza del modelo <strong>es</strong> costante.</p>
+<p>Como el valor <span class="math inline">\(p\)</span> de la prueba es mayor que 0.05, concluimos que la varianza del modelo <strong>no</strong> es costante.</p>
 <p><strong>Aproximación gráfica</strong></p>
 <p>Al usar esta aproximación, lo que buscamos es que los gráficos resultantes tenga un patrón aleatorio. En términos generales, podemos hacer gráficos de</p>
 <ol style="list-style-type: decimal">
@@ -877,8 +877,8 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <span id="cb41-14"><a href="rls.html#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
 <span id="cb41-15"><a href="rls.html#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&quot;r vs. Edad&quot;</span>), <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>)</span>
 <span id="cb41-16"><a href="rls.html#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-62-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>De los gráficos anteriores se concluye que la varianza del modelo de <em>constante</em>.</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-48-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>De los gráficos anteriores se concluye que la varianza del modelo <em>no</em> es constante.</p>
 <!-- ### Identificación de _outliers_{-} -->
 <!-- ### Observaciones influenciales{-} -->
 </div>
@@ -909,7 +909,8 @@ Observe que, aunque el intervalo de confianza y el intervalo de predicción est�
 <li>Los <strong>intervalos de predicción</strong> permiten determinar el rango donde se encontrará <em>el próximo valor</em> de <span class="math inline">\(Y\)</span> cuando <span class="math inline">\(X=x_0\)</span>.
 </div></li>
 </ul>
-<p>Consideremos una soldadura con <span class="math inline">\(\text{Edad} = 20\)</span>, es decir, <span class="math inline">\(x_0=20\)</span>. Con el objeto <code>modelo</code>, podemos construir el intervalo de confianza del 95% haciendo</p>
+<p>Aunque los residuales del modelo ajustado para los datos de soldadura <strong>no</strong> cumple con el supuesto de varianza constante, se mostrará cómo predecir la <code>Resistencia</code> de una soldadura con <span class="math inline">\(\text{Edad} = 20\)</span>, es decir, <span class="math inline">\(x_0=20\)</span>.</p>
+<p>Con el objeto <code>modelo</code>, podemos construir el intervalo de confianza del 95% haciendo</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="rls.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalo de confianza del 95% para E[Resistencia|Edad = 20]</span></span>
 <span id="cb42-2"><a href="rls.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Edad =</span> <span class="dv">20</span>), <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
@@ -920,7 +921,7 @@ Observe que, aunque el intervalo de confianza y el intervalo de predicción est�
 <span id="cb44-2"><a href="rls.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Edad =</span> <span class="dv">20</span>), <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 10.86748 9.674564 12.06039</code></pre>
-<p>Por lo tanto, se espera que en <em>una</em> próxima soldadura de <span class="math inline">\(\text{Edad} = 20\)</span> el valor de Resistencia sea 10.87 psi. Dicho valor estará contenido en el intervalo <span class="math inline">\((9.67, 12.06)\)</span> el 95% de las veces.</p>
+<p>Por lo tanto, se espera que en <em>una</em> próxima soldadura de <span class="math inline">\(\text{Edad} = 20\)</span> el valor de Resistencia sea 10.87 psi. A nivel poblacional, dicha <code>Resistencia</code> estará en el intervalo <span class="math inline">\((9.67, 12.06)\)</span> el 95% de las veces.</p>
 <!-- ## Ejemplos -->
 <!-- 1. -->
 <!-- 2. -->
