@@ -71,3 +71,5 @@ prueba-de-kruskal-wallis
 ejemplos-3
 ejercicios-5
 palabras-finales
+identificación-de-outliers-1
+identificación-de-observaciones-influenciales-1
