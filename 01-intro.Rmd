@@ -88,7 +88,7 @@ knitr::include_graphics("images/rpackages.png")
 paquetes <- scan('https://cran.r-project.org/web/packages/', what = 'character', quiet = TRUE)
 ```
 
-Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra [aquí](https://cran.r-project.org/web/packages/available_packages_by_name.html). A la fecha existen `r paquetes[43]` paquetes, algunos ejemplos conocidos son `MASS`, `ggplot2`, `shiny`, y `caret`, entre otros.
+Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra [aquí](https://cran.r-project.org/web/packages/available_packages_by_name.html). A la fecha existen `r paquetes[43]` paquetes; algunos ejemplos conocidos son `MASS`, `ggplot2`, `shiny`, y `caret`, entre otros.
 
 Para utilizar un paquete, debemos seguir dos pasos
 
