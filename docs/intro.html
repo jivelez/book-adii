@@ -362,18 +362,18 @@ Figura 1.2: Qué es <code>R</code>? Ver <a href="https://www.youtube.com/watch?v
 <div id="descarga-e-instalación" class="section level3" number="1.2.3">
 <h3><span class="header-section-number">1.2.3</span> Descarga e instalación</h3>
 <p>A Septiembre de 2021, la versión más reciente de <code>R</code> es la 4.1.1, también denominada “Kick Things.”</p>
-<p>Dependiendo del sistema operativo, <code>R</code> puede descargarse en los siguientes enlances:</p>
-<ul>
-<li><a href="https://cran.r-project.org/bin/windows/base/">Windows</a>.</li>
-<li><a href="https://cran.r-project.org/bin/macosx/">macos</a>.</li>
-<li>Varias distribuciones de <a href="https://cran.r-project.org/bin/linux/">Linux</a>.</li>
-</ul>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:downloadR"></span>
 <img src="images/downloadR.png" alt="Página oficial del `R`. Note que la  versión más reciente es la 4.1.1." width="95%" />
 <p class="caption">
 Figura 1.3: Página oficial del <code>R</code>. Note que la versión más reciente es la 4.1.1.
 </p>
 </div>
+<p>Dependiendo del sistema operativo, <code>R</code> puede descargarse en los siguientes enlances:</p>
+<ul>
+<li><a href="https://cran.r-project.org/bin/windows/base/">Windows</a>.</li>
+<li><a href="https://cran.r-project.org/bin/macosx/">macos</a>.</li>
+<li>Varias distribuciones de <a href="https://cran.r-project.org/bin/linux/">Linux</a>.</li>
+</ul>
 <p>Las versiones de <code>R</code> tienen un ciclo de actualización cada 6 meses, y es altamente recomendable tener instalada la última versión del programa en el computador.</p>
 <p>Una vez descargado el instalador, basta con seguir las instrucciones para instalar el programa con las opciones por defecto.</p>
 </div>
@@ -393,12 +393,12 @@ Figura 1.4: Algnos paquetes de <code>R</code>.
 <li>cargarlo a la sesión de trabajo.</li>
 </ol>
 <p>La instalación de los paquetes se realiza utilizando la función <code>install.packages('PackageName')</code>, donde el argumento <code>PackageName</code> corresponde al <em>nombre</em> del paquete que quiere instalarse. Por ejemplo, si quisiéramos instalar el paquete <code>DescTools</code>, escribimos:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## instalación del paquete DescTools</span></span>
-<span id="cb1-2"><a href="intro.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;DescTools&#39;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## instalación del paquete DescTools</span></span>
+<span id="cb4-2"><a href="intro.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;DescTools&#39;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Posteriormente, aparecerán algunos mensajes que nos indican el progreso de dicha instalación.</p>
 <p>Cuando el proceso concluya, procedemos <em>cargar</em> el paquete a la sesión de trabajo. Para ello, utilizamos la función <code>library('PackageName')</code>. En nuestro caso, reemplazamos el argumento <code>PackageName</code> por el nombre del paquete que quieres utilizar:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## carga del paquete DescTools en la sesión de trabajo</span></span>
-<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DescTools&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## carga del paquete DescTools en la sesión de trabajo</span></span>
+<span id="cb5-2"><a href="intro.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DescTools&#39;</span>)</span></code></pre></div>
 <p>Con esta instrucción, <code>R</code> importa las funciones contenidas en el paquete <code>DescTools</code> a la sesión de trabajo actual.</p>
 
 <div class="rmdwarning">
