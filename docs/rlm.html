@@ -892,17 +892,21 @@ C_p = p+\frac{\text{SSE}_p}{\text{MSE}_\text{todos}} - (n-2p) = \begin{cases}
 <p>Por ejemplo, si queremos seleccionar el <em>mejor</em> modelo utilizando el <span class="math inline">\(R^2_\text{adj}\)</span>, basta con escribir</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="rlm.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mejor modelo basado en el R^2_{adj}</span></span>
 <span id="cb86-2"><a href="rlm.html#cb86-2" aria-hidden="true" tabindex="-1"></a>k[<span class="fu">which.max</span>(k[,<span class="st">&#39;adjr&#39;</span>]), ]</span></code></pre></div>
-<pre><code>##      Index  N                     Predictors  R-Square
-## 1023  1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571
-##      Adj. R-Square Mallow&#39;s Cp
-## 1023     0.9752579          11</code></pre>
+<pre><code>##      mindex  n                     predictors   rsquare      adjr
+## 1023   1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579
+##        predrsq cp      aic     sbic      sbc     msep       fpe
+## 1023 0.9715036 11 284.1403 3.041157 315.4024 88.79029 0.9845406
+##             apc        hsp
+## 1023 0.02774113 0.01007924</code></pre>
 <p>Si usamos el <a href="https://es.wikipedia.org/wiki/Criterio_de_informaci%C3%B3n_de_Akaike">AIC</a>, el <em>mejor</em> modelo será:</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="rlm.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mejor modelo basado en el Cp</span></span>
 <span id="cb88-2"><a href="rlm.html#cb88-2" aria-hidden="true" tabindex="-1"></a>k[<span class="fu">which.min</span>(<span class="fu">with</span>(k, (cp<span class="sc">-</span>n)<span class="sc">^</span><span class="dv">2</span>)), ]</span></code></pre></div>
-<pre><code>##      Index  N                     Predictors  R-Square
-## 1023  1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571
-##      Adj. R-Square Mallow&#39;s Cp
-## 1023     0.9752579          11</code></pre>
+<pre><code>##      mindex  n                     predictors   rsquare      adjr
+## 1023   1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579
+##        predrsq cp      aic     sbic      sbc     msep       fpe
+## 1023 0.9715036 11 284.1403 3.041157 315.4024 88.79029 0.9845406
+##             apc        hsp
+## 1023 0.02774113 0.01007924</code></pre>
 <p>Otra posibilidad es utilizar <strong>dos criterios</strong> selección a la vez:</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="rlm.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="do">## selección usando el R^2_{adj} y el AIC</span></span>
 <span id="cb90-2"><a href="rlm.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>

@@ -21,14 +21,11 @@ if(!require(formatR)) install.packages('formatR')
 require(formatR)
 ```
 
-
-
-```{block2, type='rmdnote'}
 Dependiendo del número de variables controlables, los modelos de Regresión Lineal pueden dividirse en _Modelo de Regresión Lineal Simple_ (RLS) y  _Modelo de Regresión Lineal Múltiple_ (RLM). 
 
 1. Cuando se tiene **sólo una** variable controlable, digamos $x$, hablamos de RLS.
 2. Cuando se tienen **más de una variable controlable**, digamos $x_1, x_2, \ldots, x_k$, hablamos de RLM. En el caso de proceso de embutidos, $x_1 = \text{velocidad}$  y $x_2 = \text{temperatura}$.
-```
+
 
 ## Formulación básica del modelo de RLS
 El modelo de RLS surge ante la necesidad de *predecir* una variable respuesta $Y$, generalmente continua, como función de una variable *controlable* $X$. 
