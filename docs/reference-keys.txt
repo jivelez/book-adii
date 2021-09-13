@@ -80,3 +80,13 @@ prueba-de-kruskal-wallis
 ejemplos-3
 ejercicios-5
 palabras-finales
+fig:str
+fig:ecuaciones
+fig:tablaanova
+propiedades-de-hatmathbfbeta
+fig:unnamed-chunk-3
+fig:unnamed-chunk-4
+fig:unnamed-chunk-19
+fig:unnamed-chunk-20
+cómo-determinar-si-existe-multicolinealidad
+fig:unnamed-chunk-34

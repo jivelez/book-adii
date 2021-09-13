@@ -57,17 +57,15 @@ El sitio web oficial es https://cran.r-project.org/
 
 A Septiembre de 2021, la versión más reciente de `R`  es la 4.1.1, también denominada "Kick Things". 
 
+```{r downloadR, echo=FALSE, out.width="95%", fig.cap="Página oficial del `R`. Note que la  versión más reciente es la 4.1.1.", fig.align='center'}
+knitr::include_graphics("images/downloadR.png")
+```
+
 Dependiendo del sistema operativo, `R` puede descargarse en los siguientes enlances:
 
 * [Windows](https://cran.r-project.org/bin/windows/base/). 
 * [macos](https://cran.r-project.org/bin/macosx/). 
 * Varias distribuciones de [Linux](https://cran.r-project.org/bin/linux/). 
-
-
-```{r downloadR, echo=FALSE, out.width="95%", fig.cap="Página oficial del `R`. Note que la  versión más reciente es la 4.1.1.", fig.align='center'}
-knitr::include_graphics("images/downloadR.png")
-```
-
 
 Las versiones de `R` tienen un ciclo de actualización cada 6 meses, y  es altamente recomendable tener instalada la última versión del programa en el computador.  
 
@@ -166,9 +164,5 @@ Es posible modificar la organización del RStudio IDE. Para ello, basta con ingr
 
 
 
+## Cursos *online*
 
-### Modelos avanzados
-
-### Cursos *online*
-
-[Jorge I. Vélez](https://jivelez.github.io), `r Sys.Date()`

@@ -4,5 +4,9 @@ delete_merged_file: true
 edit: https://github.com/jivelez/book-adii/edit/master/%s
 view: https://github.com/jivelez/book-adii/blob/master/%s
 language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
   ui:
     chapter_name: "Capítulo "
+    
