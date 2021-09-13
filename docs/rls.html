@@ -745,7 +745,7 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <span id="cb31-2"><a href="rls.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
 <span id="cb31-3"><a href="rls.html#cb31-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">durbinWatsonTest</span>(modelo)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1     -0.02653343      2.050609    0.78
+##    1     -0.02653343      2.050609     0.8
 ##  Alternative hypothesis: rho != 0</code></pre>
 <p>Basados en el valor <span class="math inline">\(p\)</span>, <em>no</em> es posible rechazar <span class="math inline">\(H_0\)</span> puesto que el valor <span class="math inline">\(p\)</span> de la prueba de Durbin-Watson es superior a un nivel de significancia <span class="math inline">\(\alpha\)</span> del 5%. Por lo tanto, concluimos que los residuales del modelo ajustados <em>son</em> independientes.</p>
 <p>Para graficar la ACF podemos hacer:</p>
