@@ -1,44 +1,173 @@
 # Introducción {#intro}
 
-El análisis de datos es el pilar fundamental de _Data Analytics_ y _Data Science_. Por supuesto, el uso herramientas computacionales es importante. A lo largo de este materal usaremos el [`R`](https://www.r-project.org/), pero muchos de los conceptos aquí expuestos pueden trabajarse, sin problema, en otro lenguaje como [`Python`](https://www.python.org/) o [`Julia`](https://julialang.org/).
+El análisis de datos es el pilar fundamental de *Data Analytics* y *Data Science*. Por supuesto, el uso herramientas computacionales es importante. A lo largo de este materal usaremos el [`R`](https://www.r-project.org/), pero muchos de los conceptos aquí expuestos pueden trabajarse, sin problema, en otro lenguaje como [`Python`](https://www.python.org/) o [`Julia`](https://julialang.org/).
 
 En la [Universidad del Norte](https://www.uninorte.edu.co/), los estudiantes tienen la posibilidad de tomar, a nivel de pregrado, cursos de Análisis de Datos. Parcticularmente, los estudiantes de la [División de Ingenierías](https://www.uninorte.edu.co/web/ingenierias) pueden tomar los cursos de :
 
-1. _Análisis de Datos en Ingeniería I_, ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/);
-2. _Análisis de Datos en Ingeniería II_, ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/);
-3. _Machine Learning_, ofrecido por el [Departamento de Ingeniería Eléctrica y Electrónica](https://www.uninorte.edu.co/web/departamento-de-ingenieria-electrica-y-electronica) y
-4. _Analítica de Datos Avanzada_; ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/).
+1.  *Análisis de Datos en Ingeniería I*, ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/);
+2.  *Análisis de Datos en Ingeniería II*, ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/);
+3.  *Machine Learning*, ofrecido por el [Departamento de Ingeniería Eléctrica y Electrónica](https://www.uninorte.edu.co/web/departamento-de-ingenieria-electrica-y-electronica) y
+4.  *Analítica de Datos Avanzada*; ofrecido por el Departamento de [Ingeniería Industrial](https://www.uninorte.edu.co/web/departamento-de-ingenieria-industrial/).
 
-Estos cursos, cuya dificultad aumenta conforme a la enumeración anterior, permiten a los estudiantes de la División de Ingenierías tener herramientas básicas, intermedias y avanzadoas para convertir _datos_ en _información_.
-
+Estos cursos, cuya dificultad aumenta conforme a la enumeración anterior, permiten a los estudiantes de la División de Ingenierías tener herramientas básicas, intermedias y avanzadoas para convertir *datos* en *información*.
 
 <!-- El curso de _Análisis de Datos en Ingeniería I_ introduce los conceptos básicos de analítica descriptiva, algunos elementos de probabilidad, el concepto de variables aleatorias, las distribuciones de probabilidad más utilizadas, así como pruebas de bondad de ajuste, procedimientos de pruebas de hipótesis y el modelo de Regresión Lineal Simple. -->
 
+## Analítica de Datos
 
-## Análisis Exploratorio de Datos
+### Conceptos básicos
+
+### Gráficos básicos
+
+### Tópicos avanzados
 
 
-## Conceptos básicos
+
+## `R`
+
+`R` es un entorno de programación *multiplataforma* y un lenguaje de programación [orientado a objetos](https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos) similar a [`S`](https://en.wikipedia.org/wiki/S_(programming_language)), pero bajo licencia [GNU](https://www.gnu.org/home.en.html), para el análisis gráfico y estadístico de datos creado en por [Robert Gentleman](https://www.linkedin.com/in/robert-gentleman-06845098) y [Ross Ihaka](https://www.stat.auckland.ac.nz/~ihaka/) en Agosto de 1993. La página oficial de `R` es [https://www.r-project.org/](https://www.r-project.org/). 
+
+```{r logoR, echo=FALSE, out.width="25%", fig.cap="Logo oficial del `R`.", fig.align='center'}
+knitr::include_graphics("images/Rlogo.png")
+```
+
+Por ser multiplataforma, `R` puede utilizarse en diferentes sistemas operativos, incluyendo Windows, macos y varias distribuciones de Linux.
 
 
-## Gráficos básicos
+```{r whatsR, echo=FALSE, out.width="80%", fig.cap="Qué es `R`? Ver https://www.youtube.com/watch?v=XcBLEVknqvY.", fig.align='center'}
+knitr::include_graphics("images/whatsR.png")
+```
 
-## `R` como herramienta
+Desde su concepción y gracias a su constante evolución, 
+`R` proporciona una gran cantidad de métodos estadísticos y gráficos, y es altamente extendible. Esta última característica permite el desarrollo e implementación de *nuevos* métodos estadísticos y *nuevos* tipos de gráficos, además de la automatización de reportes con relativa facilidad.
 
-### Qué es  `R`?
+<!-- ![Logo oficial del `R`.](images/Rlogo.png){width=50%} -->
+
+
+### Por qué `R`?
+
 
 ### `CRAN`
 
-### Descarga
+`CRAN` es el acrónimo de `C`omprehensive, `R`, `A`rchive, `N`etwork, y corresponde a una red de servidores ftp y web de todo el mundo que almacenan versiones idénticas y actualizadas de código y documentación para `R`.  
 
-### Operaciones básicas
+El sitio web oficial es https://cran.r-project.org/
+
+### Descarga e instalación
+
+A Septiembre de 2021, la versión más reciente de `R`  es la 4.1.1, también denominada "Kick Things". 
+
+Dependiendo del sistema operativo, `R` puede descargarse en los siguientes enlances:
+
+* [Windows](https://cran.r-project.org/bin/windows/base/). 
+* [macos](https://cran.r-project.org/bin/macosx/). 
+* Varias distribuciones de [Linux](https://cran.r-project.org/bin/linux/). 
+
+
+```{r downloadR, echo=FALSE, out.width="95%", fig.cap="Página oficial del `R`. Note que la  versión más reciente es la 4.1.1.", fig.align='center'}
+knitr::include_graphics("images/downloadR.png")
+```
+
+
+Las versiones de `R` tienen un ciclo de actualización cada 6 meses, y  es altamente recomendable tener instalada la última versión del programa en el computador.  
+
+Una vez descargado el instalador, basta con seguir las instrucciones para instalar el programa con las opciones por defecto. 
+
+
+### Paquetes 
+
+Los paquetes o _packages_ son colecciones de funciones y/o datos que ayudan a potencializar las funcionalidades de `R`.  Cada paquete tiene su documentación y, en muchos casos, ejemplos concretos que permiten comenzar a utilizarlos de inmediato.
+
+
+```{r packages, echo=FALSE, out.width="80%", fig.cap="Algnos paquetes de `R`.", fig.align='center'}
+knitr::include_graphics("images/rpackages.png")
+```
+
+```{r echo=FALSE, message=FALSE}
+## R packages
+paquetes <- scan('https://cran.r-project.org/web/packages/', what = 'character', quiet = TRUE)
+```
+
+Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra [aquí](https://cran.r-project.org/web/packages/available_packages_by_name.html). A la fecha existen `r paquetes[43]` paquetes, algunos ejemplos conocidos son `MASS`, `ggplot2`, `shiny`, y `caret`, entre otros.
+
+Para utilizar un paquete, debemos seguir dos pasos
+
+1. Instalar el paquete; y
+2. cargarlo a la sesión de trabajo.
+
+La instalación de los paquetes se realiza utilizando la función `install.packages('PackageName')`, donde el argumento `PackageName` corresponde al _nombre_ del paquete que quiere instalarse. Por ejemplo, si quisiéramos instalar el paquete `DescTools`, escribimos:
+
+```{r, eval=FALSE}
+## instalación del paquete DescTools
+install.packages('DescTools', dependencies = TRUE)
+```
+
+Posteriormente, aparecerán algunos mensajes que nos indican el progreso de dicha instalación. 
+
+Cuando el proceso concluya, procedemos _cargar_ el paquete a la sesión de trabajo.  Para ello, utilizamos la función `library('PackageName')`. En nuestro caso, reemplazamos el argumento `PackageName` por el nombre del paquete que quieres utilizar:
+
+```{r, eval=FALSE}
+## carga del paquete DescTools en la sesión de trabajo
+library('DescTools')
+```
+
+Con esta instrucción, `R` importa las funciones contenidas en el paquete `DescTools` a la sesión de trabajo actual.
+
+```{block2, type='rmdwarning'}
+La instrucción `install.packages('PackageName')` sólo debe ejecutarse _una vez_. Sin embargo, es necesario ejecutar `library('PackageName')` cada que inicies una sesión en `R`. Esto se debe a que aunque hayas instalado las funciones de un paquete con anterioridad, las sesiones de `R` se inician sólo con los objetos y funciones de base.
+```
+
+
 
 ### Creación de funciones
 
-### Modelos básicos
+
+### Ayuda?
+
+
+
+## RStudio
+
+[RStudio](https://www.rstudio.com/) es un entorno de desarrollo integrado (IDE) para `R` disponible en ediciones comerciales y de código abierto y se ejecuta en el escritorio (Windows, macos y Linux).
+
+
+```{r RStudioLogo, echo=FALSE, out.width="50%", fig.cap="Página oficial del `R`. Note que la  versión más reciente es la 4.1.1.", fig.align='center'}
+knitr::include_graphics("images/RStudiologo.png")
+```
+
+
+RStudio incluye una consola, un editor que resalta la sintaxis y admite la ejecución directa del código, así como herramientas para el trazado, el historial, la depuración y la gestión del espacio de trabajo.
+
+Para descargar Rstudio, basta con visitar https://www.rstudio.com/products/rstudio/download/. Una vez allí, basta escoger la versión acorde con nuestro sistema operativo.
+
+
+```{r downloadRStudio, echo=FALSE, out.width="95%", fig.cap="Página de descarga de RStudio.", fig.align='center'}
+knitr::include_graphics("images/RStudioDownload.png")
+```
+
+Una vez descargado, es suficiente con abrir el instalador y seguir las instrucciones. Cuando el proceso termine, el siguiente paso es abrirl el programa haciendo _click_ en el ícono de RStudio y vse abrirá una ventana similar a esto:
+
+
+
+```{r RStudioIDE, echo=FALSE, out.width="85%", fig.cap="RStudio IDE. Tomado de [Diego Calvo](https://www.diegocalvo.es/definicion-de-rstudio/rstudio-ejemplo-de-paneles/).", fig.align='center'}
+knitr::include_graphics("images/RstudioIDE.png")
+```
+
+Por ser un [IDE](https://es.wikipedia.org/wiki/Entorno_de_desarrollo_integrado), RStudio está compuesto por cuatro paneles:
+
+* `Panel 1`. Está ubicado en la esquina superior _izquierda_. En este panel se escriben los _scripts_, los cuales corresponde a instrucciones que `R` puede leer y ejecutar.
+* `Panel 2`. Está ubicado en la parte superior _derecha_. Este panel está compuesto, principalmente, por dos pestañas:  `Workspace` y `History`. La pestaña `Workspace` muestra los objetos y funciones creados dutante la sesión de trabajo.
+* `Panel 3`. Este panel, ubicado en la esquina inferior _derecha_, está compuesto por varias pestañas, incuyendo `Files`, `Plots`, `Packages` y `Help`. La pestaña `Files` muestra los archivos presentes en el directorio de trabajo; `Plots` muestra los diferentes gráficos que se crean en la sesión; `Packages` muestra los diferentes paquetes instalados en `R` y aquellos en uso durante la sesión de trabajo; y, finalmente, `Help` nos muestra la ayuda de funciones y/o paquetes.
+* `Panel 4`. Este panel, ubicado en la esquina inferior _izquierda_, corresponde a la consola del `R`. En este panel todas las instrucciones o _scripts_ son interpretadas y ejecutadas por el programa.
+
+```{block2, type='rmdnote'}
+Es posible modificar la organización del RStudio IDE. Para ello, basta con ingresar a `Tools` --> `Global Options...` --> `Pane Layout`.
+```
+
+
+
 
 ### Modelos avanzados
-
 
 ### Cursos *online*
 

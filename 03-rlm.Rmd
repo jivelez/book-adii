@@ -7,7 +7,12 @@ En la práctica, pueden existir múltiples variables controlables en un proceso 
 2. construir una función $f(x_1,x_2)$ que permita predecir el espesor de capa esperado; y 
 3. construir intervalos de confianza y predicción para dicho valor.
 
-Si la variable respuesta $y$ es continua y aproximadamente simétrica, podemos desarrollar 1, 2 y 3 a partir de la estimación de un modelo de regresión lineal. Puesto que el número de variables controlables es $k>1$,  una posibilidad es utilizar el modelo de Regresión Lineal Múltiple (RLM).
+Si la variable respuesta $y$ es continua y aproximadamente simétrica, podemos desarrollar 1, 2 y 3 a partir de la estimación de un modelo de regresión lineal. Puesto que el número de variables controlables es $k>1$,  una posibilidad es utilizar el modelo de Regresión Lineal Múltiple (RLM). 
+
+```{block2, type='rmdnote'}
+El modelo de RLM es una _extensión_ del modelo de RLS cuando se tiene más de una variale controlable.
+```
+
 
 ## Formulación básica del modelo de RLM
 Matemáticamente, el modelo de RLM puede expresarse como:
@@ -36,10 +41,10 @@ A partir de una muestra aleatoria de tamaño $n$ del proceso de producción, los
 <img src="images/datastructure.png" width="300" height="250">
 </center>
 
-De esta forma, se tienen $n$ unidades experimentales para cada una de estas se determina el valor de la variable respuesta $y_i$ para condiciones fijas $\mathbf{X}_i$. Por ejemplo, para la quinta unidad experimental, se obtuvo un valor la respuesta de $y_6$ y las variables controlables tomaron valores fijos $(x_{1,6}, x_{2,6}, \ldots, x_{k,6})$.
+De esta forma, se tienen $n$ unidades experimentales para cada una de estas se determina el valor de la variable respuesta $y_i$ para condiciones fijas $\mathbf{X}_i$. Por ejemplo, para la quinta unidad experimental, se obtuvo el valor $y_6$ cuando  las variables controlables tomaron los valores fijos $(x_{1,6}, x_{2,6}, \ldots, x_{k,6})$.
 
 
-Al igual que en RLS, la estimación del modelo de RLM realiza utilizando MCO. La idea fundamental consiste en minimizar
+Al igual que en RLS, la estimación del modelo de RLM realiza utilizando minimos cuadrados La idea fundamental consiste en minimizar
 
 \begin{eqnarray*}\label{L}
 L &=&\sum_{i=1}^n\epsilon_i^2 = \sum_{i=1}^n(Y_i-\beta_0-\beta_1X_{1,i} -\beta_2X_{2,i} - \ldots -\beta_kX_{k,i} )^2.
@@ -52,14 +57,14 @@ Los estimadores de mínimos cuadrados deben satisfacer las siguientes dos condic
   \frac{\partial L}{\partial \beta_j} | _{\hat{\beta}_0,\hat{\beta}_1,\ldots \hat{\beta}_k} &=& -2\sum_{i=1}^n \left(y_i-\hat{\beta}_0-\sum_{j=1}^k{\hat{\beta}_jx_{ij}}\right)x_{ij} = 0 
   \end{eqnarray*}
   
-La solución al sistema de ecuaciones de condiciones fundamentales da origen al sistema de ecuaciones normales de mínimos cuadrados 
+La solución al sistema de ecuaciones de condiciones fundamentales da origen al sistema de ecuaciones normales de mínimos cuadrados dado por
 
 <center>
 <img src="images/ecuaciones.png" width="500" height="200">
 </center>
 
   
-Por lo tanto, las solución de estas ecuaciones permite determinar $\hat{\mathbf{\beta}}$. Es fácil llegar a que el vector de coeficientes estimado para el modelo de RLM puede obtenerse como
+Las solución de estas ecuaciones permite determinar $\hat{\mathbf{\beta}}$. Es fácil llegar a que el vector de coeficientes estimado para el modelo de RLM puede obtenerse como
 
 $$
 \hat{\mathbf{\beta}} = (\mathbf{X}^\prime\mathbf{X})^{-1}\mathbf{X}^\prime \mathbf{y}
@@ -77,11 +82,21 @@ A partir del modelo ajustado, un valor específico $y_i$ puede calculase como:
 
 $$\hat{y}_i =  \hat{\beta}_0 + \hat{\beta}_1x_1 + \hat{\beta}_2x_2+\cdots+\hat{\beta}_kx_k$$
 
-Como ilustración, consideremos el siguiente ejemplo:
+Como ilustración, consideremos los siguientes datos provenientes de un proceso de pintura electrostática:
 
 ```{r, eval=FALSE}
 ## lectura de datos
-datos <- read.table()
+url <- 'https://www.dropbox.com/s/st5xk1prkxg1pj4/datalab2.txt?dl=1'
+datos <- read.table(url, header = TRUE)
+head(datos)
+```
+
+
+```{r, eval=FALSE}
+## lectura de datos
+url <- 'https://www.dropbox.com/s/st5xk1prkxg1pj4/datalab2.txt?dl=1'
+datos <- read.table(url, header = TRUE)
+head(datos)
 
 ## modelo de RLM
 modelo <- lm()
@@ -89,7 +104,6 @@ modelo <- lm()
 ## resultados
 summary(mod)
 ```
-
 
 
 ## Propiedades de los estimadores de $\mathbf{\beta}$

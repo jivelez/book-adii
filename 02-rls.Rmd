@@ -685,11 +685,12 @@ Esta prueba puede realizarse formalmente a través de diferentes pruebas estadí
 
 **Prueba de Breusch-Pagan**
 
-Sin entrar en los detalles formales, la prueba de Breusch-Pagan busca determinar, estadísticamente, si la varianza del modelo de RLS ajustado es constante o no.  En `R` podemos realizar esta prueba con a función `ncvTest` del paquete `car`:
+Sin entrar en los detalles formales, la prueba de Breusch-Pagan busca determinar, estadísticamente, si la varianza del modelo de RLS ajustado es constante o no.  En `R` podemos realizar esta prueba con a función `bptest` del paquete `lmtest`:
 
-```{r}
+```{r, message=FALSE}
 ## prueba de Breusch-Pagan para varianza constante
-car:::ncvTest(modelo)
+require(lmtest)
+lmtest:::bptest(modelo)
 ```
 
 Como el valor $p$ de la prueba es mayor que 0.05, concluimos que la varianza del modelo **no** es costante.

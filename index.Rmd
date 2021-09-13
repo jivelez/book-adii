@@ -35,8 +35,6 @@ Finalmente, en el capítulo \@ref(enp), se introducen conceptos básicos de Esta
 
 Para afianzar el proceso de aprendizaje, en cada capítulo se presentan una serie de ejercicios donde el estudiante puede poner en práctica los conceptos teóricos a través de la solución de problemas que comúnmente se presentan en ingeniería.
 
-## Por qué `R`?{-}
-
 
 ## Software y convenciones {-} 
 Este libro está construido utilizando los paquetes `knitr`\index{knitr} [@xie2015] y `bookdown`\index{bookdown} [@R-bookdown] de `R`.
