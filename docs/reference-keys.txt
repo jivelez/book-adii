@@ -7,11 +7,11 @@ fig:downloadRStudio
 fig:RStudioIDE
 fig:str
 fig:ecuaciones
-fig:unnamed-chunk-120
-fig:unnamed-chunk-121
+fig:unnamed-chunk-59
+fig:unnamed-chunk-60
 fig:tablaanova
-fig:unnamed-chunk-137
-fig:unnamed-chunk-151
+fig:unnamed-chunk-76
+fig:unnamed-chunk-90
 intro
 analítica-de-datos
 conceptos-básicos

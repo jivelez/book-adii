@@ -393,8 +393,8 @@ Figura 3.2: Ecuaciones normales de mínimos cuadrados.
 <span id="cb50-5"><a href="rlm.html#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
 <span id="cb50-6"><a href="rlm.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qgraph</span>(corMat, <span class="at">graph =</span> <span class="st">&quot;cor&quot;</span>, <span class="at">layout =</span> <span class="st">&quot;spring&quot;</span>, <span class="at">sampleSize =</span> <span class="fu">nrow</span>(datos),</span>
 <span id="cb50-7"><a href="rlm.html#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.cex =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-120"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-120-1.png" alt="Red de correlación para $x_1$, $x_2$ y $y$. Correlaciones positivas se muestran en verde, y las negativas en rojo." width="480" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-59"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-59-1.png" alt="Red de correlación para $x_1$, $x_2$ y $y$. Correlaciones positivas se muestran en verde, y las negativas en rojo." width="480" />
 <p class="caption">
 Figura 3.3: Red de correlación para <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> y <span class="math inline">\(y\)</span>. Correlaciones positivas se muestran en verde, y las negativas en rojo.
 </p>
@@ -411,8 +411,8 @@ Figura 3.3: Red de correlación para <span class="math inline">\(x_1\)</span>, <
 <span id="cb51-9"><a href="rlm.html#cb51-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
 <span id="cb51-10"><a href="rlm.html#cb51-10" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb51-11"><a href="rlm.html#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(datos, <span class="at">lower.panel =</span> panel.smooth, <span class="at">upper.panel =</span> panel.cor, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-121"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-121-1.png" alt="Matriz de dispersión para $x_1$, $x_2$ y $y$." width="528" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-60"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-60-1.png" alt="Matriz de dispersión para $x_1$, $x_2$ y $y$." width="528" />
 <p class="caption">
 Figura 3.4: Matriz de dispersión para <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> y <span class="math inline">\(y\)</span>.
 </p>
@@ -693,8 +693,8 @@ La mejor manera de identificar <em>outliers</em> es a partir del cálculo de los
 <p>Gráficamente es posible identificar gráficamente cuáles son las observaciones influenciales utilizando la función <code>influenceIndexPlot</code> del paquete <code>car</code>:</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="rlm.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico de variables influenciales</span></span>
 <span id="cb73-2"><a href="rlm.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(fit, <span class="at">vars =</span> <span class="st">&quot;Bonf&quot;</span>, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-137"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-137-1.png" alt="Gráfico de observaciones influenciales. El eje $y$ corresponde al valor $p$ de la prueba de Bonferroni." width="528" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-76"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-76-1.png" alt="Gráfico de observaciones influenciales. El eje $y$ corresponde al valor $p$ de la prueba de Bonferroni." width="528" />
 <p class="caption">
 Figura 3.6: Gráfico de observaciones influenciales. El eje <span class="math inline">\(y\)</span> corresponde al valor <span class="math inline">\(p\)</span> de la prueba de Bonferroni.
 </p>
@@ -908,8 +908,8 @@ C_p = p+\frac{\text{SSE}_p}{\text{MSE}_\text{todos}} - (n-2p) = \begin{cases}
 <span id="cb90-2"><a href="rlm.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
 <span id="cb90-3"><a href="rlm.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(k, <span class="fu">aes</span>(<span class="at">x =</span> adjr, <span class="at">y =</span> aic)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb90-4"><a href="rlm.html#cb90-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="fu">expression</span>(R<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="st">&quot; ajustado&quot;</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;AIC&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-151"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-151-1.png" alt="AIC vs. $R^2$ ajustado en todas las regresiones posibles." width="480" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-90"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-90-1.png" alt="AIC vs. $R^2$ ajustado en todas las regresiones posibles." width="480" />
 <p class="caption">
 Figura 3.7: AIC vs. <span class="math inline">\(R^2\)</span> ajustado en todas las regresiones posibles.
 </p>
@@ -928,7 +928,7 @@ Figura 3.7: AIC vs. <span class="math inline">\(R^2\)</span> ajustado en todas 
 ## 1021 0.9653333 30.52284 303.7989
 ## 1015 0.9640209 36.51001 309.0744
 ## 1023 0.9715036 11.00000 284.1403</code></pre>
-<p>Por ejemplo, el modelo <code>968</code> no incluye <code>x2</code> ni <code>x8</code> y tiene un <span class="math inline">\(R^2_{\text{adj}}=0.9619\)</span>, mientras el modelo <code>1023</code> tiene el <span class="math inline">\(R^2_{\text{adj}}\)</span> más alto e incluye 10 variables predictoras. A pesar de que este modelo es <em>levemente</em> mejor el <code>968</code>, la ganancia en <span class="math inline">\(R^2_{\text{adj}}\)</span> es ínfima y podría no justificar la medición en proceso de dos factores controlables más. En cuanto al AIC, se tiene que los modelos <code>1021</code> y <code>1015</code> son prácticamente los mismos.</p>
+<p>Por ejemplo, el modelo <code>968</code> no incluye <code>x2</code> ni <code>x8</code> y tiene un <span class="math inline">\(R^2_{\text{adj}}=0.9619\)</span>, mientras el modelo <code>1023</code> tiene el <span class="math inline">\(R^2_{\text{adj}}\)</span> más alto e incluye 10 variables predictoras. A pesar de que este modelo es <em>levemente</em> mejor el <code>968</code>, la ganancia en <span class="math inline">\(R^2_{\text{adj}}\)</span> es ínfima y podría no justificar la medición en proceso de dos factores controlables más. En términos del AIC, se tiene que los modelos <code>1021</code> y <code>1015</code> son similares.</p>
 </div>
 <div id="selección-secuencial" class="section level3" number="3.8.2">
 <h3><span class="header-section-number">3.8.2</span> Selección secuencial</h3>

@@ -675,7 +675,7 @@ De acuerdo con la definición de cada criterio, el _mejor_ modelo debe tener un 
 k <- as.data.frame(k)
 subset(k, aic<350 & adjr > 0.8, select = n:aic)
 ```
-Por ejemplo, el modelo `968` no incluye `x2` ni `x8` y tiene un $R^2_{\text{adj}}=0.9619$, mientras el modelo `1023` tiene el $R^2_{\text{adj}}$ más alto e incluye 10 variables predictoras. A pesar de que este modelo es _levemente_ mejor el `968`, la ganancia en $R^2_{\text{adj}}$ es ínfima y podría no justificar la medición en proceso de dos factores controlables más. En cuanto al AIC, se tiene que los modelos `1021` y `1015` son prácticamente los mismos.
+Por ejemplo, el modelo `968` no incluye `x2` ni `x8` y tiene un $R^2_{\text{adj}}=0.9619$, mientras el modelo `1023` tiene el $R^2_{\text{adj}}$ más alto e incluye 10 variables predictoras. A pesar de que este modelo es _levemente_ mejor el `968`, la ganancia en $R^2_{\text{adj}}$ es ínfima y podría no justificar la medición en proceso de dos factores controlables más. En términos del AIC, se tiene que los modelos `1021` y `1015` son similares.
 
 ### Selección secuencial
 Need to add some introductory remarks 
