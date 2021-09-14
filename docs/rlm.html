@@ -182,7 +182,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.2.4" data-path="intro.html"><a href="intro.html#paquetes"><i class="fa fa-check"></i><b>1.2.4</b> Paquetes</a></li>
 <li class="chapter" data-level="1.2.5" data-path="intro.html"><a href="intro.html#operadores-básicos"><i class="fa fa-check"></i><b>1.2.5</b> Operadores básicos</a></li>
 <li class="chapter" data-level="1.2.6" data-path="intro.html"><a href="intro.html#creación-de-funciones"><i class="fa fa-check"></i><b>1.2.6</b> Creación de funciones</a></li>
-<li class="chapter" data-level="1.2.7" data-path="intro.html"><a href="intro.html#ayuda"><i class="fa fa-check"></i><b>1.2.7</b> Ayuda?</a></li>
+<li class="chapter" data-level="1.2.7" data-path="intro.html"><a href="intro.html#obteniendo-ayuda"><i class="fa fa-check"></i><b>1.2.7</b> Obteniendo ayuda</a></li>
 <li class="chapter" data-level="1.2.8" data-path="intro.html"><a href="intro.html#lectura-de-datos"><i class="fa fa-check"></i><b>1.2.8</b> Lectura de datos</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#rstudio"><i class="fa fa-check"></i><b>1.3</b> RStudio</a></li>
@@ -236,7 +236,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.7" data-path="rlm.html"><a href="rlm.html#análisis-de-multicolinealidad"><i class="fa fa-check"></i><b>3.7</b> Análisis de Multicolinealidad</a>
 <ul>
-<li class="chapter" data-level="3.7.1" data-path="rlm.html"><a href="rlm.html#cómo-determinar-si-existe-multicolinealidad"><i class="fa fa-check"></i><b>3.7.1</b> Cómo determinar si existe multicolinealidad?</a></li>
+<li class="chapter" data-level="3.7.1" data-path="rlm.html"><a href="rlm.html#cómo-detectarla"><i class="fa fa-check"></i><b>3.7.1</b> Cómo detectarla?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.8" data-path="rlm.html"><a href="rlm.html#selección-de-modelos"><i class="fa fa-check"></i><b>3.8</b> Selección de Modelos</a>
 <ul>
@@ -374,10 +374,10 @@ Figura 3.2: Ecuaciones normales de mínimos cuadrados.
 <p>A partir del modelo ajustado, un valor específico <span class="math inline">\(y_i\)</span> puede calculase como:</p>
 <p><span class="math display">\[\hat{y}_i =  \hat{\beta}_0 + \hat{\beta}_1x_1 + \hat{\beta}_2x_2+\cdots+\hat{\beta}_kx_k\]</span></p>
 <p>Como ilustración, consideremos los siguientes datos provenientes de un proceso de pintura electrostática:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="rlm.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## lectura de datos</span></span>
-<span id="cb1-2"><a href="rlm.html#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&#39;https://www.dropbox.com/s/st5xk1prkxg1pj4/datalab2.txt?dl=1&#39;</span></span>
-<span id="cb1-3"><a href="rlm.html#cb1-3" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(url, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-4"><a href="rlm.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="rlm.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">## lectura de datos</span></span>
+<span id="cb65-2"><a href="rlm.html#cb65-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&#39;https://www.dropbox.com/s/st5xk1prkxg1pj4/datalab2.txt?dl=1&#39;</span></span>
+<span id="cb65-3"><a href="rlm.html#cb65-3" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(url, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb65-4"><a href="rlm.html#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
 <pre><code>##          y        x1 x2
 ## 1 91.88308 18.722091  6
 ## 2 94.37544 19.056131  3
@@ -387,33 +387,35 @@ Figura 3.2: Ecuaciones normales de mínimos cuadrados.
 ## 6 76.05198 12.786439  9</code></pre>
 <p>En este caso, la variable respuesta <span class="math inline">\(y\)</span> representa el espesor de la capa de pintura en micrones, <span class="math inline">\(x_1\)</span> es la presión de aire en <em>psi</em> y <span class="math inline">\(x_2\)</span> es la velocidad de la banda transportadora.</p>
 <p>Una forma de comenzar a establecer si existe relación lineal entre <span class="math inline">\(y\)</span> y las variables <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> es a través de una red, como se muestra a continuación:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="rlm.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## matriz de correlación</span></span>
-<span id="cb3-2"><a href="rlm.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(IsingSampler)</span>
-<span id="cb3-3"><a href="rlm.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(qgraph)</span>
-<span id="cb3-4"><a href="rlm.html#cb3-4" aria-hidden="true" tabindex="-1"></a>corMat <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos)</span>
-<span id="cb3-5"><a href="rlm.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
-<span id="cb3-6"><a href="rlm.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qgraph</span>(corMat, <span class="at">graph =</span> <span class="st">&quot;cor&quot;</span>, <span class="at">layout =</span> <span class="st">&quot;spring&quot;</span>, <span class="at">sampleSize =</span> <span class="fu">nrow</span>(datos), <span class="at">legend.cex =</span> <span class="dv">1</span>,</span>
-<span id="cb3-7"><a href="rlm.html#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.05</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" alt="Red de correlación para $x_1$, $x_2$ y $y$. Correlaciones positivas se muestran en verde, y las negativas en rojo." width="480" />
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="rlm.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="do">## matriz de correlación</span></span>
+<span id="cb67-2"><a href="rlm.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(IsingSampler)</span>
+<span id="cb67-3"><a href="rlm.html#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(qgraph)</span>
+<span id="cb67-4"><a href="rlm.html#cb67-4" aria-hidden="true" tabindex="-1"></a>corMat <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos)</span>
+<span id="cb67-5"><a href="rlm.html#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
+<span id="cb67-6"><a href="rlm.html#cb67-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qgraph</span>(corMat, <span class="at">graph =</span> <span class="st">&quot;cor&quot;</span>, <span class="at">layout =</span> <span class="st">&quot;spring&quot;</span>, <span class="at">sampleSize =</span> <span class="fu">nrow</span>(datos),</span>
+<span id="cb67-7"><a href="rlm.html#cb67-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.cex =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-82"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-82-1.png" alt="Red de correlación para $x_1$, $x_2$ y $y$. Correlaciones positivas se muestran en verde, y las negativas en rojo." width="480" />
 <p class="caption">
 Figura 3.3: Red de correlación para <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> y <span class="math inline">\(y\)</span>. Correlaciones positivas se muestran en verde, y las negativas en rojo.
 </p>
 </div>
 <p>O utilizando una matriz de dispersión:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="rlm.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## pairs plot</span></span>
-<span id="cb4-2"><a href="rlm.html#cb4-2" aria-hidden="true" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">prefix =</span> <span class="st">&quot;&quot;</span>, cex.cor, ...) {</span>
-<span id="cb4-3"><a href="rlm.html#cb4-3" aria-hidden="true" tabindex="-1"></a>    usr <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="st">&quot;usr&quot;</span>)</span>
-<span id="cb4-4"><a href="rlm.html#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">on.exit</span>(<span class="fu">par</span>(usr))</span>
-<span id="cb4-5"><a href="rlm.html#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">usr =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb4-6"><a href="rlm.html#cb4-6" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
-<span id="cb4-7"><a href="rlm.html#cb4-7" aria-hidden="true" tabindex="-1"></a>    txt <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">c</span>(r, <span class="fl">0.123456789</span>), <span class="at">digits =</span> digits)[<span class="dv">1</span>]</span>
-<span id="cb4-8"><a href="rlm.html#cb4-8" aria-hidden="true" tabindex="-1"></a>    txt <span class="ot">&lt;-</span> <span class="fu">paste0</span>(prefix, txt)</span>
-<span id="cb4-9"><a href="rlm.html#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
-<span id="cb4-10"><a href="rlm.html#cb4-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-11"><a href="rlm.html#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(datos, <span class="at">lower.panel =</span> panel.smooth, <span class="at">upper.panel =</span> panel.cor, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-4-1.png" alt="Matriz de dispersión para $x_1$, $x_2$ y $y$." width="528" />
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="rlm.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="do">## pairs plot</span></span>
+<span id="cb68-2"><a href="rlm.html#cb68-2" aria-hidden="true" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">prefix =</span> <span class="st">&quot;&quot;</span>, cex.cor,</span>
+<span id="cb68-3"><a href="rlm.html#cb68-3" aria-hidden="true" tabindex="-1"></a>    ...) {</span>
+<span id="cb68-4"><a href="rlm.html#cb68-4" aria-hidden="true" tabindex="-1"></a>    usr <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="st">&quot;usr&quot;</span>)</span>
+<span id="cb68-5"><a href="rlm.html#cb68-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">on.exit</span>(<span class="fu">par</span>(usr))</span>
+<span id="cb68-6"><a href="rlm.html#cb68-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">usr =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb68-7"><a href="rlm.html#cb68-7" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb68-8"><a href="rlm.html#cb68-8" aria-hidden="true" tabindex="-1"></a>    txt <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">c</span>(r, <span class="fl">0.123456789</span>), <span class="at">digits =</span> digits)[<span class="dv">1</span>]</span>
+<span id="cb68-9"><a href="rlm.html#cb68-9" aria-hidden="true" tabindex="-1"></a>    txt <span class="ot">&lt;-</span> <span class="fu">paste0</span>(prefix, txt)</span>
+<span id="cb68-10"><a href="rlm.html#cb68-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb68-11"><a href="rlm.html#cb68-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb68-12"><a href="rlm.html#cb68-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(datos, <span class="at">lower.panel =</span> panel.smooth, <span class="at">upper.panel =</span> panel.cor,</span>
+<span id="cb68-13"><a href="rlm.html#cb68-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-83"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-83-1.png" alt="Matriz de dispersión para $x_1$, $x_2$ y $y$." width="528" />
 <p class="caption">
 Figura 3.4: Matriz de dispersión para <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> y <span class="math inline">\(y\)</span>.
 </p>
@@ -424,9 +426,9 @@ Figura 3.4: Matriz de dispersión para <span class="math inline">\(x_1\)</span>,
 Para otras posibilidades relacionadas con correlogramas, se recomienda revisar las alternativas en <a href="https://www.r-graph-gallery.com/correlogram.html">R Graph Gallery</a>.
 </div>
 <p>Para estimar el modelo de RLM, utilizamos la función <code>lm</code> como se muestra a continuación:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="rlm.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ajuste del modelo de RLM</span></span>
-<span id="cb5-2"><a href="rlm.html#cb5-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
-<span id="cb5-3"><a href="rlm.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="rlm.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ajuste del modelo de RLM</span></span>
+<span id="cb69-2"><a href="rlm.html#cb69-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
+<span id="cb69-3"><a href="rlm.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x1 + x2, data = datos)
@@ -441,7 +443,8 @@ Para otras posibilidades relacionadas con correlogramas, se recomienda revisar l
 ## x1           1.48275    0.06144  24.132  &lt; 2e-16 ***
 ## x2          -1.05521    0.13660  -7.725 1.03e-11 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 2.767 on 97 degrees of freedom
 ## Multiple R-squared:  0.8716, Adjusted R-squared:  0.8689 
@@ -472,8 +475,8 @@ V(\hat\beta_{j}) &amp;=&amp; \sigma^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj} \hs
 \end{eqnarray*}\]</span></p>
 <p>Ahora, a partir de <span class="math inline">\(E[\hat{\beta}_j]\)</span> y <span class="math inline">\(V(\hat\beta_{j})\)</span>, es posible hacer <strong>inferencia</strong> para el parámetro <span class="math inline">\(\beta_j\)</span>, <span class="math inline">\(j=1,2,\ldots,k.\)</span> Sin embargo, observe que <span class="math inline">\(V(\hat\beta_{j})\)</span> depende de <span class="math inline">\(\sigma^2\)</span>, la varianza del modelo de RLM, que se estima a través del MSE.</p>
 <p>Los coeficientes del modelo de RLM ajustado para los datos provenientes del proceso de pintura electrostática se obtienen haciendo:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="rlm.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## coeficientes estimados</span></span>
-<span id="cb7-2"><a href="rlm.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="rlm.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="do">## coeficientes estimados</span></span>
+<span id="cb71-2"><a href="rlm.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(fit)</span></code></pre></div>
 <pre><code>## (Intercept)          x1          x2 
 ##   66.284831    1.482753   -1.055206</code></pre>
 <p>A partir de estos coeficientes, el modelo ajustado será</p>
@@ -506,8 +509,8 @@ Figura 3.5: Tabla ANOVA en RLM.
 </p>
 </div>
 <p>En el caso del modelo de RLM para el proceso de pintura electrostática, podemos obtener el valor de <span class="math inline">\(\hat{\sigma}^2\)</span> haciendo:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="rlm.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## estimación de sigma^2</span></span>
-<span id="cb9-2"><a href="rlm.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="rlm.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="do">## estimación de sigma^2</span></span>
+<span id="cb73-2"><a href="rlm.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 7.65454</code></pre>
 <p>Por lo tanto, el modelo estimado será:</p>
 <p><span class="math display">\[
@@ -556,8 +559,8 @@ través de la tabla de ANOVA utilizando el estadístico <span class="math inline
 <p><span class="math display">\[t_j = \frac{\hat{\beta}_j - 0}{\text{s.e.}(\hat\beta_j)} = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2(\mathbf{X}^\prime\mathbf{X})^{-1}_{jj}}}\sim t_{n-p}\]</span></p>
 <p>Por lo tanto, rechazamos <span class="math inline">\(H_0\)</span> con un nivel de significancia de <span class="math inline">\(100\times(1-\alpha)\%\)</span> si <span class="math inline">\(|t_j| &gt; t_{\alpha/2, n-p}\)</span>.</p>
 <p>Para el problema de la pintura electrostática, tendríamos:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="rlm.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ajuste del modelo de RLM</span></span>
-<span id="cb11-2"><a href="rlm.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="rlm.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ajuste del modelo de RLM</span></span>
+<span id="cb75-2"><a href="rlm.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept) 66.284831 1.10349995 60.067815 1.529216e-78
 ## x1           1.482753 0.06144364 24.131927 8.750958e-43
@@ -572,8 +575,8 @@ través de la tabla de ANOVA utilizando el estadístico <span class="math inline
   \end{equation}\]</span></p>
 <p>Otra alternativa para construir intervalos de confianza es vía <em>bootstrap</em> o <em>likelihood profiling</em>. Finalmente concluimos, con un nivel de confianza del <span class="math inline">\(100\times(1-\alpha)\%\)</span>, que <span class="math inline">\(\beta_j\)</span> está en el intervalo anterior.</p>
 <p>Uan forma de construir los intervalos de confianza para los coeficientes del modelo es utilizando la función <code>confint.default</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="rlm.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalos de confianza del 95% para los coeficientes</span></span>
-<span id="cb13-2"><a href="rlm.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint.default</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="rlm.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalos de confianza del 95% para los coeficientes</span></span>
+<span id="cb77-2"><a href="rlm.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint.default</span>(fit)</span></code></pre></div>
 <pre><code>##                 2.5 %     97.5 %
 ## (Intercept) 64.122011 68.4476513
 ## x1           1.362326  1.6031807
@@ -605,8 +608,8 @@ El modelo de RLM ajustado puede utilizarse para predecir <span class="math inlin
  \end{eqnarray}\]</span></p>
 <p>Supongamos que queremos determinar el espesor de la capa de pintura para las condiciones <span class="math inline">\(\mathbf{x}_0 = (10, 8)\)</span>, es decir, cuando <span class="math inline">\(x_1 = 10\)</span> y <span class="math inline">\(x_2 = 8\)</span>.</p>
 <p>En <code>R</code> procedemos de la siguiente manera:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="rlm.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo de E[y|x_1 = 10, x_2 = 8]</span></span>
-<span id="cb15-2"><a href="rlm.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="dv">10</span>, <span class="at">x2 =</span> <span class="dv">8</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="rlm.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo de E[y|x_1 = 10, x_2 = 8]</span></span>
+<span id="cb79-2"><a href="rlm.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="dv">10</span>, <span class="at">x2 =</span> <span class="dv">8</span>))</span></code></pre></div>
 <pre><code>##        1 
 ## 72.67072</code></pre>
 <p>Si trabajamos bajo las condiciones <span class="math inline">\(\mathbf{x}_0\)</span>, se espera que, en promedio, el espesor de la capa de pintura sea 72.67 micrones.</p>
@@ -616,8 +619,8 @@ Para otros argumentos y opciones, se sugiere al lector escribir
 <code>?predict.lm</code> en la consola de <code>R</code>.
 </div>
 <p>Ahora, si es de interés calcular un intervalo de confianza del 95%, agregamos el argumento <code>interval = 'confidence'</code> a la instrucción anterior:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="rlm.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo de E[y|x_1 = 10, x_2 = 8]</span></span>
-<span id="cb17-2"><a href="rlm.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="dv">10</span>, <span class="at">x2 =</span> <span class="dv">8</span>), <span class="at">interval =</span> <span class="st">&#39;confidence&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="rlm.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo de E[y|x_1 = 10, x_2 = 8]</span></span>
+<span id="cb81-2"><a href="rlm.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="dv">10</span>, <span class="at">x2 =</span> <span class="dv">8</span>), <span class="at">interval =</span> <span class="st">&#39;confidence&#39;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 72.67072 71.64637 73.69507</code></pre>
 <p>Por lo tanto, se espera que, si continuamos trabajando bajo las condiciones <span class="math inline">\(x_1 = 10\)</span> y <span class="math inline">\(x_2 = 8\)</span>, el espesor de capa <em>promedio</em> sea 72.67 micrones. A nivel <em>poblacional</em>, dicho promedio se encontrará en el intervalo <span class="math inline">\((71.646, 73.695)\)</span> con una confianza del 95%.</p>
@@ -630,8 +633,8 @@ Para otros argumentos y opciones, se sugiere al lector escribir
  \end{eqnarray}\]</span></p>
 <p>Otra posibilidad para construir dicho intervalo es vía <a href="https://es.wikipedia.org/wiki/Bootstrapping_(estad%C3%ADstica)"><em>bootstrap</em></a>. Observe que lo único que cambia en este intervalo en relación con el intervalo de confianza es la varianza de <span class="math inline">\(Y_0\)</span> <span class="math inline">\(-\)</span> existe más incertidumbre. Observe que en el intervalo de predicción estamos interesados en <span class="math inline">\(Y_0 | \mathbf{x}_0\)</span> y no <span class="math inline">\(\hat{\mu}_{\mathbf{Y} | \mathbf{x}_0}\)</span>.</p>
 <p>Para calcular un intervalo de predicción del 95%, agregamos el argumento <code>interval = 'prediction'</code> a la instrucción anterior:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="rlm.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalo de predicción para E[y|x_1 = 10, x_2 = 8]</span></span>
-<span id="cb19-2"><a href="rlm.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="dv">10</span>, <span class="at">x2 =</span> <span class="dv">8</span>), <span class="at">interval =</span> <span class="st">&#39;prediction&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="rlm.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalo de predicción para E[y|x_1 = 10, x_2 = 8]</span></span>
+<span id="cb83-2"><a href="rlm.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="dv">10</span>, <span class="at">x2 =</span> <span class="dv">8</span>), <span class="at">interval =</span> <span class="st">&#39;prediction&#39;</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 72.67072 67.08489 78.25655</code></pre>
 <p>Este resultado indica que, bajo las condiciones <span class="math inline">\(x_1 = 10\)</span> y <span class="math inline">\(x_2 = 8\)</span>, el valor del espesor de la capa de pintura para la <em>próxima</em> unidad experimental será 72.67 micrones. A nivel <em>poblacional</em>, dicho valor se encontrará en el intervalo <span class="math inline">\((67.085, 78.257)\)</span> con una confianza del 95%.</p>
@@ -666,36 +669,36 @@ Para otros argumentos y opciones, se sugiere al lector escribir
 La mejor manera de identificar <em>outliers</em> es a partir del cálculo de los residuales estudentizados. Decimos que la <span class="math inline">\(i\)</span>-ésima observación <strong>es</strong> un <em>outlier</em> si <span class="math inline">\(r_i\notin (-3, 3)\)</span>.
 </div>
 <p>En <code>R</code> las funciones clave son:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="rlm.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## residuales crudos</span></span>
-<span id="cb21-2"><a href="rlm.html#cb21-2" aria-hidden="true" tabindex="-1"></a>r_crudo <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)</span>
-<span id="cb21-3"><a href="rlm.html#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="rlm.html#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">## residuales estudentizados</span></span>
-<span id="cb21-5"><a href="rlm.html#cb21-5" aria-hidden="true" tabindex="-1"></a>r_est <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(fit)</span>
-<span id="cb21-6"><a href="rlm.html#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="rlm.html#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="do">## residuales estandarizados</span></span>
-<span id="cb21-8"><a href="rlm.html#cb21-8" aria-hidden="true" tabindex="-1"></a>r_normal <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="rlm.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="do">## residuales crudos</span></span>
+<span id="cb85-2"><a href="rlm.html#cb85-2" aria-hidden="true" tabindex="-1"></a>r_crudo <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)</span>
+<span id="cb85-3"><a href="rlm.html#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="rlm.html#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="do">## residuales estudentizados</span></span>
+<span id="cb85-5"><a href="rlm.html#cb85-5" aria-hidden="true" tabindex="-1"></a>r_est <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(fit)</span>
+<span id="cb85-6"><a href="rlm.html#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="rlm.html#cb85-7" aria-hidden="true" tabindex="-1"></a><span class="do">## residuales estandarizados</span></span>
+<span id="cb85-8"><a href="rlm.html#cb85-8" aria-hidden="true" tabindex="-1"></a>r_normal <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(fit)</span></code></pre></div>
 <p>donde <code>fit</code> es el objeto <code>R</code> que contiene en modelo de RLM estimado. Para más detalles, se sugiere consultar la ayuda de cada función: <code>?residuals</code>, <code>?rstudent</code> y <code>?rstandard</code>.</p>
 <p>En nuestro caso,</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="rlm.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## residuales estudentizados</span></span>
-<span id="cb22-2"><a href="rlm.html#cb22-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(fit)</span>
-<span id="cb22-3"><a href="rlm.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(r <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">|</span> r <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="rlm.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="do">## residuales estudentizados</span></span>
+<span id="cb86-2"><a href="rlm.html#cb86-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(fit)</span>
+<span id="cb86-3"><a href="rlm.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(r <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">|</span> r <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## 18 
 ## 18</code></pre>
 <p>la observación <code>18</code> podría considerarse un <em>outlier</em>. En la práctica, el siguiente paso es evaluar la trazabilidad de esa observación y determinar si existen o no causas asignables para que esta sea un <em>outlier</em>. En caso de que exista una causa asignable, dicha observación <em>debería</em> removerse de la base de datos y, con los datos reducidos, estimar nuevamente el modelo de RLM.</p>
 <p>Otra forma de detectar <em>outliers</em> es a través de la <strong>prueba de Bonferroni</strong>. Esta prueba está implementada en la función <code>outlierTest</code> del paquete <code>car</code>. En nuestro ejemplo, procedemos de la siguiente manera:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="rlm.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## prueba Bonferroni para outliers</span></span>
-<span id="cb24-2"><a href="rlm.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
-<span id="cb24-3"><a href="rlm.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(fit, <span class="at">n.max =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="rlm.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="do">## prueba Bonferroni para outliers</span></span>
+<span id="cb88-2"><a href="rlm.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb88-3"><a href="rlm.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(fit, <span class="at">n.max =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## No Studentized residuals with Bonferroni p &lt; 0.05
 ## Largest |rstudent|:
 ##    rstudent unadjusted p-value Bonferroni p
 ## 18 3.360964           0.001116       0.1116</code></pre>
 <p>En la parte superior vemos que la observación <code>18</code> tiene el mayor valor del residual estudentizado. Sin embargo, el valor <span class="math inline">\(p\)</span> es <em>superior</em> a 0.05, por lo que no tenemos evidencia suficiente para concluir que dicha observación representa un <em>outlier</em>.</p>
 <p>Gráficamente es posible identificar gráficamente cuáles son las observaciones influenciales utilizando la función <code>influenceIndexPlot</code> del paquete <code>car</code>:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="rlm.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico de variables influenciales</span></span>
-<span id="cb26-2"><a href="rlm.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(fit, <span class="at">vars =</span> <span class="st">&quot;Bonf&quot;</span>, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-20"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-20-1.png" alt="Gráfico de observaciones influenciales. El eje $y$ corresponde al valor $p$ de la prueba de Bonferroni." width="528" />
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="rlm.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico de variables influenciales</span></span>
+<span id="cb90-2"><a href="rlm.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(fit, <span class="at">vars =</span> <span class="st">&quot;Bonf&quot;</span>, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-99"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-99-1.png" alt="Gráfico de observaciones influenciales. El eje $y$ corresponde al valor $p$ de la prueba de Bonferroni." width="528" />
 <p class="caption">
 Figura 3.6: Gráfico de observaciones influenciales. El eje <span class="math inline">\(y\)</span> corresponde al valor <span class="math inline">\(p\)</span> de la prueba de Bonferroni.
 </p>
@@ -745,8 +748,8 @@ Una manera de interpretar la multicolinealidad es como sinónimo de <strong>redu
 <p><span class="math display">\[
 \hat{\mathbf{\beta}}_{\text{OLS}} \rightarrow \infty.
 \]</span></p>
-<div id="cómo-determinar-si-existe-multicolinealidad" class="section level3" number="3.7.1">
-<h3><span class="header-section-number">3.7.1</span> Cómo determinar si existe multicolinealidad?</h3>
+<div id="cómo-detectarla" class="section level3" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> Cómo detectarla?</h3>
 <p>Existen varios indicadores para <em>sospechar</em> que existe multicolinealidad:</p>
 <ol style="list-style-type: decimal">
 <li>Una alta correlación en las variables independientes. Esto es posible determinarlo gráficamente a través de una matriz de dispersión (ver por ejemplo <code>?pairs</code> en la consola del <code>R</code>) o utilizando una <a href="https://revistas.usantotomas.edu.co/index.php/estadistica/article/view/1097/1332">prueba de independencia completa</a>.</li>
@@ -765,8 +768,8 @@ Una manera de interpretar la multicolinealidad es como sinónimo de <strong>redu
 Decimos que existe multicolinealidad cuando <span class="math inline">\(\text{ICN}(\mathbf{X}^\prime \mathbf{X}) &gt; 30\)</span>. El inconveniente con el ICN es que no nos da información acerca de cuál de las variables independentes es la más multicolineal (o redundante) en el sistema.
 </div>
 <p>En <code>R</code>, la función clave para calcular el ICN es <code>kappa</code>. Para más detalles, se recomienda escribir <code>?kappa</code> en la consola. En el caso del ejemplo del espesor de pintura, tendríamos los siguientes resultados:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="rlm.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ICN para el modelo ajustado</span></span>
-<span id="cb27-2"><a href="rlm.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kappa</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="rlm.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ICN para el modelo ajustado</span></span>
+<span id="cb91-2"><a href="rlm.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kappa</span>(fit)</span></code></pre></div>
 <pre><code>## [1] 48.62071</code></pre>
 <p>Puesto que <span class="math inline">\(\text{ICN}(\mathbf{X}^\prime \mathbf{X}) &gt; 30\)</span>, podemos concluir que existe evidencia para sospechar que, efectivamente, <strong>existe</strong> multicolinealidad.</p>
 <ol start="2" style="list-style-type: decimal">
@@ -779,8 +782,8 @@ Decimos que existe multicolinealidad cuando <span class="math inline">\(\text{IC
 Decimos que la variable <span class="math inline">\(x_j\)</span> es <em>responsable</em> por la multicolineal en el sistema si <span class="math inline">\(\text{VIF}_j &gt; 5\)</span>.
 </div>
 <p>En <code>R</code>, el VIF puede calcularse a través de la función <code>vif</code> del paquete <code>car</code>. Para más detalles, se recomienda escribir <code>?vif</code> en la consola. En nuestro ejemplo tendríamos los siguientes resultados:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="rlm.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo del VIF</span></span>
-<span id="cb29-2"><a href="rlm.html#cb29-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">vif</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="rlm.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo del VIF</span></span>
+<span id="cb93-2"><a href="rlm.html#cb93-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">vif</span>(fit)</span></code></pre></div>
 <pre><code>##       x1       x2 
 ## 1.001645 1.001645</code></pre>
 <p>Puesto que en ninguna de las dos variables controlables el <span class="math inline">\(\text{VIF}&gt;5\)</span>, concluimos que <strong>no</strong> existe multicolinealidad.</p>
@@ -788,9 +791,9 @@ Decimos que la variable <span class="math inline">\(x_j\)</span> es <em>responsa
 <li>Pruebas complementarias. En algunos casos, el ICN indica que <em>existe</em> multicolinealidad, pero para ninguno de los predictores el <span class="math inline">\(\text{VIF}&gt;5\)</span>. Cuando esto ocurre, lo mejor es utilizar pruebas complementaria, más robustas, que permitan decidir si efectivamente existe multicolinealidad en el modelo de RLM.</li>
 </ol>
 <p>Las pruebas complementarias pueden realizarse en <code>R</code> con la función <code>mctest</code> del paquete <code>mctest</code>. En nuestro ejemplo tendríamos los siguientes resultados:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="rlm.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## pruebas complementarias de multicolinealidad</span></span>
-<span id="cb31-2"><a href="rlm.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(mctest)</span>
-<span id="cb31-3"><a href="rlm.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mctest</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="rlm.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="do">## pruebas complementarias de multicolinealidad</span></span>
+<span id="cb95-2"><a href="rlm.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(mctest)</span>
+<span id="cb95-3"><a href="rlm.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mctest</span>(fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## omcdiag(mod = mod, Inter = TRUE, detr = detr, red = red, conf = conf, 
@@ -828,24 +831,28 @@ C_p = p+\frac{\text{SSE}_p}{\text{MSE}_\text{todos}} - (n-2p) = \begin{cases}
 \end{equation}\]</span></p>
 <p>también conocido como el <a href="https://es.wikiqube.net/wiki/Mallows%27s_Cp">estadístico de Mallows</a>. En la expresión anterior, <span class="math inline">\(\text{MSE}_\text{todos}\)</span> es <span class="math inline">\(\hat{\sigma}^2\)</span> usando todas las covariables, y <span class="math inline">\(\text{SSE}_p\)</span> es el SSE del modelo con sólo <span class="math inline">\(p^\prime &lt; p\)</span> de ellas.</p>
 <p>Como ejemplo, consideraremos los siguientes datos que corresponden al peso del producto terminado en gramos (variable <span class="math inline">\(y\)</span>) cuando se controlan los parámetros <span class="math inline">\(x_1, x_2, \ldots, x_{10}\)</span> de una inyectora:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="rlm.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## datos inyectora</span></span>
-<span id="cb33-2"><a href="rlm.html#cb33-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://www.dropbox.com/s/a9gzu54luabtubo/inyectora.txt?dl=1&quot;</span>, </span>
-<span id="cb33-3"><a href="rlm.html#cb33-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb33-4"><a href="rlm.html#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="rlm.html#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="do">## primeras 3 filas</span></span>
-<span id="cb33-6"><a href="rlm.html#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d, <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##          y         x1          x2         x3         x4         x5         x6
-## 1 22.49879 -0.4248450  0.19997792 -0.5225479  0.5691505  0.9721086 -0.2927878
-## 2 17.60173  0.5766103 -0.33435292  0.9247179 -0.9811402 -0.7258651 -0.2671171
-## 3 22.50649 -0.1820462 -0.02277393  0.2027315  0.5581318  0.8106192 -0.4257997
-##           x7         x8          x9        x10
-## 1 -0.5255406  0.6898671 -0.05863633 0.84739843
-## 2  0.3729807 -0.4797351 -0.26830905 0.08519674
-## 3 -0.5483632 -0.9537110 -0.75745589 0.70472920</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="rlm.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="do">## datos inyectora</span></span>
+<span id="cb97-2"><a href="rlm.html#cb97-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://www.dropbox.com/s/a9gzu54luabtubo/inyectora.txt?dl=1&quot;</span>, </span>
+<span id="cb97-3"><a href="rlm.html#cb97-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb97-4"><a href="rlm.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="rlm.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="do">## primeras 3 filas</span></span>
+<span id="cb97-6"><a href="rlm.html#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##          y         x1          x2         x3         x4
+## 1 22.49879 -0.4248450  0.19997792 -0.5225479  0.5691505
+## 2 17.60173  0.5766103 -0.33435292  0.9247179 -0.9811402
+## 3 22.50649 -0.1820462 -0.02277393  0.2027315  0.5581318
+##           x5         x6         x7         x8
+## 1  0.9721086 -0.2927878 -0.5255406  0.6898671
+## 2 -0.7258651 -0.2671171  0.3729807 -0.4797351
+## 3  0.8106192 -0.4257997 -0.5483632 -0.9537110
+##            x9        x10
+## 1 -0.05863633 0.84739843
+## 2 -0.26830905 0.08519674
+## 3 -0.75745589 0.70472920</code></pre>
 <p>En total se tienen 100 unidades experimentales. Dado que en los datos sólo existen la variable respuesta y las covariables, podemos utilizar la siguiente sintaxis para ajustar el modelo de RLM:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="rlm.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## modelo de RLM ajustado</span></span>
-<span id="cb35-2"><a href="rlm.html#cb35-2" aria-hidden="true" tabindex="-1"></a>fit_inyectora <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> d)</span>
-<span id="cb35-3"><a href="rlm.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_inyectora)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="rlm.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="do">## modelo de RLM ajustado</span></span>
+<span id="cb99-2"><a href="rlm.html#cb99-2" aria-hidden="true" tabindex="-1"></a>fit_inyectora <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> d)</span>
+<span id="cb99-3"><a href="rlm.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_inyectora)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ ., data = d)
@@ -868,67 +875,79 @@ C_p = p+\frac{\text{SSE}_p}{\text{MSE}_\text{todos}} - (n-2p) = \begin{cases}
 ## x9           2.90108    0.18030  16.090  &lt; 2e-16 ***
 ## x10          2.89888    0.17135  16.918  &lt; 2e-16 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 0.9418 on 89 degrees of freedom
 ## Multiple R-squared:  0.9778, Adjusted R-squared:  0.9753 
 ## F-statistic: 391.2 on 10 and 89 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Como el número de variables <em>independientes</em> es <span class="math inline">\(k=10\)</span>, debemos estimar <span class="math inline">\(2^k-1= 1023\)</span> modelos diferentes al utilizar el Método de Todas las Regresiones Posibles. Para encontrar <em>el mejor</em> modelo, usamos la función <code>ols_step_all_possible</code> del paquete <code>olsrr</code>. Para más detalles, se recomienda escribir <code>?ols_step_all_possible</code> en la consola del <code>R</code>.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="rlm.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## método de todas las regresiones posibles</span></span>
-<span id="cb37-2"><a href="rlm.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(olsrr)</span>
-<span id="cb37-3"><a href="rlm.html#cb37-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ols_step_all_possible</span>(fit_inyectora)</span>
-<span id="cb37-4"><a href="rlm.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(k, <span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##    Index N Predictors    R-Square Adj. R-Square Mallow&#39;s Cp
-## 4      1 1         x4 0.381431483   0.375119559    2379.065
-## 10     2 1        x10 0.221939980   0.214000593    3017.235
-## 5      3 1         x5 0.150758161   0.142092428    3302.054
-## 3      4 1         x3 0.122800863   0.113849851    3413.919
-## 9      5 1         x9 0.065647890   0.056113685    3642.604
-## 6      6 1         x6 0.061473423   0.051896621    3659.307
-## 7      7 1         x7 0.049953135   0.040258779    3705.403
-## 8      8 1         x8 0.037568650   0.027747921    3754.957
-## 1      9 1         x1 0.005957422  -0.004185870    3881.442
-## 2     10 1         x2 0.005662949  -0.004483347    3882.620</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="rlm.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="do">## método de todas las regresiones posibles</span></span>
+<span id="cb101-2"><a href="rlm.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(olsrr)</span>
+<span id="cb101-3"><a href="rlm.html#cb101-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ols_step_all_possible</span>(fit_inyectora)</span>
+<span id="cb101-4"><a href="rlm.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(k, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##    Index N Predictors    R-Square Adj. R-Square
+## 4      1 1         x4 0.381431483   0.375119559
+## 10     2 1        x10 0.221939980   0.214000593
+## 5      3 1         x5 0.150758161   0.142092428
+## 3      4 1         x3 0.122800863   0.113849851
+## 9      5 1         x9 0.065647890   0.056113685
+## 6      6 1         x6 0.061473423   0.051896621
+## 7      7 1         x7 0.049953135   0.040258779
+## 8      8 1         x8 0.037568650   0.027747921
+## 1      9 1         x1 0.005957422  -0.004185870
+## 2     10 1         x2 0.005662949  -0.004483347
+##    Mallow&#39;s Cp
+## 4     2379.065
+## 10    3017.235
+## 5     3302.054
+## 3     3413.919
+## 9     3642.604
+## 6     3659.307
+## 7     3705.403
+## 8     3754.957
+## 1     3881.442
+## 2     3882.620</code></pre>
 <p>En el objeto <code>k</code> se encuentran todos los resultados. La función <code>ols_step_all_possible</code> permite estimar 11 indicadores diferentes que facilitan la elección del <em>mejor</em> modelo. Por faciidad, sólo se muestran 3 de ellos.</p>
 <p>Por ejemplo, si queremos seleccionar el <em>mejor</em> modelo utilizando el <span class="math inline">\(R^2_\text{adj}\)</span>, basta con escribir</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="rlm.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mejor modelo basado en el R^2_{adj}</span></span>
-<span id="cb39-2"><a href="rlm.html#cb39-2" aria-hidden="true" tabindex="-1"></a>k[<span class="fu">which.max</span>(k[,<span class="st">&#39;adjr&#39;</span>]), ]</span></code></pre></div>
-<pre><code>##      mindex  n                     predictors   rsquare      adjr   predrsq cp
-## 1023   1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579 0.9715036 11
-##           aic     sbic      sbc     msep       fpe        apc        hsp
-## 1023 284.1403 3.041157 315.4024 88.79029 0.9845406 0.02774113 0.01007924</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="rlm.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mejor modelo basado en el R^2_{adj}</span></span>
+<span id="cb103-2"><a href="rlm.html#cb103-2" aria-hidden="true" tabindex="-1"></a>k[<span class="fu">which.max</span>(k[,<span class="st">&#39;adjr&#39;</span>]), ]</span></code></pre></div>
+<pre><code>##      Index  N                     Predictors  R-Square
+## 1023  1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571
+##      Adj. R-Square Mallow&#39;s Cp
+## 1023     0.9752579          11</code></pre>
 <p>Si usamos el <a href="https://es.wikipedia.org/wiki/Criterio_de_informaci%C3%B3n_de_Akaike">AIC</a>, el <em>mejor</em> modelo será:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="rlm.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mejor modelo basado en el Cp</span></span>
-<span id="cb41-2"><a href="rlm.html#cb41-2" aria-hidden="true" tabindex="-1"></a>k[<span class="fu">which.min</span>(<span class="fu">with</span>(k, (cp<span class="sc">-</span>n)<span class="sc">^</span><span class="dv">2</span>)), ]</span></code></pre></div>
-<pre><code>##      mindex  n                     predictors   rsquare      adjr   predrsq cp
-## 1023   1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579 0.9715036 11
-##           aic     sbic      sbc     msep       fpe        apc        hsp
-## 1023 284.1403 3.041157 315.4024 88.79029 0.9845406 0.02774113 0.01007924</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="rlm.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mejor modelo basado en el Cp</span></span>
+<span id="cb105-2"><a href="rlm.html#cb105-2" aria-hidden="true" tabindex="-1"></a>k[<span class="fu">which.min</span>(<span class="fu">with</span>(k, (cp<span class="sc">-</span>n)<span class="sc">^</span><span class="dv">2</span>)), ]</span></code></pre></div>
+<pre><code>##      Index  N                     Predictors  R-Square
+## 1023  1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571
+##      Adj. R-Square Mallow&#39;s Cp
+## 1023     0.9752579          11</code></pre>
 <p>Otra posibilidad es utilizar <strong>dos criterios</strong> selección a la vez:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="rlm.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## selección usando el R^2_{adj} y el AIC</span></span>
-<span id="cb43-2"><a href="rlm.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
-<span id="cb43-3"><a href="rlm.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(k, <span class="fu">aes</span>(<span class="at">x =</span> adjr, <span class="at">y =</span> aic)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">xlab</span>(<span class="fu">expression</span>(R<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span></span>
-<span id="cb43-4"><a href="rlm.html#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot; ajustado&quot;</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;AIC&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" alt="AIC vs. $R^2$ ajustado en todas las regresiones posibles." width="480" />
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="rlm.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="do">## selección usando el R^2_{adj} y el AIC</span></span>
+<span id="cb107-2"><a href="rlm.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb107-3"><a href="rlm.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(k, <span class="fu">aes</span>(<span class="at">x =</span> adjr, <span class="at">y =</span> aic)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb107-4"><a href="rlm.html#cb107-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="fu">expression</span>(R<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="st">&quot; ajustado&quot;</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;AIC&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-113"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-113-1.png" alt="AIC vs. $R^2$ ajustado en todas las regresiones posibles." width="480" />
 <p class="caption">
 Figura 3.7: AIC vs. <span class="math inline">\(R^2\)</span> ajustado en todas las regresiones posibles.
 </p>
 </div>
 <p>De acuerdo con la definición de cada criterio, el <em>mejor</em> modelo debe tener un <span class="math inline">\(R^2_{\text{adj}}\rightarrow1\)</span> y <span class="math inline">\(\text{AIC}\rightarrow 0\)</span>. De la gráfica, es posible observar que hay cuatro modelos que sobresalen:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="rlm.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## selección de modelos competitivos</span></span>
-<span id="cb44-2"><a href="rlm.html#cb44-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(k)</span>
-<span id="cb44-3"><a href="rlm.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(k, aic <span class="sc">&lt;</span> <span class="dv">350</span> <span class="sc">&amp;</span> adjr <span class="sc">&gt;</span> <span class="fl">0.8</span>, <span class="at">select =</span> n<span class="sc">:</span>aic)</span></code></pre></div>
-<pre><code>##       n                     predictors   rsquare      adjr   predrsq       cp
-## 998   8       x1 x3 x4 x5 x6 x7 x9 x10 0.9650304 0.9619562 0.9577212 57.92307
-## 1021  9    x1 x3 x4 x5 x6 x7 x8 x9 x10 0.9723781 0.9696159 0.9653333 30.52284
-## 1015  9    x1 x2 x3 x4 x5 x6 x7 x9 x10 0.9708818 0.9679700 0.9640209 36.51001
-## 1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579 0.9715036 11.00000
-##           aic
-## 998  325.3860
-## 1021 303.7989
-## 1015 309.0744
-## 1023 284.1403</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="rlm.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="do">## selección de modelos competitivos</span></span>
+<span id="cb108-2"><a href="rlm.html#cb108-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(k)</span>
+<span id="cb108-3"><a href="rlm.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(k, aic <span class="sc">&lt;</span> <span class="dv">350</span> <span class="sc">&amp;</span> adjr <span class="sc">&gt;</span> <span class="fl">0.8</span>, <span class="at">select =</span> n<span class="sc">:</span>aic)</span></code></pre></div>
+<pre><code>##       n                     predictors   rsquare
+## 998   8       x1 x3 x4 x5 x6 x7 x9 x10 0.9650304
+## 1021  9    x1 x3 x4 x5 x6 x7 x8 x9 x10 0.9723781
+## 1015  9    x1 x2 x3 x4 x5 x6 x7 x9 x10 0.9708818
+## 1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571
+##           adjr   predrsq       cp      aic
+## 998  0.9619562 0.9577212 57.92307 325.3860
+## 1021 0.9696159 0.9653333 30.52284 303.7989
+## 1015 0.9679700 0.9640209 36.51001 309.0744
+## 1023 0.9752579 0.9715036 11.00000 284.1403</code></pre>
 <p>Por ejemplo, el modelo <code>968</code> no incluye <code>x2</code> ni <code>x8</code> y tiene un <span class="math inline">\(R^2_{\text{adj}}=0.9619\)</span>, mientras el modelo <code>1023</code> tiene el <span class="math inline">\(R^2_{\text{adj}}\)</span> más alto e incluye 10 variables predictoras. A pesar de que este modelo es <em>levemente</em> mejor el <code>968</code>, la ganancia en <span class="math inline">\(R^2_{\text{adj}}\)</span> es ínfima y podría no justificar la medición en proceso de dos factores controlables más. En términos del AIC, se tiene que los modelos <code>1021</code> y <code>1015</code> son similares.</p>
 </div>
 <div id="selección-secuencial" class="section level3" number="3.8.2">
