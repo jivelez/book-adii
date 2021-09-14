@@ -527,7 +527,7 @@ $$
 $$
 
 
-### Cómo determinar si existe multicolinealidad?
+### Cómo detectarla?
 
 Existen varios indicadores para *sospechar* que existe multicolinealidad:
 

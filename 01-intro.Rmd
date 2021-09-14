@@ -244,7 +244,7 @@ decision[[2]]
 ```
 
 
-### Ayuda?
+### Obteniendo ayuda
 
 Hay múltiples formas de acceder a la ayuda cuando trabajamos con `R`. En https://www.r-project.org/help.html se encuentra una descripción de cómo hacerlo.
 
@@ -275,6 +275,59 @@ Si queremos saber qué hace `rowMeans` o cuáles son sus argumentos, basta con e
 
 ### Lectura de datos
 
+Los datos se almacenan de múltiples formas. Los formatos más comunes son 
+
+1. Archivos de texto cuya extensión es `.txt`; 
+2. hojas de cálculo de Excel, cuya extensión es `.xls` o `.xlsx`;
+3. archivos separados por coma, cuya extensión es `.csv`;
+4. archivos con extensión `.dat`;
+5. archivos con extensión `.sav` provenientes de  [SPSS](https://es.wikipedia.org/wiki/SPSS); y 
+6. archivos disponibles en Google Drive o Dropbox.
+
+En `R` existen diferentes funciones que permiten leer _casi_ cualquier tipo de datos. Algunas funciones clave son
+  
+  ```{r, eval = FALSE}
+  scan()
+  read.table()
+  read.csv()
+  readLines()
+  read.xls()  # del paquete gdata
+  fread()     # del paquete data.table
+  ```
+
+Algunos ejemplos adicionales pueden encontrarse en el Capítulo8 del [Manual de R](https://fhernanb.github.io/Manual-de-R/read.html), o en el Capítulo 11 de [R for Data Science](https://es.r4ds.hadley.nz/importaci%C3%B3n-de-datos.html).
+
+```{block2, type='rmdtip'}
+Se sugiere al lector consultar la ayuda de las funciones anteriores.
+```
+
+
+Por ejemplo, si tenemos el URL https://bit.ly/2RmO1OR donde se encuentran almacenados unos datos, podemos utilizar la función `read.table` para leerlos en `R`:
+
+
+```{r}
+## lectura de datos desde un URL
+url <- "https://bit.ly/2RmO1OR" 
+d <- read.table(url, header = TRUE)
+
+## primeras 10 filas
+head(d, 10)
+```
+
+Ahora, utilizar los datos contenidos en el objeto `d` podemos aplicar diferentes técnicas de Analítica de Datos para extrer información. Por ejemplo, podemos construir un diagrama de dispersión para explorar la relación que existe entre las variables `Resistencia` y `Edad`:
+
+```{r, cache=TRUE, fig.height=5, fig.width=5, fig.cap='Diagrama de dispersión y densidades para `Resistencia` vs. `Edad`.', fig.align='center'}
+## paquetes
+library(ggplot2)
+library(ggExtra)
+ 
+## gráfico
+p <- ggplot(d, aes(x = Edad, y= Resistencia)) +
+      geom_point() +
+      theme(legend.position="none") + theme_minimal()
+ggMarginal(p, type="density")
+```
+
 
 ## RStudio
 
@@ -288,10 +341,9 @@ knitr::include_graphics("images/RStudiologo.png")
 
 RStudio incluye una consola, un editor que resalta la sintaxis y admite la ejecución directa del código, así como herramientas para el trazado, el historial, la depuración y la gestión del espacio de trabajo.
 
-Para descargar Rstudio, basta con visitar https://www.rstudio.com/products/rstudio/download/. Una vez allí, basta escoger la versión acorde con nuestro sistema operativo.
+Para descargar Rstudio, basta con visitar la [página](https://www.rstudio.com/products/rstudio/download/) oficial. Una vez allí, basta escoger la versión acorde con nuestro sistema operativo, preferiblemente gratuita.
 
-
-```{r downloadRStudio, echo=FALSE, out.width="95%", fig.cap="Página de descarga de RStudio.", fig.align='center'}
+```{r downloadRStudio, echo=FALSE, out.width="95%", fig.cap="Página de descarga de RStudio.", fig.align='center', eval=FALSE, echo=FALSE}
 knitr::include_graphics("images/RStudioDownload.png")
 ```
 
