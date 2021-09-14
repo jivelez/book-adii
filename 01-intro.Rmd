@@ -115,13 +115,165 @@ Con esta instrucción, `R` importa las funciones contenidas en el paquete `DescT
 La instrucción `install.packages('PackageName')` sólo debe ejecutarse _una vez_. Sin embargo, es necesario ejecutar `library('PackageName')` cada que inicies una sesión en `R`. Esto se debe a que aunque hayas instalado las funciones de un paquete con anterioridad, las sesiones de `R` se inician sólo con los objetos y funciones de base.
 ```
 
+### Operadores básicos
 
+#### Operadores aritméticos{-}
+
+```{r operadores, echo=FALSE, out.width="95%", fig.cap="Operadores artiméticos en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-aritmeticos.html).", fig.align='center'}
+knitr::include_graphics("images/artimeticos.png")
+```
+
+#### Operadores relacionales{-}
+
+```{r relacionales, echo=FALSE, out.width="95%", fig.cap="Operadores relacionales en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-relacionales.html).", fig.align='center'}
+knitr::include_graphics("images/relacionales.png")
+```
+
+#### Operadores lógicos{-}
+
+```{r logicos, echo=FALSE, out.width="95%", fig.cap="Operadores lógicos en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-logicos.html).", fig.align='center'}
+knitr::include_graphics("images/logicos.png")
+```
 
 ### Creación de funciones
+
+Una de las grandes ventajas de `R` es la posibilidad de construir y/o agregar funciones propias. Como se mencionó anteriormente, los paquetes están conformados por funciones, además de datos. 
+
+Una función es un conjunto de instrucciones organizadas para realizar una tarea específica y corresponde a un objeto que el intérprete de `R` es capaz de entender y utilizar sus argumentos para completar una acción. 
+
+Algunas funciones disponibles _por defecto_ en `R` son
+
+  ```{r, eval = FALSE}
+  ## funciones R por defecto
+  sqrt()
+  mean()
+  summary()
+  rowSums()
+  colSums()
+  ```
+
+La estructura de una función es 
+
+```{r fns, echo=FALSE, out.width="70%", fig.cap="Estructura de una funcíon en `R`. Tomado de [_Learn by_ <_example_>](https://www.learnbyexample.org/r-functions/).", fig.align='center'}
+knitr::include_graphics("images/Rfunctions.png")
+```
+
+lo cual implica que toda función, como mínimo, cuatro componentes:
+
+1. `name`: Corresponde al nombre de la función. Se recomienda usar guión bajo o nombres con tipografía _camello_ para nombrarlas, es decir, `calcula_media` y `GraficoHist`. Bajo ninguna circunstancia deben usarse nombres como `coeficiente-variacion`.
+2. `args`: Este componente de la función hace referencia a los _argumentos_ de esta. Por _argumentos_ denominamos a las entradas que requiere la función para hacer su trabajo. Una función puede tener varios argumentos; por ejemplo la función `t.test` tiene los argumentos `x`, `y`, `alternative`, `mu`, `paired`, `var.equal`, y `conf.level`. Algunas veces los argumentos tienen valores _por defecto_. De esta forma, cuando se utiliza la función, no es necesario especificar el valor de dicho argumento. Por ejemplo, en la función `mean`, el argumento `trim = 0`. 
+3. `function body`: Contiene los pasos, procedimientos y cálculos que deben hacerse para producir un resultado.
+4. `value`: Este es el _resultado_ de la función. Dependiendo de qué tan compleja sea la función, el `value` puede ser un escalar, un `data.frame`, una lista, un archivo de texto o un gráfico. Hay muchas posibilidades.
+
+
+
+**Ejemplo**
+
+Como ilustración, construyamos una función que, dado un vector de datos de cualquier longitud, calcule el [coeficiente de variación](https://es.wikipedia.org/wiki/Coeficiente_de_variaci%C3%B3n) (CV). 
+
+El CV está definido como
+
+$$CV = \frac{s}{\bar{x}}$$
+donde $s$ es la desviación estándar y $\bar{x}$ es la media muestral.
+
+Si el vector de datos es 
+
+```{r}
+## datos
+v <- c(3, 2, 3, 4, 5, 4, 5, 5, 4, 2, 9, 8) 
+```
+
+entonces nuestra función, que llamaremos `CoefVar`, debe tener como argumento dicho vector. Internamente, `CoefVar` debe calcular la desviación estándar y la media muestral de `v`. Por lo tanto, 
+
+
+```{r}
+## cálculo del coeficiente de variación
+## v es un vector numérico
+CoefVar <- function(v){
+   ## cálculos
+   m <- mean(v)      ## media
+   s <- sd(v)        ## s
+   resultado <- s/m  ## CV
+  
+  ## output
+  return(resultado)
+}
+```
+
+Ahora, para usar nuestra función `CoefVar` con el vector `v` hacemos
+
+```{r}
+## cálculo del CV
+CoefVar(v)
+```
+
+Teniendo el valor del CV, podríamos determinar si la media muestral es una cantidad representativa del conjunto de datos. Para ello comparamos el resultado de $100\times$`CoefVar` con 30%. 
+
+```{r}
+## función para determinar si la media representativa
+representativa <- function(v, cutoff = 30){
+  CV_p <- 100*CoefVar(v)
+  decision <- ifelse(CV_p > cutoff, 'no', 'si')
+  list(CV_p = CV_p, decision = decision)
+}
+```
+
+Observe que en esta función incluimos un argumento denominado `cutoff`. Por defecto, `cutoff = 30`. Además. la eultima línea de la función comienza con `list`, lo cual implica que el resultado de la función será una lista de dos componentes: `CV_p` y `decision`.
+
+Veamos qué ocurre con el vector `v` utilizando los valores por defecto:
+
+```{r}
+## aplicación de la función representativa
+representativa(v)
+```
+
+Por lo tanto, el CV del vector `v` es `r round(CoefVar(v), 3)`. Como $100\times$`CVp`$>30$, la decisión es que la media `no` es representativa de los datos.
+
+Si queremos cambiar el argumento `cutoff` basta con hacer
+
+```{r}
+## representatividad con cutoff = 50
+representativa(v, cutoff = 50)
+```
+Observe que `decision` es diferente esta vez. Si queremos extraer el _segundo_ elemento del resultado obtenido con la función `representativa`, debemos asignar dicho resultado a un objeto y posteriormente operar sobre él de la siguiente manera:
+
+```{r}
+## extrayendo la decisión
+decision <- representativa(v, cutoff = 50)
+decision[[2]]
+```
 
 
 ### Ayuda?
 
+Hay múltiples formas de acceder a la ayuda cuando trabajamos con `R`. En https://www.r-project.org/help.html se encuentra una descripción de cómo hacerlo.
+
+Podemos buscar ayuda, principalmente, a través de la consola del `R` utilizando los siguientes mecanismos:
+
+1. `help` y `?`. Si requerimos ayuda sobre la función `mean`, podemos escribir `?mean` o `help(mean)` en la consola del `R`. El resultado será:
+
+```{r help, echo=FALSE, out.width="90%", fig.cap="Resultado de escribir `?mean` en la consola del `R`.", fig.align='center'}
+knitr::include_graphics("images/helpmean.png")
+```
+
+2. `apropos('word')`. Esta función en `R` permite encontrar _todas_ las funciones del espacio de tabajo que contienen la palabra `word`. Por ejemplo, `apropos('mean')` produce
+
+```{r, echo=FALSE}
+## funciones que contienen 'mean'
+apropos('mean')
+```
+Si queremos saber qué hace `rowMeans` o cuáles son sus argumentos, basta con escribir `?rowMeans` o `help(rowMeans)` en la consola.
+
+3. `RSiteSearch()`. Esta función busca información en las páginas de ayuda de las todas las funciones y en las viñetas de todos los paquetes de `CRAN`, así como en [`CRAN Task Views`](https://cran.r-project.org/web/views/).
+
+4. R FAQs. Hay tres listas principales de preguntas frecuentes (FAQs) que se actualizan periódicamente para reflejar las preguntas más frecuentes de los usuarios de `R`: [`R Main FAQs`](https://cran.r-project.org/doc/FAQ/R-FAQ.html), [`R FAQs para Windows`](https://cran.r-project.org/bin/windows/base/rw-FAQ.html) y [`R FAQs para macos`](https://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html)
+
+5. Stack overflow. Este es un sitio bien organizado para ayuda y discusiones sobre programación. Para acceder directamente a las discusiones relacionadas con `R`, se recomienda visitar https://stackoverflow.com/questions/tagged/r
+
+6. [R-help-es](https://stat.ethz.ch/mailman/listinfo/r-help-es). Esta es una lista de correo, creada en 2009, para solicitar ayuda sobre `R` en español y se entiende como un complemento social a la documentación, libros, etc. disponibles sobre `R`. Puede acceder directamente a los archivos en https://stat.ethz.ch/pipermail/r-help-es/
+
+
+### Lectura de datos
 
 
 ## RStudio
@@ -164,5 +316,5 @@ Es posible modificar la organización del RStudio IDE. Para ello, basta con ingr
 
 
 
-## Cursos *online*
+<!-- ## Cursos *online* -->
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Jorge I. Vélez" />
 
 
-<meta name="date" content="2021-09-13" />
+<meta name="date" content="2021-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -180,11 +180,12 @@ div.csl-indent {
 <li class="chapter" data-level="1.2.2" data-path="intro.html"><a href="intro.html#cran"><i class="fa fa-check"></i><b>1.2.2</b> <code>CRAN</code></a></li>
 <li class="chapter" data-level="1.2.3" data-path="intro.html"><a href="intro.html#descarga-e-instalación"><i class="fa fa-check"></i><b>1.2.3</b> Descarga e instalación</a></li>
 <li class="chapter" data-level="1.2.4" data-path="intro.html"><a href="intro.html#paquetes"><i class="fa fa-check"></i><b>1.2.4</b> Paquetes</a></li>
-<li class="chapter" data-level="1.2.5" data-path="intro.html"><a href="intro.html#creación-de-funciones"><i class="fa fa-check"></i><b>1.2.5</b> Creación de funciones</a></li>
-<li class="chapter" data-level="1.2.6" data-path="intro.html"><a href="intro.html#ayuda"><i class="fa fa-check"></i><b>1.2.6</b> Ayuda?</a></li>
+<li class="chapter" data-level="1.2.5" data-path="intro.html"><a href="intro.html#operadores-básicos"><i class="fa fa-check"></i><b>1.2.5</b> Operadores básicos</a></li>
+<li class="chapter" data-level="1.2.6" data-path="intro.html"><a href="intro.html#creación-de-funciones"><i class="fa fa-check"></i><b>1.2.6</b> Creación de funciones</a></li>
+<li class="chapter" data-level="1.2.7" data-path="intro.html"><a href="intro.html#ayuda"><i class="fa fa-check"></i><b>1.2.7</b> Ayuda?</a></li>
+<li class="chapter" data-level="1.2.8" data-path="intro.html"><a href="intro.html#lectura-de-datos"><i class="fa fa-check"></i><b>1.2.8</b> Lectura de datos</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#rstudio"><i class="fa fa-check"></i><b>1.3</b> RStudio</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#cursos-online"><i class="fa fa-check"></i><b>1.4</b> Cursos <em>online</em></a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rls.html"><a href="rls.html"><i class="fa fa-check"></i><b>2</b> Regresión Lineal Simple</a>
 <ul>
@@ -386,7 +387,7 @@ Figura 1.3: Página oficial del <code>R</code>. Note que la versión más recien
 Figura 1.4: Algnos paquetes de <code>R</code>.
 </p>
 </div>
-<p>Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">aquí</a>. A la fecha existen 18177 paquetes; algunos ejemplos conocidos son <code>MASS</code>, <code>ggplot2</code>, <code>shiny</code>, y <code>caret</code>, entre otros.</p>
+<p>Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">aquí</a>. A la fecha existen 18188 paquetes; algunos ejemplos conocidos son <code>MASS</code>, <code>ggplot2</code>, <code>shiny</code>, y <code>caret</code>, entre otros.</p>
 <p>Para utilizar un paquete, debemos seguir dos pasos</p>
 <ol style="list-style-type: decimal">
 <li>Instalar el paquete; y</li>
@@ -405,11 +406,146 @@ Figura 1.4: Algnos paquetes de <code>R</code>.
 La instrucción <code>install.packages('PackageName')</code> sólo debe ejecutarse <em>una vez</em>. Sin embargo, es necesario ejecutar <code>library('PackageName')</code> cada que inicies una sesión en <code>R</code>. Esto se debe a que aunque hayas instalado las funciones de un paquete con anterioridad, las sesiones de <code>R</code> se inician sólo con los objetos y funciones de base.
 </div>
 </div>
-<div id="creación-de-funciones" class="section level3" number="1.2.5">
-<h3><span class="header-section-number">1.2.5</span> Creación de funciones</h3>
+<div id="operadores-básicos" class="section level3" number="1.2.5">
+<h3><span class="header-section-number">1.2.5</span> Operadores básicos</h3>
+<div id="operadores-aritméticos" class="section level4 unnumbered">
+<h4>Operadores aritméticos</h4>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:operadores"></span>
+<img src="images/artimeticos.png" alt="Operadores artiméticos en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-aritmeticos.html)." width="95%" />
+<p class="caption">
+Figura 1.5: Operadores artiméticos en <code>R</code>. Tomado de <a href="https://bookdown.org/jboscomendoza/r-principiantes4/operadores-aritmeticos.html">R para principantes</a>.
+</p>
 </div>
-<div id="ayuda" class="section level3" number="1.2.6">
-<h3><span class="header-section-number">1.2.6</span> Ayuda?</h3>
+</div>
+<div id="operadores-relacionales" class="section level4 unnumbered">
+<h4>Operadores relacionales</h4>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:relacionales"></span>
+<img src="images/relacionales.png" alt="Operadores relacionales en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-relacionales.html)." width="95%" />
+<p class="caption">
+Figura 1.6: Operadores relacionales en <code>R</code>. Tomado de <a href="https://bookdown.org/jboscomendoza/r-principiantes4/operadores-relacionales.html">R para principantes</a>.
+</p>
+</div>
+</div>
+<div id="operadores-lógicos" class="section level4 unnumbered">
+<h4>Operadores lógicos</h4>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:logicos"></span>
+<img src="images/logicos.png" alt="Operadores lógicos en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-logicos.html)." width="95%" />
+<p class="caption">
+Figura 1.7: Operadores lógicos en <code>R</code>. Tomado de <a href="https://bookdown.org/jboscomendoza/r-principiantes4/operadores-logicos.html">R para principantes</a>.
+</p>
+</div>
+</div>
+</div>
+<div id="creación-de-funciones" class="section level3" number="1.2.6">
+<h3><span class="header-section-number">1.2.6</span> Creación de funciones</h3>
+<p>Una de las grandes ventajas de <code>R</code> es la posibilidad de construir y/o agregar funciones propias. Como se mencionó anteriormente, los paquetes están conformados por funciones, además de datos.</p>
+<p>Una función es un conjunto de instrucciones organizadas para realizar una tarea específica y corresponde a un objeto que el intérprete de <code>R</code> es capaz de entender y utilizar sus argumentos para completar una acción.</p>
+<p>Algunas funciones disponibles <em>por defecto</em> en <code>R</code> son</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## funciones R por defecto</span></span>
+<span id="cb6-2"><a href="intro.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>()</span>
+<span id="cb6-3"><a href="intro.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>()</span>
+<span id="cb6-4"><a href="intro.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>()</span>
+<span id="cb6-5"><a href="intro.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>()</span>
+<span id="cb6-6"><a href="intro.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>()</span></code></pre></div>
+<p>La estructura de una función es</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fns"></span>
+<img src="images/Rfunctions.png" alt="Estructura de una funcíon en `R`. Tomado de [_Learn by_ &lt;_example_&gt;](https://www.learnbyexample.org/r-functions/)." width="70%" />
+<p class="caption">
+Figura 1.8: Estructura de una funcíon en <code>R</code>. Tomado de <a href="https://www.learnbyexample.org/r-functions/"><em>Learn by</em> &lt;<em>example</em>&gt;</a>.
+</p>
+</div>
+<p>lo cual implica que toda función, como mínimo, cuatro componentes:</p>
+<ol style="list-style-type: decimal">
+<li><code>name</code>: Corresponde al nombre de la función. Se recomienda usar guión bajo o nombres con tipografía <em>camello</em> para nombrarlas, es decir, <code>calcula_media</code> y <code>GraficoHist</code>. Bajo ninguna circunstancia deben usarse nombres como <code>coeficiente-variacion</code>.</li>
+<li><code>args</code>: Este componente de la función hace referencia a los <em>argumentos</em> de esta. Por <em>argumentos</em> denominamos a las entradas que requiere la función para hacer su trabajo. Una función puede tener varios argumentos; por ejemplo la función <code>t.test</code> tiene los argumentos <code>x</code>, <code>y</code>, <code>alternative</code>, <code>mu</code>, <code>paired</code>, <code>var.equal</code>, y <code>conf.level</code>. Algunas veces los argumentos tienen valores <em>por defecto</em>. De esta forma, cuando se utiliza la función, no es necesario especificar el valor de dicho argumento. Por ejemplo, en la función <code>mean</code>, el argumento <code>trim = 0</code>.</li>
+<li><code>function body</code>: Contiene los pasos, procedimientos y cálculos que deben hacerse para producir un resultado.</li>
+<li><code>value</code>: Este es el <em>resultado</em> de la función. Dependiendo de qué tan compleja sea la función, el <code>value</code> puede ser un escalar, un <code>data.frame</code>, una lista, un archivo de texto o un gráfico. Hay muchas posibilidades.</li>
+</ol>
+<p><strong>Ejemplo</strong></p>
+<p>Como ilustración, construyamos una función que, dado un vector de datos de cualquier longitud, calcule el <a href="https://es.wikipedia.org/wiki/Coeficiente_de_variaci%C3%B3n">coeficiente de variación</a> (CV).</p>
+<p>El CV está definido como</p>
+<p><span class="math display">\[CV = \frac{s}{\bar{x}}\]</span>
+donde <span class="math inline">\(s\)</span> es la desviación estándar y <span class="math inline">\(\bar{x}\)</span> es la media muestral.</p>
+<p>Si el vector de datos es</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## datos</span></span>
+<span id="cb7-2"><a href="intro.html#cb7-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">8</span>) </span></code></pre></div>
+<p>entonces nuestra función, que llamaremos <code>CoefVar</code>, debe tener como argumento dicho vector. Internamente, <code>CoefVar</code> debe calcular la desviación estándar y la media muestral de <code>v</code>. Por lo tanto,</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo del coeficiente de variación</span></span>
+<span id="cb8-2"><a href="intro.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## v es un vector numérico</span></span>
+<span id="cb8-3"><a href="intro.html#cb8-3" aria-hidden="true" tabindex="-1"></a>CoefVar <span class="ot">&lt;-</span> <span class="cf">function</span>(v){</span>
+<span id="cb8-4"><a href="intro.html#cb8-4" aria-hidden="true" tabindex="-1"></a>   <span class="do">## cálculos</span></span>
+<span id="cb8-5"><a href="intro.html#cb8-5" aria-hidden="true" tabindex="-1"></a>   m <span class="ot">&lt;-</span> <span class="fu">mean</span>(v)      <span class="do">## media</span></span>
+<span id="cb8-6"><a href="intro.html#cb8-6" aria-hidden="true" tabindex="-1"></a>   s <span class="ot">&lt;-</span> <span class="fu">sd</span>(v)        <span class="do">## s</span></span>
+<span id="cb8-7"><a href="intro.html#cb8-7" aria-hidden="true" tabindex="-1"></a>   resultado <span class="ot">&lt;-</span> s<span class="sc">/</span>m  <span class="do">## CV</span></span>
+<span id="cb8-8"><a href="intro.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-9"><a href="intro.html#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## output</span></span>
+<span id="cb8-10"><a href="intro.html#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(resultado)</span>
+<span id="cb8-11"><a href="intro.html#cb8-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Ahora, para usar nuestra función <code>CoefVar</code> con el vector <code>v</code> hacemos</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo del CV</span></span>
+<span id="cb9-2"><a href="intro.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">CoefVar</span>(v)</span></code></pre></div>
+<pre><code>## [1] 0.4784937</code></pre>
+<p>Teniendo el valor del CV, podríamos determinar si la media muestral es una cantidad representativa del conjunto de datos. Para ello comparamos el resultado de <span class="math inline">\(100\times\)</span><code>CoefVar</code> con 30%.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## función para determinar si la media representativa</span></span>
+<span id="cb11-2"><a href="intro.html#cb11-2" aria-hidden="true" tabindex="-1"></a>representativa <span class="ot">&lt;-</span> <span class="cf">function</span>(v, <span class="at">cutoff =</span> <span class="dv">30</span>){</span>
+<span id="cb11-3"><a href="intro.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  CV_p <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">CoefVar</span>(v)</span>
+<span id="cb11-4"><a href="intro.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  decision <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(CV_p <span class="sc">&gt;</span> cutoff, <span class="st">&#39;no&#39;</span>, <span class="st">&#39;si&#39;</span>)</span>
+<span id="cb11-5"><a href="intro.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">CV_p =</span> CV_p, <span class="at">decision =</span> decision)</span>
+<span id="cb11-6"><a href="intro.html#cb11-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Observe que en esta función incluimos un argumento denominado <code>cutoff</code>. Por defecto, <code>cutoff = 30</code>. Además. la eultima línea de la función comienza con <code>list</code>, lo cual implica que el resultado de la función será una lista de dos componentes: <code>CV_p</code> y <code>decision</code>.</p>
+<p>Veamos qué ocurre con el vector <code>v</code> utilizando los valores por defecto:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## aplicación de la función representativa</span></span>
+<span id="cb12-2"><a href="intro.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">representativa</span>(v)</span></code></pre></div>
+<pre><code>## $CV_p
+## [1] 47.84937
+## 
+## $decision
+## [1] &quot;no&quot;</code></pre>
+<p>Por lo tanto, el CV del vector <code>v</code> es 0.478. Como <span class="math inline">\(100\times\)</span><code>CVp</code><span class="math inline">\(&gt;30\)</span>, la decisión es que la media <code>no</code> es representativa de los datos.</p>
+<p>Si queremos cambiar el argumento <code>cutoff</code> basta con hacer</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## representatividad con cutoff = 50</span></span>
+<span id="cb14-2"><a href="intro.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">representativa</span>(v, <span class="at">cutoff =</span> <span class="dv">50</span>)</span></code></pre></div>
+<pre><code>## $CV_p
+## [1] 47.84937
+## 
+## $decision
+## [1] &quot;si&quot;</code></pre>
+<p>Observe que <code>decision</code> es diferente esta vez. Si queremos extraer el <em>segundo</em> elemento del resultado obtenido con la función <code>representativa</code>, debemos asignar dicho resultado a un objeto y posteriormente operar sobre él de la siguiente manera:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## extrayendo la decisión</span></span>
+<span id="cb16-2"><a href="intro.html#cb16-2" aria-hidden="true" tabindex="-1"></a>decision <span class="ot">&lt;-</span> <span class="fu">representativa</span>(v, <span class="at">cutoff =</span> <span class="dv">50</span>)</span>
+<span id="cb16-3"><a href="intro.html#cb16-3" aria-hidden="true" tabindex="-1"></a>decision[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>## [1] &quot;si&quot;</code></pre>
+</div>
+<div id="ayuda" class="section level3" number="1.2.7">
+<h3><span class="header-section-number">1.2.7</span> Ayuda?</h3>
+<p>Hay múltiples formas de acceder a la ayuda cuando trabajamos con <code>R</code>. En <a href="https://www.r-project.org/help.html" class="uri">https://www.r-project.org/help.html</a> se encuentra una descripción de cómo hacerlo.</p>
+<p>Podemos buscar ayuda, principalmente, a través de la consola del <code>R</code> utilizando los siguientes mecanismos:</p>
+<ol style="list-style-type: decimal">
+<li><code>help</code> y <code>?</code>. Si requerimos ayuda sobre la función <code>mean</code>, podemos escribir <code>?mean</code> o <code>help(mean)</code> en la consola del <code>R</code>. El resultado será:</li>
+</ol>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:help"></span>
+<img src="images/helpmean.png" alt="Resultado de escribir `?mean` en la consola del `R`." width="90%" />
+<p class="caption">
+Figura 1.9: Resultado de escribir <code>?mean</code> en la consola del <code>R</code>.
+</p>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li><code>apropos('word')</code>. Esta función en <code>R</code> permite encontrar <em>todas</em> las funciones del espacio de tabajo que contienen la palabra <code>word</code>. Por ejemplo, <code>apropos('mean')</code> produce</li>
+</ol>
+<pre><code>##  [1] &quot;.colMeans&quot;     &quot;.rowMeans&quot;     &quot;colMeans&quot;     
+##  [4] &quot;kmeans&quot;        &quot;mean&quot;          &quot;mean.Date&quot;    
+##  [7] &quot;mean.default&quot;  &quot;mean.difftime&quot; &quot;mean.POSIXct&quot; 
+## [10] &quot;mean.POSIXlt&quot;  &quot;rowMeans&quot;      &quot;weighted.mean&quot;</code></pre>
+<p>Si queremos saber qué hace <code>rowMeans</code> o cuáles son sus argumentos, basta con escribir <code>?rowMeans</code> o <code>help(rowMeans)</code> en la consola.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p><code>RSiteSearch()</code>. Esta función busca información en las páginas de ayuda de las todas las funciones y en las viñetas de todos los paquetes de <code>CRAN</code>, así como en <a href="https://cran.r-project.org/web/views/"><code>CRAN Task Views</code></a>.</p></li>
+<li><p>R FAQs. Hay tres listas principales de preguntas frecuentes (FAQs) que se actualizan periódicamente para reflejar las preguntas más frecuentes de los usuarios de <code>R</code>: <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html"><code>R Main FAQs</code></a>, <a href="https://cran.r-project.org/bin/windows/base/rw-FAQ.html"><code>R FAQs para Windows</code></a> y <a href="https://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html"><code>R FAQs para macos</code></a></p></li>
+<li><p>Stack overflow. Este es un sitio bien organizado para ayuda y discusiones sobre programación. Para acceder directamente a las discusiones relacionadas con <code>R</code>, se recomienda visitar <a href="https://stackoverflow.com/questions/tagged/r" class="uri">https://stackoverflow.com/questions/tagged/r</a></p></li>
+<li><p><a href="https://stat.ethz.ch/mailman/listinfo/r-help-es">R-help-es</a>. Esta es una lista de correo, creada en 2009, para solicitar ayuda sobre <code>R</code> en español y se entiende como un complemento social a la documentación, libros, etc. disponibles sobre <code>R</code>. Puede acceder directamente a los archivos en <a href="https://stat.ethz.ch/pipermail/r-help-es/" class="uri">https://stat.ethz.ch/pipermail/r-help-es/</a></p></li>
+</ol>
+</div>
+<div id="lectura-de-datos" class="section level3" number="1.2.8">
+<h3><span class="header-section-number">1.2.8</span> Lectura de datos</h3>
 </div>
 </div>
 <div id="rstudio" class="section level2" number="1.3">
@@ -418,7 +554,7 @@ La instrucción <code>install.packages('PackageName')</code> sólo debe ejecutar
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:RStudioLogo"></span>
 <img src="images/RStudiologo.png" alt="Página oficial del `R`. Note que la  versión más reciente es la 4.1.1." width="50%" />
 <p class="caption">
-Figura 1.5: Página oficial del <code>R</code>. Note que la versión más reciente es la 4.1.1.
+Figura 1.10: Página oficial del <code>R</code>. Note que la versión más reciente es la 4.1.1.
 </p>
 </div>
 <p>RStudio incluye una consola, un editor que resalta la sintaxis y admite la ejecución directa del código, así como herramientas para el trazado, el historial, la depuración y la gestión del espacio de trabajo.</p>
@@ -426,14 +562,14 @@ Figura 1.5: Página oficial del <code>R</code>. Note que la versión más recien
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:downloadRStudio"></span>
 <img src="images/RStudioDownload.png" alt="Página de descarga de RStudio." width="95%" />
 <p class="caption">
-Figura 1.6: Página de descarga de RStudio.
+Figura 1.11: Página de descarga de RStudio.
 </p>
 </div>
 <p>Una vez descargado, es suficiente con abrir el instalador y seguir las instrucciones. Cuando el proceso termine, el siguiente paso es abrirl el programa haciendo <em>click</em> en el ícono de RStudio y vse abrirá una ventana similar a esto:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:RStudioIDE"></span>
 <img src="images/RstudioIDE.png" alt="RStudio IDE. Tomado de [Diego Calvo](https://www.diegocalvo.es/definicion-de-rstudio/rstudio-ejemplo-de-paneles/)." width="85%" />
 <p class="caption">
-Figura 1.7: RStudio IDE. Tomado de <a href="https://www.diegocalvo.es/definicion-de-rstudio/rstudio-ejemplo-de-paneles/">Diego Calvo</a>.
+Figura 1.12: RStudio IDE. Tomado de <a href="https://www.diegocalvo.es/definicion-de-rstudio/rstudio-ejemplo-de-paneles/">Diego Calvo</a>.
 </p>
 </div>
 <p>Por ser un <a href="https://es.wikipedia.org/wiki/Entorno_de_desarrollo_integrado">IDE</a>, RStudio está compuesto por cuatro paneles:</p>
@@ -447,9 +583,7 @@ Figura 1.7: RStudio IDE. Tomado de <a href="https://www.diegocalvo.es/definicion
 <div class="rmdnote">
 Es posible modificar la organización del RStudio IDE. Para ello, basta con ingresar a <code>Tools</code> –&gt; <code>Global Options...</code> –&gt; <code>Pane Layout</code>.
 </div>
-</div>
-<div id="cursos-online" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Cursos <em>online</em></h2>
+<!-- ## Cursos *online* -->
 
 </div>
 </div>
