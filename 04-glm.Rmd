@@ -1,24 +1,51 @@
 # Modelos de Regresión Avanzados{#glm}
 
-Here is a review of existing methods.
+Write an introductory paragraph to the Chapter.
+
 
 ## Regresión No Lineal
 
-### Ejercicios
-1.
-2.
-3.
-4.
-5.
+### Introducción
+
+### Por qué?
+
+### Ejemplo
+
+### Modelo ajustado
+
+
+### Inferencia 
+
+
+### Medidas de desempeño
+
+
 
 ## Regresión Logística
 
-### Ejercicios
-1.
-2.
-3.
-4.
-5.
+### Introducción
+
+### Por qué?
+
+### Ejemplo
+
+### Modelo ajustado
+
+
+### Inferencia 
+
+#### Para los coeficientes del modelo{-} 
+
+
+#### Para la Razón de _Odds_{-}
+
+#### Para $\theta|x_1,x_2,\ldots,x_k${-}
+
+
+### Medidas de desempeño
+
+### Matriz de confusión{-}
+
 
 ## Regresión Poisson
 
@@ -242,7 +269,7 @@ mean(d$y)*NROW(d)
 por lo que no existe un exceso de estos.  
 
 
-### Cálculo e inferencia para $\hat{\lambda}$
+### Inferencia para $\lambda$
 
 Recordemos $\hat{\lambda}$ es el número _esperado_ de artículos  defectuosos por unidad de empaque cuando se conocen las variables $x_1,x_2$ y $x_3$. En otras palabras, $\hat{\lambda} = f(x_1, x_2, x_3)$.
 

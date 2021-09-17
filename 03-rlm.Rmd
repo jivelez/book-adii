@@ -327,7 +327,7 @@ Por lo tanto, con una confianza del 95%,
 \end{align}
 
 
-## Inferencia para $E[\mathbf{Y}|\mathbf{x}_0]$
+## Inferencia para la respuesta
 
 ```{block2, type='rmdwarning'}
 El modelo de RLM ajustado puede utilizarse para predecir $E[\mathbf{Y}|\mathbf{x}_0]$ sólo si se validan **todos los supuestos**. Para más detalles ver [Análisis de Residuales](#residuales).
