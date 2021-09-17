@@ -22,14 +22,316 @@ Here is a review of existing methods.
 
 ## Regresión Poisson
 
+### Introducción
+
+La Regresión Poisson es útil cuando se tiene una variable aleatoria respuesta $Y$ que representa conteos por unidad de distancia, área, volúmen o tiempo, y es de interés predecir el **número esperado** de dichos conteos a partir de un conjunto de factores controlables independientes $X_1, X_2, \ldots, X_k$. 
+
+La Regresión Poisson hace parte del Modelo Lineal Generalizado. Puesto que $Y$ representa conteos _independientes_, es natural pensar que la distribución Poisson sea un plausible modelo para describir el proceso que genera dichos conteos. Por lo tanto,
+
+$$
+Y \sim \text{Poisson}(\lambda), \quad \lambda > 0,
+$$
+
+donde $\lambda$ es el parámetro de la distribución Poisson. Además, $E[Y] = \text{Var}[Y] = \lambda$. Como se discutirá más adelante, esta es una propiedad fundamental de la distribución Poisson que tiene implicaciones  importantes en el modelo de Regresión Poisson.
+
+Con frecuencia, este parámetro se interpreta, por ejemplo, como (1) el número _esperado_ de unidades defectuosas por hora; (2) el número _esperado_ de defectos por metro cuadrado de baldosa producido; o (3) el número esperado de productos defectuosos por unidad de empaque. Formalmente, $\lambda$ puede verse como la _tasa_ a la que ocurren los eventos de interés.
+
+La función de masa de probabilidad de $Y$ está dada por:
+
+$$
+P(Y = y | \lambda) = \frac{e^{-\lambda}\lambda^y}{y!}, \quad y=0,1,\ldots
+$$
+
+
+### Por qué? 
+
+El modelo de Regresión Poisson **aparece** como una alternativa para incluir información de los factores controlables del proceso en la estimación del parámetro $\lambda$ , a través de un predictor lineal.  Posteriormente, al tener condiciones definidas de operación, es decir,  valores específicos para las variables independientes, podremos calcular $\lambda$ como 
+
+$$\hat{\lambda} = f(x_1, x_2, \ldots, x_k).$$
+
+Formalmente, esto es
+
+$$
+\log\left(\lambda\right) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \cdots \beta_kx_k + \epsilon
+$$
+donde $\mathbf{\beta} = (\beta_0, \beta_1, \ldots, \beta_k)$ son los coeficientes del modelo y $\epsilon$ es el error aleatorio.
+
+
+A partir de esta expresión es fácil llegar a que
+
+\begin{equation}
+\hat\lambda = e^{\hat{\beta}_0 + \hat{\beta}_1x_1 + \hat{\beta}_2x_2 - \cdots +\hat{\beta}_kx_k}\cdot
+\end{equation}
+
+Así, $$Y \sim \text{Poisson}(\hat{\lambda})$$
+
+ y
+
+\begin{align}
+P(Y = y | x_1, x_2, \ldots, x_k) &= P(Y|\hat{\lambda}) \\             
+                  &= \frac{e^{-\hat{\lambda}}\hat{\lambda}^y}{y!}\cdot
+\end{align}
+
+
+Consideremos un proceso en el que se contabilizan el número de artículos defectuosos por cada unidad de empaque producida y supongamos que se controlan las variables $x_1$ y $x_2$. 
+
+Si definimos
+
+$$Y = \text{Número de artículos defectuosos por unidad de empaque},$$ 
+entonces $Y\sim\text{Poisson}(\lambda)$, $\lambda>0$.
+
+A partir de una muestra de tamaño $n$, es fácil llegar a que un estimador _insesgado_ de $\lambda$ es
+
+$$\hat{\lambda} = \frac{1}{n}\sum_{i=1}^n y_i.$$
+
+Sin embargo, observe que al emplear este estimador de $\lambda$, no tenemos en cuenta información adicional sobre dicho parámetro que las variables  $x_1$ y $x_2$ pudieran proporcionarnos. 
+
+
+
+### Ejemplo 
+
+Se tienen datos de un experimento en el que se empacaron 150 unidades de empaque de un producto particular. Cada unidad de empaque tiene 10 unidades de producto. Una vez empacadas, a cada empaque  se le realizó inspección 100% y se registró el número de artículos defectuosos, además de las condiciones de operación de la máquina (variables $x_1$ y $x_2$) y el tipo de máquina (variable $x_3$).
+
+```{r datos, eval=TRUE, tidy=TRUE, size = 'normalsize', cache=FALSE, message=FALSE}
+# lectura de datos 
+url <- 'https://www.dropbox.com/s/xpxy928ugcxr3ck/machine.txt?dl=1'
+d <- read.table(url, header = TRUE)
+
+# primeras 4 filas de los datos
+head(d, 4)
+```
+
+La distribución del número de artículos defectuosos por unidad de empaque es:
+
+```{r barplot, eval=TRUE, tidy=TRUE, size = 'normalsize', cache=FALSE, fig.align='center', message=FALSE, fig.width = 4.5, fig.height = 4.5,fig.cap="Número de artículos defectuosos por unidad de empaque en la muestra."}
+## barplot
+require(ggplot2)
+#Freq <- with(d, table(y))
+ggplot(d, aes(x = as.factor(y))) + geom_bar(fill = 'midnightblue') + 
+  xlab('Número de artículos defectuosos') +
+  ylab("Frecuencia") +
+  theme_minimal()
+```
+
+Puesto que trabajamos con conteos, una distribución de probabilidad posible que describe la variable $Y$ es $Y\sim \text{Poisson}(\lambda)$, $\lambda>0$. A partir de la muestra, se obtiene que 
+
+$$\hat\lambda = \frac{1}{150}\sum_{i=1}^{150}y_i = `r round(mean(d$y), 3)`$$
+
+Sin embargo, observe que la estimación de $\lambda$ no tienen en cuenta las coordenadas $(x_1, x_2)$ ni de la máquina en la que se empaca el producto, lo cual sería deseable.  
+
+
+### Modelo ajustado
+
+Puesto que las condiciones de operación y la máquina en la que se empaca el producto podrían ser determinantes en el número de artículos defectuosos por unidad de empaque que se obtienen, planteamos un modelo de Regresión Poisson. El modelo ajustado es:
+
+```{r modelopois, eval=TRUE, size = 'normalsize', cache=FALSE, message=FALSE}
+## modelo de Regresión Poisson
+## la funcion clave es glm --- para ayuda ver ?glm
+## como la respuesta es binaria, debemos seleccionar family = poisson()
+fit <- glm(y ~ ., data = d, family = poisson())
+
+# coeficientes estimados
+summary(fit) 
+```
+
+Para determinar si el modelo ajustado es mejor que el modelo `y ~ 1`, usamos una prueba de razón de verosimilitud (LRT en inglés). Aunque esta prueba esta implementada en el paquete `base` de `R` a través de la función `anova`, el reporte de los resultados es más informativo cuando usamos la función `lrtest` del paquete `lmtest`:
+
+```{r lrt, eval=TRUE, tidy=TRUE, size = 'normalsize', cache=FALSE, message=FALSE}
+## verificar disponibilidad de lmtest
+if(!require(lmtest)) install.packages('lmtest')
+require(lmtest)
+
+## comparación del modelos usando la LRT
+## ajustamos un modelo simple
+nullmodel <- glm(y ~ 1, data = d, family = poisson())
+
+## LRT
+lrtest(nullmodel, fit)
+```
+
+**Conclusión.** El modelo de Regresión Poisson que incluye las covariables $x_1, x_2$ y $x_3$ es significativamente mejor que un modelo sin ellas para explicar el número de artículos defectuosos por unidad de empaque.  
+
+Una forma de determinar que el modelo tiene **buen ajuste**, es a través de la utilización del _Deviance_. Para más detalles, ver la sección [4.4.9](https://bookdown.org/roback/bookdown-BeyondMLR/ch-poissonreg.html#sec-PoisGOF) del texto _Beyond Multiple Linear Regression_. La idea fundamental es consiste calcular el valor $p$ de la prueba de hipótesis
+
+$$
+\begin{align}
+H_0&: \text{El modelo propuesto tiene bien ajuste.} \\
+H_1&: \text{El modelo propuesto NO tiene bien ajuste.}
+\end{align}
+$$
+
+En este caso, el valor $p$ de la prueba de hipótesis puede cacularse fácilmente como:
+
+```{r}
+## deviance test
+with(fit, 1-pchisq(deviance, df.residual))
+```
+
+Como el valor $p$ es $>0.05$, decimos que el modelo _no_ sufre de falta de ajuste. En otras palabras, que nuestro modelo ajusta bien los datos. 
+
+#### Sobredispersión{-} 
+
+El modelo de Regresión Poisson puede sufrir de [sobredispersión](https://en.wikipedia.org/wiki/Overdispersion). Este concepto se refiere a que, en la distribución Poisson, $\text{Var}[Y] > E[Y]$, es decir, que el supuesto principal de la distribución no se cumple. En nuestro caso, 
+
+<!-- \begin{align} -->
+<!-- \hat\lambda&=`r round(mean(d$y), 3)` \\ -->
+<!-- \widehat{\text{Var}[Y]} &= s^2 =`r round(var(d$y), 3)`  -->
+<!-- \end{align} -->
+
+<!-- Por lo tanto, $$\hat{\phi} = \frac{\widehat{\text{Var}[Y]}}{\widehat{E[Y]}} > 1,$$ -->
+
+<!-- por lo que es posible que exista sobredispersión. -->
+
+Una posible solución a la violación de la propiedad fundamental de la distribución Poisson es ajustar un modelo de Regresión Poisson con función de enlace tipo `quasipoisson` y estimar el parámetro de sobredispersión $\phi$ haciendo:
+
+```{r}
+## ajuste del modelo con enlace quasipoisson
+fitq <- glm(y ~ ., data = d, family = quasipoisson)
+
+## ahora estimamos la dispersión
+summary(fitq)
+```
+
+A partir de estos  rresultados, se llega a que $\hat{\phi} = `r round(summary(fitq)$dispersion, 3)`$, lo cual indica que los datos no están sobredispersos. 
+
+Para estar _completamente_ seguros, podemos hacer una prueba formal del tipo
+
+$$
+\begin{align}
+H_0: \phi = 1 \\
+H_1: \phi > 1
+\end{align}
+$$
+
+En `R`, esta prueba está implementada en la función `dispersiontest` del paquete `AER`:
+
+```{r, message=FALSE}
+## disponibilidad del paquete AER
+if(!require(AER)) install.packages('AER')
+require(AER)
+
+## prueba para el coeficiente de dispersión
+dispersiontest(fit, trafo = 1)
+```
+**Conclusión:** No hay evidencia de sobredispersión. Cuando hay sobredispersión, una alternativa al modelo de Regresión Poisson es una [Regresión Binomial Negativa](https://bookdown.org/roback/bookdown-BeyondMLR/ch-poissonreg.html#negative-binomial-modeling). Este modelo puede ajustarse en `R` con la función ``glm.nb` del paquete `MASS`. 
+
+
+#### Exceso de ceros{-}
+
+Los datos provenientes de procesos de conteo podrían sufrir de [exceso de ceros](https://stats.idre.ucla.edu/stata/dae/zero-inflated-poisson-regression/). Esto se refiere, fuundamentalmente, a que el número de ceros en los datos es mayor al que esperaríamos si estos siguieran, en realidad, una distribución Poisson. 
+
+Por ejemplo, si $Y\sim \text{Poisson}(\lambda)$ y tuviéramos una muestra de tamaño $n$, el número esperado de ceros sería 
+$$n_0 = n\,P(Y=0|\lambda) = n\,e^{-\lambda}$$
+Si en la muestra de tamaño $n$ observamos que el número de ceros es $n^\prime>>>n_0$, entonces los datos están _inflados_ con ceros. Por lo tanto, un modelo del tipo [Zero-inflated Poisson Regression](https://stats.idre.ucla.edu/r/dae/zip/) sería más apropiado.
+
+En nuestro caso, el número de ceros en la muestra es
+
+
+```{r}
+## número de ceros
+with(d, sum(y == 0))
+```
+
+Bajo el modelo Poisson, se esperan
+
+```{r}
+## número esperado de ceros
+mean(d$y)*NROW(d)
+```
+
+por lo que no existe un exceso de estos.  
+
+
+### Cálculo e inferencia para $\hat{\lambda}$
+
+Recordemos $\hat{\lambda}$ es el número _esperado_ de artículos  defectuosos por unidad de empaque cuando se conocen las variables $x_1,x_2$ y $x_3$. En otras palabras, $\hat{\lambda} = f(x_1, x_2, x_3)$.
+
+A partir del modelo ajustado, la _tasa_ de artículos defectuosos por unidad  de empaque puede obtenerse como:
+
+```{r thetahat, eval=TRUE, tidy=TRUE, size = 'normalsize', cache=FALSE, message=FALSE}
+## cálculo de lambdahat 
+lambdahat <- predict(fit, type = 'response')
+
+## ahora incluyamos lambdahat para los 5 primeros individuos
+d <- data.frame(id = 1:NROW(d), d, lambdahat)
+head(d, 5)
+```
+
+Si las condiciones fueran $(2, -1)$ y $(-2, 4)$, y se usara la máquina es `M1`, la _tasa_ de artículos defectuosos por unidad  de empaque sería:
+
+```{r prediccion, eval=TRUE, tidy=FALSE, size = 'normalsize', cache=FALSE, message=FALSE}
+# que pasa para las coordenadas (2, -1), (-2, 4) y máquina M1?
+predict(fit, 
+        newdata = data.frame(x1 = c(2, -2),
+                             x2 = c(-1, 4),
+                             x3 = 'M1'), 
+        type = 'response', se.fit = TRUE)
+```
+
+Un intervalo de confianza del 95% para $\lambda$ cuando $x_1=2$, $x_2=-1$, y $x3=\text{M1}$ está dado por
+
+$$
+13.325 \pm 1.96\times2.709 = (8.015, 18.635) 
+$$
+
+Esto indica que si trabajamos con estas condiciones de operación, se _espera_ que el  número de artículos defectuosos por unidad de empaque en la población esté en el intervalo $(8.015, 18.635)$ con una confianza del 95%.
+
+### Estimación del número de errores
+
+Para las condiciones $(2,-1)$ se esperan obtener $\hat\lambda = 13.325$ artículos defectuosos por unidad de empaque. Utilizando _simulación_, es fácil determinar la distribución del número de artículos defectuosos que se obtendrían en 1000 unidades de empaque producidas bajo estas condiciones. A partir de estos resultados podemos  entonces calcular un intervalo de confianza del 95\% para $Y_0$, no para $\lambda$.
+
+```{r numeroderrores, eval=TRUE, tidy=FALSE, size = 'normalsize', cache=FALSE, message=FALSE}
+## número de errores en 10 intentos para 1000 hombres
+## cuando el punto se proyecta en (2, -1)
+lambdahat <- predict(fit, newdata = 
+                       data.frame(x1 = 2, 
+                                  x2 = -1, 
+                                  x3 = 'M1'), 
+                     type = 'response')
+
+## semilla aleatoria
+set.seed(123)
+
+## número de unidades de empaque
+N <- 1000
+
+## número de errores 
+yhat <- rpois(N, lambdahat)
+
+## intervalo de confianza del 95%
+(ci <- quantile(yhat, probs = c(0.025, 0.975)))
+```
+
+Esto indica que, bajo estas condiciones, el número de artículos defectuosos _esperado_ para la próxima unidad de empaque estará entre 7 y 21, con una confianza del 95\%.  Gráficamente tendríamos:
+
+```{r barplotnumeroderrores, eval=TRUE, tidy=TRUE, size = 'normalsize', cache=FALSE, message=FALSE, fig.width = 5, fig.height = 5, fig.align='center', fig.cap="Número predicho de artículos defectuosos por unidad de empaque."}
+## barplot para el número de errores en (2, -1, 'M1')
+pred <- data.frame(yhat)
+ggplot(pred, aes(x = yhat)) + geom_bar(fill = "midnightblue") +   xlab("Número de artículos defectuosos para (2, -1, 'M1')") +
+  ylab("Frecuencia") +
+  geom_vline(xintercept = ci, color = "green") +
+  geom_vline(xintercept = lambdahat, color = "red") +
+  theme_minimal() 
+```
+
+
+### Cálculo de probabilidades
+
+A partir del modelo ajustado es posible calcular probabilidades teniendo en cuenta las coordenadas $(x_1, x_2)$ y el sexo o variable $x_3$.  Por ejemplo la probabilidad de que una persona cometa _exactamente_ 3 errores en función de $(x_1, x_2, x_3)$ puede expresarse como:
+
+
+$$P(Y = 3 | x_1, x_2, x_3) = \frac{e^{-\hat\lambda}{\hat\lambda}^3}{3!}$$
+
+donde 
+$$\hat\lambda = e^{-0.628  + 0.946x_1 - 1.326x_2   -0.887x_{3,\text{M2}}}$$
+
+con $x_{3,\text{M2}}$ una variable indicadora. 
+
+Para el perfil $(2, -1, \texttt{M1})$ se tiene que $\hat\lambda = 13.325$. Así,
+
+$$P(Y = 3 | 2, -1, \texttt{M1}) = \frac{e^{-13.325}{13.325}^3}{3!} \approx 0.$$
+
+
 ### Variaciones
-Aunque no hace parte del contenido del curso, el modelo de Regresión Poisson tiene algunas variaciones. El tipo de model
-
-
-### Ejercicios
-1.
-2.
-3.
-4.
-5.
+El modelo de Regresión Poisson tiene algunas variaciones. Para mayor información, se sugiere consultar el paquete `pscl`\index{pscl} [@pscl] y el documento _Regression Models for Count Data in R_ [@count].
 

@@ -1,0 +1,14 @@
+base
+bookdown
+ggplot2
+ggExtra
+formatR
+carData
+car
+zoo
+lmtest
+Rcpp
+IsingSampler
+qgraph
+mctest
+olsrr

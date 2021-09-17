@@ -24,7 +24,7 @@
 <meta name="author" content="Jorge I. Vélez" />
 
 
-<meta name="date" content="2021-09-14" />
+<meta name="date" content="2021-09-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="rlm.html"/>
 <link rel="next" href="series.html"/>
-<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -256,8 +256,14 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="glm.html"><a href="glm.html#regresión-poisson"><i class="fa fa-check"></i><b>4.3</b> Regresión Poisson</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="glm.html"><a href="glm.html#variaciones"><i class="fa fa-check"></i><b>4.3.1</b> Variaciones</a></li>
-<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#ejercicios-2"><i class="fa fa-check"></i><b>4.3.2</b> Ejercicios</a></li>
+<li class="chapter" data-level="4.3.1" data-path="glm.html"><a href="glm.html#introducción"><i class="fa fa-check"></i><b>4.3.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#por-qué"><i class="fa fa-check"></i><b>4.3.2</b> Por qué?</a></li>
+<li class="chapter" data-level="4.3.3" data-path="glm.html"><a href="glm.html#ejemplo"><i class="fa fa-check"></i><b>4.3.3</b> Ejemplo</a></li>
+<li class="chapter" data-level="4.3.4" data-path="glm.html"><a href="glm.html#modelo-ajustado"><i class="fa fa-check"></i><b>4.3.4</b> Modelo ajustado</a></li>
+<li class="chapter" data-level="4.3.5" data-path="glm.html"><a href="glm.html#cálculo-e-inferencia-para-hatlambda"><i class="fa fa-check"></i><b>4.3.5</b> Cálculo e inferencia para <span class="math inline">\(\hat{\lambda}\)</span></a></li>
+<li class="chapter" data-level="4.3.6" data-path="glm.html"><a href="glm.html#estimación-del-número-de-errores"><i class="fa fa-check"></i><b>4.3.6</b> Estimación del número de errores</a></li>
+<li class="chapter" data-level="4.3.7" data-path="glm.html"><a href="glm.html#cálculo-de-probabilidades"><i class="fa fa-check"></i><b>4.3.7</b> Cálculo de probabilidades</a></li>
+<li class="chapter" data-level="4.3.8" data-path="glm.html"><a href="glm.html#variaciones"><i class="fa fa-check"></i><b>4.3.8</b> Variaciones</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>5</b> Introducción a Series de Tiempo</a>
@@ -273,7 +279,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="series.html"><a href="series.html#validación-de-supuestos-2"><i class="fa fa-check"></i><b>5.5</b> Validación de supuestos</a></li>
 <li class="chapter" data-level="5.6" data-path="series.html"><a href="series.html#pronósticos"><i class="fa fa-check"></i><b>5.6</b> Pronósticos</a></li>
-<li class="chapter" data-level="5.7" data-path="series.html"><a href="series.html#ejercicios-3"><i class="fa fa-check"></i><b>5.7</b> Ejercicios</a></li>
+<li class="chapter" data-level="5.7" data-path="series.html"><a href="series.html#ejercicios-2"><i class="fa fa-check"></i><b>5.7</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="enp.html"><a href="enp.html"><i class="fa fa-check"></i><b>6</b> Estadística No Paramétrica</a>
 <ul>
@@ -285,7 +291,7 @@ div.csl-indent {
 <li class="chapter" data-level="6.2.3" data-path="enp.html"><a href="enp.html#prueba-de-mann-whitney-wilcoxon"><i class="fa fa-check"></i><b>6.2.3</b> Prueba de Mann-Whitney-Wilcoxon</a></li>
 <li class="chapter" data-level="6.2.4" data-path="enp.html"><a href="enp.html#prueba-de-kruskal-wallis"><i class="fa fa-check"></i><b>6.2.4</b> Prueba de Kruskal-Wallis</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="enp.html"><a href="enp.html#ejercicios-4"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
+<li class="chapter" data-level="6.3" data-path="enp.html"><a href="enp.html#ejercicios-3"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="palabras-finales.html"><a href="palabras-finales.html"><i class="fa fa-check"></i><b>7</b> Palabras Finales</a></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
@@ -340,21 +346,325 @@ div.csl-indent {
 </div>
 <div id="regresión-poisson" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Regresión Poisson</h2>
-<div id="variaciones" class="section level3" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Variaciones</h3>
-<p>Aunque no hace parte del contenido del curso, el modelo de Regresión Poisson tiene algunas variaciones. El tipo de model</p>
+<div id="introducción" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Introducción</h3>
+<p>La Regresión Poisson es útil cuando se tiene una variable aleatoria respuesta <span class="math inline">\(Y\)</span> que representa conteos por unidad de distancia, área, volúmen o tiempo, y es de interés predecir el <strong>número esperado</strong> de dichos conteos a partir de un conjunto de factores controlables independientes <span class="math inline">\(X_1, X_2, \ldots, X_k\)</span>.</p>
+<p>La Regresión Poisson hace parte del Modelo Lineal Generalizado. Puesto que <span class="math inline">\(Y\)</span> representa conteos <em>independientes</em>, es natural pensar que la distribución Poisson sea un plausible modelo para describir el proceso que genera dichos conteos. Por lo tanto,</p>
+<p><span class="math display">\[
+Y \sim \text{Poisson}(\lambda), \quad \lambda &gt; 0,
+\]</span></p>
+<p>donde <span class="math inline">\(\lambda\)</span> es el parámetro de la distribución Poisson. Además, <span class="math inline">\(E[Y] = \text{Var}[Y] = \lambda\)</span>. Como se discutirá más adelante, esta es una propiedad fundamental de la distribución Poisson que tiene implicaciones importantes en el modelo de Regresión Poisson.</p>
+<p>Con frecuencia, este parámetro se interpreta, por ejemplo, como (1) el número <em>esperado</em> de unidades defectuosas por hora; (2) el número <em>esperado</em> de defectos por metro cuadrado de baldosa producido; o (3) el número esperado de productos defectuosos por unidad de empaque. Formalmente, <span class="math inline">\(\lambda\)</span> puede verse como la <em>tasa</em> a la que ocurren los eventos de interés.</p>
+<p>La función de masa de probabilidad de <span class="math inline">\(Y\)</span> está dada por:</p>
+<p><span class="math display">\[
+P(Y = y | \lambda) = \frac{e^{-\lambda}\lambda^y}{y!}, \quad y=0,1,\ldots
+\]</span></p>
 </div>
-<div id="ejercicios-2" class="section level3" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Ejercicios</h3>
-<ol style="list-style-type: decimal">
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-</ol>
+<div id="por-qué" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Por qué?</h3>
+<p>El modelo de Regresión Poisson <strong>aparece</strong> como una alternativa para incluir información de los factores controlables del proceso en la estimación del parámetro <span class="math inline">\(\lambda\)</span> , a través de un predictor lineal. Posteriormente, al tener condiciones definidas de operación, es decir, valores específicos para las variables independientes, podremos calcular <span class="math inline">\(\lambda\)</span> como</p>
+<p><span class="math display">\[\hat{\lambda} = f(x_1, x_2, \ldots, x_k).\]</span></p>
+<p>Formalmente, esto es</p>
+<p><span class="math display">\[
+\log\left(\lambda\right) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \cdots \beta_kx_k + \epsilon
+\]</span>
+donde <span class="math inline">\(\mathbf{\beta} = (\beta_0, \beta_1, \ldots, \beta_k)\)</span> son los coeficientes del modelo y <span class="math inline">\(\epsilon\)</span> es el error aleatorio.</p>
+<p>A partir de esta expresión es fácil llegar a que</p>
+<p><span class="math display">\[\begin{equation}
+\hat\lambda = e^{\hat{\beta}_0 + \hat{\beta}_1x_1 + \hat{\beta}_2x_2 - \cdots +\hat{\beta}_kx_k}\cdot
+\end{equation}\]</span></p>
+<p>Así, <span class="math display">\[Y \sim \text{Poisson}(\hat{\lambda})\]</span></p>
+<p>y</p>
+<p><span class="math display">\[\begin{align}
+P(Y = y | x_1, x_2, \ldots, x_k) &amp;= P(Y|\hat{\lambda}) \\             
+                  &amp;= \frac{e^{-\hat{\lambda}}\hat{\lambda}^y}{y!}\cdot
+\end{align}\]</span></p>
+<p>Consideremos un proceso en el que se contabilizan el número de artículos defectuosos por cada unidad de empaque producida y supongamos que se controlan las variables <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span>.</p>
+<p>Si definimos</p>
+<p><span class="math display">\[Y = \text{Número de artículos defectuosos por unidad de empaque},\]</span>
+entonces <span class="math inline">\(Y\sim\text{Poisson}(\lambda)\)</span>, <span class="math inline">\(\lambda&gt;0\)</span>.</p>
+<p>A partir de una muestra de tamaño <span class="math inline">\(n\)</span>, es fácil llegar a que un estimador <em>insesgado</em> de <span class="math inline">\(\lambda\)</span> es</p>
+<p><span class="math display">\[\hat{\lambda} = \frac{1}{n}\sum_{i=1}^n y_i.\]</span></p>
+<p>Sin embargo, observe que al emplear este estimador de <span class="math inline">\(\lambda\)</span>, no tenemos en cuenta información adicional sobre dicho parámetro que las variables <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> pudieran proporcionarnos.</p>
+</div>
+<div id="ejemplo" class="section level3" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Ejemplo</h3>
+<p>Se tienen datos de un experimento en el que se empacaron 150 unidades de empaque de un producto particular. Cada unidad de empaque tiene 10 unidades de producto. Una vez empacadas, a cada empaque se le realizó inspección 100% y se registró el número de artículos defectuosos, además de las condiciones de operación de la máquina (variables <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span>) y el tipo de máquina (variable <span class="math inline">\(x_3\)</span>).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="glm.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lectura de datos</span></span>
+<span id="cb1-2"><a href="glm.html#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://www.dropbox.com/s/xpxy928ugcxr3ck/machine.txt?dl=1&quot;</span></span>
+<span id="cb1-3"><a href="glm.html#cb1-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.table</span>(url, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="glm.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="glm.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># primeras 4 filas de los datos</span></span>
+<span id="cb1-6"><a href="glm.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d, <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##            x1         x2 x3 y
+## 1 -0.56047565  0.7877388 M2 0
+## 2 -0.23017749  0.7690422 M1 0
+## 3  1.55870831  0.3322026 M2 0
+## 4  0.07050839 -1.0083766 M2 0</code></pre>
+<p>La distribución del número de artículos defectuosos por unidad de empaque es:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="glm.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## barplot</span></span>
+<span id="cb3-2"><a href="glm.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb3-3"><a href="glm.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Freq &lt;- with(d, table(y))</span></span>
+<span id="cb3-4"><a href="glm.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(y))) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;midnightblue&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Número de artículos defectuosos&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="glm.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplot"></span>
+<img src="book-adii_files/figure-html/barplot-1.png" alt="Número de artículos defectuosos por unidad de empaque en la muestra." width="432" />
+<p class="caption">
+Figura 4.1: Número de artículos defectuosos por unidad de empaque en la muestra.
+</p>
+</div>
+<p>Puesto que trabajamos con conteos, una distribución de probabilidad posible que describe la variable <span class="math inline">\(Y\)</span> es <span class="math inline">\(Y\sim \text{Poisson}(\lambda)\)</span>, <span class="math inline">\(\lambda&gt;0\)</span>. A partir de la muestra, se obtiene que</p>
+<p><span class="math display">\[\hat\lambda = \frac{1}{150}\sum_{i=1}^{150}y_i = 0.9\]</span></p>
+<p>Sin embargo, observe que la estimación de <span class="math inline">\(\lambda\)</span> no tienen en cuenta las coordenadas <span class="math inline">\((x_1, x_2)\)</span> ni de la máquina en la que se empaca el producto, lo cual sería deseable.</p>
+</div>
+<div id="modelo-ajustado" class="section level3" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Modelo ajustado</h3>
+<p>Puesto que las condiciones de operación y la máquina en la que se empaca el producto podrían ser determinantes en el número de artículos defectuosos por unidad de empaque que se obtienen, planteamos un modelo de Regresión Poisson. El modelo ajustado es:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="glm.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## modelo de Regresión Poisson</span></span>
+<span id="cb4-2"><a href="glm.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## la funcion clave es glm --- para ayuda ver ?glm</span></span>
+<span id="cb4-3"><a href="glm.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## como la respuesta es binaria, debemos seleccionar family = poisson()</span></span>
+<span id="cb4-4"><a href="glm.html#cb4-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> d, <span class="at">family =</span> <span class="fu">poisson</span>())</span>
+<span id="cb4-5"><a href="glm.html#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="glm.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># coeficientes estimados</span></span>
+<span id="cb4-7"><a href="glm.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit) </span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ ., family = poisson(), data = d)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4277  -0.7602  -0.3576   0.2688   2.1429  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -0.6283     0.1542  -4.074 4.62e-05 ***
+## x1            0.9460     0.1037   9.125  &lt; 2e-16 ***
+## x2           -1.3260     0.1425  -9.304  &lt; 2e-16 ***
+## x3M2         -0.8869     0.1962  -4.521 6.15e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 348.68  on 149  degrees of freedom
+## Residual deviance: 118.44  on 146  degrees of freedom
+## AIC: 269.45
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Para determinar si el modelo ajustado es mejor que el modelo <code>y ~ 1</code>, usamos una prueba de razón de verosimilitud (LRT en inglés). Aunque esta prueba esta implementada en el paquete <code>base</code> de <code>R</code> a través de la función <code>anova</code>, el reporte de los resultados es más informativo cuando usamos la función <code>lrtest</code> del paquete <code>lmtest</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="glm.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## verificar disponibilidad de lmtest</span></span>
+<span id="cb6-2"><a href="glm.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(lmtest)) <span class="fu">install.packages</span>(<span class="st">&quot;lmtest&quot;</span>)</span>
+<span id="cb6-3"><a href="glm.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(lmtest)</span>
+<span id="cb6-4"><a href="glm.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="glm.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## comparación del modelos usando la LRT ajustamos un modelo simple</span></span>
+<span id="cb6-6"><a href="glm.html#cb6-6" aria-hidden="true" tabindex="-1"></a>nullmodel <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> d, <span class="at">family =</span> <span class="fu">poisson</span>())</span>
+<span id="cb6-7"><a href="glm.html#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="glm.html#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## LRT</span></span>
+<span id="cb6-9"><a href="glm.html#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lrtest</span>(nullmodel, fit)</span></code></pre></div>
+<pre><code>## Likelihood ratio test
+## 
+## Model 1: y ~ 1
+## Model 2: y ~ x1 + x2 + x3
+##   #Df  LogLik Df  Chisq Pr(&gt;Chisq)    
+## 1   1 -245.84                         
+## 2   4 -130.73  3 230.24  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p><strong>Conclusión.</strong> El modelo de Regresión Poisson que incluye las covariables <span class="math inline">\(x_1, x_2\)</span> y <span class="math inline">\(x_3\)</span> es significativamente mejor que un modelo sin ellas para explicar el número de artículos defectuosos por unidad de empaque.</p>
+<p>Una forma de determinar que el modelo tiene <strong>buen ajuste</strong>, es a través de la utilización del <em>Deviance</em>. Para más detalles, ver la sección <a href="https://bookdown.org/roback/bookdown-BeyondMLR/ch-poissonreg.html#sec-PoisGOF">4.4.9</a> del texto <em>Beyond Multiple Linear Regression</em>. La idea fundamental es consiste calcular el valor <span class="math inline">\(p\)</span> de la prueba de hipótesis</p>
+<p><span class="math display">\[
+\begin{align}
+H_0&amp;: \text{El modelo propuesto tiene bien ajuste.} \\
+H_1&amp;: \text{El modelo propuesto NO tiene bien ajuste.}
+\end{align}
+\]</span></p>
+<p>En este caso, el valor <span class="math inline">\(p\)</span> de la prueba de hipótesis puede cacularse fácilmente como:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="glm.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## deviance test</span></span>
+<span id="cb8-2"><a href="glm.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(fit, <span class="dv">1</span><span class="sc">-</span><span class="fu">pchisq</span>(deviance, df.residual))</span></code></pre></div>
+<pre><code>## [1] 0.9542188</code></pre>
+<p>Como el valor <span class="math inline">\(p\)</span> es <span class="math inline">\(&gt;0.05\)</span>, decimos que el modelo <em>no</em> sufre de falta de ajuste. En otras palabras, que nuestro modelo ajusta bien los datos.</p>
+<div id="sobredispersión" class="section level4 unnumbered">
+<h4>Sobredispersión</h4>
+<p>El modelo de Regresión Poisson puede sufrir de <a href="https://en.wikipedia.org/wiki/Overdispersion">sobredispersión</a>. Este concepto se refiere a que, en la distribución Poisson, <span class="math inline">\(\text{Var}[Y] &gt; E[Y]\)</span>, es decir, que el supuesto principal de la distribución no se cumple. En nuestro caso,</p>
+<!-- \begin{align} -->
+<!-- \hat\lambda&=0.9 \\ -->
+<!-- \widehat{\text{Var}[Y]} &= s^2 =3.07  -->
+<!-- \end{align} -->
+<!-- Por lo tanto, $$\hat{\phi} = \frac{\widehat{\text{Var}[Y]}}{\widehat{E[Y]}} > 1,$$ -->
+<!-- por lo que es posible que exista sobredispersión. -->
+<p>Una posible solución a la violación de la propiedad fundamental de la distribución Poisson es ajustar un modelo de Regresión Poisson con función de enlace tipo <code>quasipoisson</code> y estimar el parámetro de sobredispersión <span class="math inline">\(\phi\)</span> haciendo:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="glm.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ajuste del modelo con enlace quasipoisson</span></span>
+<span id="cb10-2"><a href="glm.html#cb10-2" aria-hidden="true" tabindex="-1"></a>fitq <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> d, <span class="at">family =</span> quasipoisson)</span>
+<span id="cb10-3"><a href="glm.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="glm.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ahora estimamos la dispersión</span></span>
+<span id="cb10-5"><a href="glm.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitq)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ ., family = quasipoisson, data = d)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4277  -0.7602  -0.3576   0.2688   2.1429  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.6283     0.1505  -4.173 5.13e-05 ***
+## x1            0.9460     0.1012   9.348  &lt; 2e-16 ***
+## x2           -1.3260     0.1391  -9.531  &lt; 2e-16 ***
+## x3M2         -0.8869     0.1915  -4.631 7.97e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for quasipoisson family taken to be 0.9529908)
+## 
+##     Null deviance: 348.68  on 149  degrees of freedom
+## Residual deviance: 118.44  on 146  degrees of freedom
+## AIC: NA
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>A partir de estos rresultados, se llega a que <span class="math inline">\(\hat{\phi} = 0.953\)</span>, lo cual indica que los datos no están sobredispersos.</p>
+<p>Para estar <em>completamente</em> seguros, podemos hacer una prueba formal del tipo</p>
+<p><span class="math display">\[
+\begin{align}
+H_0: \phi = 1 \\
+H_1: \phi &gt; 1
+\end{align}
+\]</span></p>
+<p>En <code>R</code>, esta prueba está implementada en la función <code>dispersiontest</code> del paquete <code>AER</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="glm.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## disponibilidad del paquete AER</span></span>
+<span id="cb12-2"><a href="glm.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AER)) <span class="fu">install.packages</span>(<span class="st">&#39;AER&#39;</span>)</span>
+<span id="cb12-3"><a href="glm.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(AER)</span>
+<span id="cb12-4"><a href="glm.html#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="glm.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">## prueba para el coeficiente de dispersión</span></span>
+<span id="cb12-6"><a href="glm.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(fit, <span class="at">trafo =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 
+##  Overdispersion test
+## 
+## data:  fit
+## z = -0.90813, p-value = 0.8181
+## alternative hypothesis: true alpha is greater than 0
+## sample estimates:
+##       alpha 
+## -0.07419873</code></pre>
+<p><strong>Conclusión:</strong> No hay evidencia de sobredispersión. Cuando hay sobredispersión, una alternativa al modelo de Regresión Poisson es una <a href="https://bookdown.org/roback/bookdown-BeyondMLR/ch-poissonreg.html#negative-binomial-modeling">Regresión Binomial Negativa</a>. Este modelo puede ajustarse en <code>R</code> con la función `<code>glm.nb</code> del paquete <code>MASS</code>.</p>
+</div>
+<div id="exceso-de-ceros" class="section level4 unnumbered">
+<h4>Exceso de ceros</h4>
+<p>Los datos provenientes de procesos de conteo podrían sufrir de <a href="https://stats.idre.ucla.edu/stata/dae/zero-inflated-poisson-regression/">exceso de ceros</a>. Esto se refiere, fuundamentalmente, a que el número de ceros en los datos es mayor al que esperaríamos si estos siguieran, en realidad, una distribución Poisson.</p>
+<p>Por ejemplo, si <span class="math inline">\(Y\sim \text{Poisson}(\lambda)\)</span> y tuviéramos una muestra de tamaño <span class="math inline">\(n\)</span>, el número esperado de ceros sería
+<span class="math display">\[n_0 = n\,P(Y=0|\lambda) = n\,e^{-\lambda}\]</span>
+Si en la muestra de tamaño <span class="math inline">\(n\)</span> observamos que el número de ceros es <span class="math inline">\(n^\prime&gt;&gt;&gt;n_0\)</span>, entonces los datos están <em>inflados</em> con ceros. Por lo tanto, un modelo del tipo <a href="https://stats.idre.ucla.edu/r/dae/zip/">Zero-inflated Poisson Regression</a> sería más apropiado.</p>
+<p>En nuestro caso, el número de ceros en la muestra es</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="glm.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## número de ceros</span></span>
+<span id="cb14-2"><a href="glm.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(d, <span class="fu">sum</span>(y <span class="sc">==</span> <span class="dv">0</span>))</span></code></pre></div>
+<pre><code>## [1] 93</code></pre>
+<p>Bajo el modelo Poisson, se esperan</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="glm.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## número esperado de ceros</span></span>
+<span id="cb16-2"><a href="glm.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d<span class="sc">$</span>y)<span class="sc">*</span><span class="fu">NROW</span>(d)</span></code></pre></div>
+<pre><code>## [1] 135</code></pre>
+<p>por lo que no existe un exceso de estos.</p>
+</div>
+</div>
+<div id="cálculo-e-inferencia-para-hatlambda" class="section level3" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Cálculo e inferencia para <span class="math inline">\(\hat{\lambda}\)</span></h3>
+<p>Recordemos <span class="math inline">\(\hat{\lambda}\)</span> es el número <em>esperado</em> de artículos defectuosos por unidad de empaque cuando se conocen las variables <span class="math inline">\(x_1,x_2\)</span> y <span class="math inline">\(x_3\)</span>. En otras palabras, <span class="math inline">\(\hat{\lambda} = f(x_1, x_2, x_3)\)</span>.</p>
+<p>A partir del modelo ajustado, la <em>tasa</em> de artículos defectuosos por unidad de empaque puede obtenerse como:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="glm.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo de lambdahat</span></span>
+<span id="cb18-2"><a href="glm.html#cb18-2" aria-hidden="true" tabindex="-1"></a>lambdahat <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb18-3"><a href="glm.html#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="glm.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ahora incluyamos lambdahat para los 5 primeros individuos</span></span>
+<span id="cb18-5"><a href="glm.html#cb18-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">NROW</span>(d), d, lambdahat)</span>
+<span id="cb18-6"><a href="glm.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##   id          x1         x2 x3 y  lambdahat
+## 1  1 -0.56047565  0.7877388 M2 0 0.04550495
+## 2  2 -0.23017749  0.7690422 M1 0 0.15478211
+## 3  3  1.55870831  0.3322026 M2 0 0.61806211
+## 4  4  0.07050839 -1.0083766 M2 0 0.89455575
+## 5  5  0.12928774 -0.1194526 M2 0 0.29097707</code></pre>
+<p>Si las condiciones fueran <span class="math inline">\((2, -1)\)</span> y <span class="math inline">\((-2, 4)\)</span>, y se usara la máquina es <code>M1</code>, la <em>tasa</em> de artículos defectuosos por unidad de empaque sería:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="glm.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># que pasa para las coordenadas (2, -1), (-2, 4) y máquina M1?</span></span>
+<span id="cb20-2"><a href="glm.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, </span>
+<span id="cb20-3"><a href="glm.html#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>),</span>
+<span id="cb20-4"><a href="glm.html#cb20-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">x2 =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb20-5"><a href="glm.html#cb20-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">x3 =</span> <span class="st">&#39;M1&#39;</span>), </span>
+<span id="cb20-6"><a href="glm.html#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&#39;response&#39;</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## $fit
+##            1            2 
+## 1.332580e+01 3.999625e-04 
+## 
+## $se.fit
+##            1            2 
+## 2.7092492536 0.0002847542 
+## 
+## $residual.scale
+## [1] 1</code></pre>
+<p>Un intervalo de confianza del 95% para <span class="math inline">\(\lambda\)</span> cuando <span class="math inline">\(x_1=2\)</span>, <span class="math inline">\(x_2=-1\)</span>, y <span class="math inline">\(x3=\text{M1}\)</span> está dado por</p>
+<p><span class="math display">\[
+13.325 \pm 1.96\times2.709 = (8.015, 18.635) 
+\]</span></p>
+<p>Esto indica que si trabajamos con estas condiciones de operación, se <em>espera</em> que el número de artículos defectuosos por unidad de empaque en la población esté en el intervalo <span class="math inline">\((8.015, 18.635)\)</span> con una confianza del 95%.</p>
+</div>
+<div id="estimación-del-número-de-errores" class="section level3" number="4.3.6">
+<h3><span class="header-section-number">4.3.6</span> Estimación del número de errores</h3>
+<p>Para las condiciones <span class="math inline">\((2,-1)\)</span> se esperan obtener <span class="math inline">\(\hat\lambda = 13.325\)</span> artículos defectuosos por unidad de empaque. Utilizando <em>simulación</em>, es fácil determinar la distribución del número de artículos defectuosos que se obtendrían en 1000 unidades de empaque producidas bajo estas condiciones. A partir de estos resultados podemos entonces calcular un intervalo de confianza del 95% para <span class="math inline">\(Y_0\)</span>, no para <span class="math inline">\(\lambda\)</span>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="glm.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## número de errores en 10 intentos para 1000 hombres</span></span>
+<span id="cb22-2"><a href="glm.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="do">## cuando el punto se proyecta en (2, -1)</span></span>
+<span id="cb22-3"><a href="glm.html#cb22-3" aria-hidden="true" tabindex="-1"></a>lambdahat <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> </span>
+<span id="cb22-4"><a href="glm.html#cb22-4" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="dv">2</span>, </span>
+<span id="cb22-5"><a href="glm.html#cb22-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">x2 =</span> <span class="sc">-</span><span class="dv">1</span>, </span>
+<span id="cb22-6"><a href="glm.html#cb22-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">x3 =</span> <span class="st">&#39;M1&#39;</span>), </span>
+<span id="cb22-7"><a href="glm.html#cb22-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type =</span> <span class="st">&#39;response&#39;</span>)</span>
+<span id="cb22-8"><a href="glm.html#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="glm.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="do">## semilla aleatoria</span></span>
+<span id="cb22-10"><a href="glm.html#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb22-11"><a href="glm.html#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="glm.html#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="do">## número de unidades de empaque</span></span>
+<span id="cb22-13"><a href="glm.html#cb22-13" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb22-14"><a href="glm.html#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="glm.html#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="do">## número de errores </span></span>
+<span id="cb22-16"><a href="glm.html#cb22-16" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> <span class="fu">rpois</span>(N, lambdahat)</span>
+<span id="cb22-17"><a href="glm.html#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="glm.html#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalo de confianza del 95%</span></span>
+<span id="cb22-19"><a href="glm.html#cb22-19" aria-hidden="true" tabindex="-1"></a>(ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(yhat, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)))</span></code></pre></div>
+<pre><code>##  2.5% 97.5% 
+##     7    21</code></pre>
+<p>Esto indica que, bajo estas condiciones, el número de artículos defectuosos <em>esperado</em> para la próxima unidad de empaque estará entre 7 y 21, con una confianza del 95%. Gráficamente tendríamos:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="glm.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## barplot para el número de errores en (2, -1, &#39;M1&#39;)</span></span>
+<span id="cb24-2"><a href="glm.html#cb24-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(yhat)</span>
+<span id="cb24-3"><a href="glm.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred, <span class="fu">aes</span>(<span class="at">x =</span> yhat)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;midnightblue&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Número de artículos defectuosos para (2, -1, &#39;M1&#39;)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="glm.html#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> lambdahat,</span>
+<span id="cb24-5"><a href="glm.html#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplotnumeroderrores"></span>
+<img src="book-adii_files/figure-html/barplotnumeroderrores-1.png" alt="Número predicho de artículos defectuosos por unidad de empaque." width="480" />
+<p class="caption">
+Figura 4.2: Número predicho de artículos defectuosos por unidad de empaque.
+</p>
+</div>
+</div>
+<div id="cálculo-de-probabilidades" class="section level3" number="4.3.7">
+<h3><span class="header-section-number">4.3.7</span> Cálculo de probabilidades</h3>
+<p>A partir del modelo ajustado es posible calcular probabilidades teniendo en cuenta las coordenadas <span class="math inline">\((x_1, x_2)\)</span> y el sexo o variable <span class="math inline">\(x_3\)</span>. Por ejemplo la probabilidad de que una persona cometa <em>exactamente</em> 3 errores en función de <span class="math inline">\((x_1, x_2, x_3)\)</span> puede expresarse como:</p>
+<p><span class="math display">\[P(Y = 3 | x_1, x_2, x_3) = \frac{e^{-\hat\lambda}{\hat\lambda}^3}{3!}\]</span></p>
+<p>donde
+<span class="math display">\[\hat\lambda = e^{-0.628  + 0.946x_1 - 1.326x_2   -0.887x_{3,\text{M2}}}\]</span></p>
+<p>con <span class="math inline">\(x_{3,\text{M2}}\)</span> una variable indicadora.</p>
+<p>Para el perfil <span class="math inline">\((2, -1, \texttt{M1})\)</span> se tiene que <span class="math inline">\(\hat\lambda = 13.325\)</span>. Así,</p>
+<p><span class="math display">\[P(Y = 3 | 2, -1, \texttt{M1}) = \frac{e^{-13.325}{13.325}^3}{3!} \approx 0.\]</span></p>
+</div>
+<div id="variaciones" class="section level3" number="4.3.8">
+<h3><span class="header-section-number">4.3.8</span> Variaciones</h3>
+<p>El modelo de Regresión Poisson tiene algunas variaciones. Para mayor información, se sugiere consultar el paquete <code>pscl</code> <span class="citation">(<a href="#ref-pscl" role="doc-biblioref">Jackman 2020</a>)</span> y el documento <em>Regression Models for Count Data in R</em> <span class="citation">(<a href="#ref-count" role="doc-biblioref">Zeileis, Kleiber, and Jackman 2008</a>)</span>.</p>
 
 </div>
+</div>
+</div>
+<h3>Referencias</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-pscl" class="csl-entry">
+Jackman, Simon. 2020. <em><span class="nocase">pscl</span>: Classes and Methods for <span>R</span> Developed in the Political Science Computational Laboratory</em>. Sydney, New South Wales, Australia: United States Studies Centre, University of Sydney. <a href="https://github.com/atahk/pscl/">https://github.com/atahk/pscl/</a>.
+</div>
+<div id="ref-count" class="csl-entry">
+Zeileis, Achim, Christian Kleiber, and Simon Jackman. 2008. <span>“Regression Models for Count Data in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 27 (8): 1–25. <a href="http://www.jstatsoft.org/v27/i08/">http://www.jstatsoft.org/v27/i08/</a>.
 </div>
 </div>
             </section>
@@ -405,7 +715,7 @@ gitbook.start({
 "link": "https://github.com/jivelez/book-adii/blob/master/04-glm.Rmd",
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": ["book-adii.pdf", "book-adii.epub"],
 "search": {
 "engine": "fuse",
 "options": null
