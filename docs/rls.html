@@ -24,7 +24,7 @@
 <meta name="author" content="Jorge I. Vélez" />
 
 
-<meta name="date" content="2021-09-15" />
+<meta name="date" content="2021-09-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="intro.html"/>
 <link rel="next" href="rlm.html"/>
-<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -256,8 +256,14 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="glm.html"><a href="glm.html#regresión-poisson"><i class="fa fa-check"></i><b>4.3</b> Regresión Poisson</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="glm.html"><a href="glm.html#variaciones"><i class="fa fa-check"></i><b>4.3.1</b> Variaciones</a></li>
-<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#ejercicios-2"><i class="fa fa-check"></i><b>4.3.2</b> Ejercicios</a></li>
+<li class="chapter" data-level="4.3.1" data-path="glm.html"><a href="glm.html#introducción"><i class="fa fa-check"></i><b>4.3.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#por-qué"><i class="fa fa-check"></i><b>4.3.2</b> Por qué?</a></li>
+<li class="chapter" data-level="4.3.3" data-path="glm.html"><a href="glm.html#ejemplo"><i class="fa fa-check"></i><b>4.3.3</b> Ejemplo</a></li>
+<li class="chapter" data-level="4.3.4" data-path="glm.html"><a href="glm.html#modelo-ajustado"><i class="fa fa-check"></i><b>4.3.4</b> Modelo ajustado</a></li>
+<li class="chapter" data-level="4.3.5" data-path="glm.html"><a href="glm.html#cálculo-e-inferencia-para-hatlambda"><i class="fa fa-check"></i><b>4.3.5</b> Cálculo e inferencia para <span class="math inline">\(\hat{\lambda}\)</span></a></li>
+<li class="chapter" data-level="4.3.6" data-path="glm.html"><a href="glm.html#estimación-del-número-de-errores"><i class="fa fa-check"></i><b>4.3.6</b> Estimación del número de errores</a></li>
+<li class="chapter" data-level="4.3.7" data-path="glm.html"><a href="glm.html#cálculo-de-probabilidades"><i class="fa fa-check"></i><b>4.3.7</b> Cálculo de probabilidades</a></li>
+<li class="chapter" data-level="4.3.8" data-path="glm.html"><a href="glm.html#variaciones"><i class="fa fa-check"></i><b>4.3.8</b> Variaciones</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>5</b> Introducción a Series de Tiempo</a>
@@ -273,7 +279,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="series.html"><a href="series.html#validación-de-supuestos-2"><i class="fa fa-check"></i><b>5.5</b> Validación de supuestos</a></li>
 <li class="chapter" data-level="5.6" data-path="series.html"><a href="series.html#pronósticos"><i class="fa fa-check"></i><b>5.6</b> Pronósticos</a></li>
-<li class="chapter" data-level="5.7" data-path="series.html"><a href="series.html#ejercicios-3"><i class="fa fa-check"></i><b>5.7</b> Ejercicios</a></li>
+<li class="chapter" data-level="5.7" data-path="series.html"><a href="series.html#ejercicios-2"><i class="fa fa-check"></i><b>5.7</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="enp.html"><a href="enp.html"><i class="fa fa-check"></i><b>6</b> Estadística No Paramétrica</a>
 <ul>
@@ -285,7 +291,7 @@ div.csl-indent {
 <li class="chapter" data-level="6.2.3" data-path="enp.html"><a href="enp.html#prueba-de-mann-whitney-wilcoxon"><i class="fa fa-check"></i><b>6.2.3</b> Prueba de Mann-Whitney-Wilcoxon</a></li>
 <li class="chapter" data-level="6.2.4" data-path="enp.html"><a href="enp.html#prueba-de-kruskal-wallis"><i class="fa fa-check"></i><b>6.2.4</b> Prueba de Kruskal-Wallis</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="enp.html"><a href="enp.html#ejercicios-4"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
+<li class="chapter" data-level="6.3" data-path="enp.html"><a href="enp.html#ejercicios-3"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="palabras-finales.html"><a href="palabras-finales.html"><i class="fa fa-check"></i><b>7</b> Palabras Finales</a></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
@@ -365,7 +371,7 @@ Y_i &amp;= \beta_0 + \beta_1X_i + \epsilon_i,\\
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="rls.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico de dispersión</span></span>
 <span id="cb25-2"><a href="rls.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
 <span id="cb25-3"><a href="rls.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos, <span class="fu">aes</span>(<span class="at">x =</span> Edad, <span class="at">y =</span> Resistencia)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="book-adii_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="book-adii_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Observe que, aparentemente, cuanto mayor sea la <code>Edad</code> de la soldadura <em>menor</em> será su <code>Resistencia</code>. Por lo tanto, podemos decir que la relación entre <code>Edad</code> y <code>Resistencia</code> es <em>inversamente proporcional</em>.</p>
 <p>El <strong>coeficiente de correlación</strong> <span class="math inline">\(\rho\)</span> entre dos variables aleatorias <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> determina la <em>relación lineal</em> que existe entre ellas. A partir de una muestra de tamaño <span class="math inline">\(n\)</span>, dicho coeficiente puede calcularse como</p>
 <p><span class="math display">\[\begin{eqnarray}
@@ -739,14 +745,14 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <span id="cb48-2"><a href="rls.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
 <span id="cb48-3"><a href="rls.html#cb48-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">durbinWatsonTest</span>(modelo)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1     -0.02653343      2.050609   0.816
+##    1     -0.02653343      2.050609   0.814
 ##  Alternative hypothesis: rho != 0</code></pre>
 <p>Basados en el valor <span class="math inline">\(p\)</span>, <em>no</em> es posible rechazar <span class="math inline">\(H_0\)</span> puesto que el valor <span class="math inline">\(p\)</span> de la prueba de Durbin-Watson es superior a un nivel de significancia <span class="math inline">\(\alpha\)</span> del 5%. Por lo tanto, concluimos que los residuales del modelo ajustados <em>son</em> independientes.</p>
 <p>Para graficar la ACF podemos hacer:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="rls.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ACF de los residuales</span></span>
 <span id="cb50-2"><a href="rls.html#cb50-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo)  <span class="do">## cálculo de los residuales</span></span>
 <span id="cb50-3"><a href="rls.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="book-adii_files/figure-html/unnamed-chunk-57-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="book-adii_files/figure-html/unnamed-chunk-63-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Para concluir que los residuales del modelo ajustado son <em>independientes</em> basados en la ACF, ninguna de las barras verticales, llamadas correlaciones, debe superar las bandas de color azul para <span class="math inline">\(\text{Lag} &gt; 0\)</span>. En nuestro caso, podemos concluir que los residuales <em>son</em> independientes.</p>
 </div>
 <div id="normalidad" class="section level4 unnumbered">
@@ -786,13 +792,13 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="rls.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q-Q plot básico</span></span>
 <span id="cb53-2"><a href="rls.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span>
 <span id="cb53-3"><a href="rls.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(r, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="book-adii_files/figure-html/unnamed-chunk-60-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="book-adii_files/figure-html/unnamed-chunk-66-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Para más detalles, escribir <code>?qqnorm</code> en la consola del <code>R</code>. La idea fundamental es que los residuales del modelo (i.e., puntos en la gráfica) deben estar alrededor de la línea de color <em>rojo</em> para concluir, al menos gráficamente, que los residuales siguen una distribución Normal. En este caso, existen varios puntos por fuera de la línea, lo cual nos hace sospechar que esas observaciones <em>outliers</em> afectan el supesto.</p>
 <p><strong>Utilizando el paquete car</strong></p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="rls.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q-Q plot usando el paquete car</span></span>
 <span id="cb54-2"><a href="rls.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb54-3"><a href="rls.html#cb54-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">:::</span><span class="fu">qqPlot</span>(r, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="book-adii_files/figure-html/unnamed-chunk-61-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="book-adii_files/figure-html/unnamed-chunk-67-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 77 18</code></pre>
 <p>Aunque la elaboración de este gráfico es mucho más compleja, su interpretación es simple: diremos que los residuales del modelo ajustado <em>cumplen</em> con el supuesto de Normalidad si <em>todos</em> los puntos en encuentran <strong>dentro</strong> de las bandas de color <em>azul</em>. En este caso, las observaciones <code>18</code> y <code>77</code> parecen ser extremas.</p>
 </div>
@@ -870,16 +876,14 @@ Sólo cuando se han validado <strong>todos los supuestos del error</strong>, pod
 <span id="cb60-5"><a href="rls.html#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-6"><a href="rls.html#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico de residuales vs. valores predichos</span></span>
 <span id="cb60-7"><a href="rls.html#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
-<span id="cb60-8"><a href="rls.html#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y_hat, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(y) <span class="sc">*</span> <span class="st">&quot; vs. r&quot;</span>), <span class="at">xlab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(y)),</span>
-<span id="cb60-9"><a href="rls.html#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>)</span>
-<span id="cb60-10"><a href="rls.html#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
-<span id="cb60-11"><a href="rls.html#cb60-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y_hat, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(y) <span class="sc">*</span> <span class="st">&quot; vs. orden&quot;</span>), <span class="at">xlab =</span> <span class="st">&quot;Orden&quot;</span>,</span>
-<span id="cb60-12"><a href="rls.html#cb60-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(y)))</span>
-<span id="cb60-13"><a href="rls.html#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&quot;r vs. y&quot;</span>), <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>)</span>
-<span id="cb60-14"><a href="rls.html#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
-<span id="cb60-15"><a href="rls.html#cb60-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&quot;r vs. Edad&quot;</span>), <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>)</span>
-<span id="cb60-16"><a href="rls.html#cb60-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="book-adii_files/figure-html/unnamed-chunk-65-1.png" width="576" style="display: block; margin: auto;" /></p>
+<span id="cb60-8"><a href="rls.html#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y_hat, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(y) <span class="sc">*</span> <span class="st">&quot; vs. r&quot;</span>), <span class="at">xlab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(y)), <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb60-9"><a href="rls.html#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb60-10"><a href="rls.html#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y_hat, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(y) <span class="sc">*</span> <span class="st">&quot; vs. orden&quot;</span>), <span class="at">xlab =</span> <span class="st">&quot;Orden&quot;</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(y)))</span>
+<span id="cb60-11"><a href="rls.html#cb60-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&quot;r vs. y&quot;</span>), <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb60-12"><a href="rls.html#cb60-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb60-13"><a href="rls.html#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&quot;r vs. Edad&quot;</span>), <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb60-14"><a href="rls.html#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="book-adii_files/figure-html/unnamed-chunk-71-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De los gráficos anteriores se concluye que la varianza del modelo <em>no</em> es constante.</p>
 <!-- ### Identificación de _outliers_{-} -->
 <!-- ### Observaciones influenciales{-} -->
