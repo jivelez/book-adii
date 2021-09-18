@@ -24,7 +24,7 @@
 <meta name="author" content="Jorge I. Vélez" />
 
 
-<meta name="date" content="2021-09-17" />
+<meta name="date" content="2021-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -404,7 +404,7 @@ Figura 1.3: Página oficial del <code>R</code>. Note que la versión más recien
 Figura 1.4: Algnos paquetes de <code>R</code>.
 </p>
 </div>
-<p>Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">aquí</a>. A la fecha existen 18222 paquetes; algunos ejemplos conocidos son <code>MASS</code>, <code>ggplot2</code>, <code>shiny</code>, y <code>caret</code>, entre otros.</p>
+<p>Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">aquí</a>. A la fecha existen 18221 paquetes; algunos ejemplos conocidos son <code>MASS</code>, <code>ggplot2</code>, <code>shiny</code>, y <code>caret</code>, entre otros.</p>
 <p>Para utilizar un paquete, debemos seguir dos pasos</p>
 <ol style="list-style-type: decimal">
 <li>Instalar el paquete; y</li>
@@ -549,11 +549,9 @@ Figura 1.9: Resultado de escribir <code>?mean</code> en la consola del <code>R</
 <ol start="2" style="list-style-type: decimal">
 <li><code>apropos('word')</code>. Esta función en <code>R</code> permite encontrar <em>todas</em> las funciones del espacio de tabajo que contienen la palabra <code>word</code>. Por ejemplo, <code>apropos('mean')</code> produce</li>
 </ol>
-<pre><code>##  [1] &quot;.colMeans&quot;        &quot;.rowMeans&quot;        &quot;colMeans&quot;         &quot;kmeans&quot;          
-##  [5] &quot;mean&quot;             &quot;mean_cl_boot&quot;     &quot;mean_cl_normal&quot;   &quot;mean_sdl&quot;        
-##  [9] &quot;mean_se&quot;          &quot;mean.Date&quot;        &quot;mean.default&quot;     &quot;mean.difftime&quot;   
-## [13] &quot;mean.POSIXct&quot;     &quot;mean.POSIXlt&quot;     &quot;rollmean&quot;         &quot;rollmean.default&quot;
-## [17] &quot;rollmeanr&quot;        &quot;rowMeans&quot;         &quot;weighted.mean&quot;</code></pre>
+<pre><code>##  [1] &quot;.colMeans&quot;     &quot;.rowMeans&quot;     &quot;colMeans&quot;      &quot;kmeans&quot;       
+##  [5] &quot;mean&quot;          &quot;mean.Date&quot;     &quot;mean.default&quot;  &quot;mean.difftime&quot;
+##  [9] &quot;mean.POSIXct&quot;  &quot;mean.POSIXlt&quot;  &quot;rowMeans&quot;      &quot;weighted.mean&quot;</code></pre>
 <p>Si queremos saber qué hace <code>rowMeans</code> o cuáles son sus argumentos, basta con escribir <code>?rowMeans</code> o <code>help(rowMeans)</code> en la consola.</p>
 <ol start="3" style="list-style-type: decimal">
 <li><p><code>RSiteSearch()</code>. Esta función busca información en las páginas de ayuda de las todas las funciones y en las viñetas de todos los paquetes de <code>CRAN</code>, así como en <a href="https://cran.r-project.org/web/views/"><code>CRAN Task Views</code></a>.</p></li>
