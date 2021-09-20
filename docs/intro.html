@@ -24,7 +24,7 @@
 <meta name="author" content="Jorge I. Vélez" />
 
 
-<meta name="date" content="2021-09-18" />
+<meta name="date" content="2021-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -258,17 +258,15 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="glm.html"><a href="glm.html#regresión-logística"><i class="fa fa-check"></i><b>4.2</b> Regresión Logística</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="glm.html"><a href="glm.html#introducción-1"><i class="fa fa-check"></i><b>4.2.1</b> Introducción</a></li>
-<li class="chapter" data-level="4.2.2" data-path="glm.html"><a href="glm.html#por-qué-1"><i class="fa fa-check"></i><b>4.2.2</b> Por qué?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="glm.html"><a href="glm.html#formulación-del-modelo"><i class="fa fa-check"></i><b>4.2.2</b> Formulación del modelo</a></li>
 <li class="chapter" data-level="4.2.3" data-path="glm.html"><a href="glm.html#ejemplo-1"><i class="fa fa-check"></i><b>4.2.3</b> Ejemplo</a></li>
-<li class="chapter" data-level="4.2.4" data-path="glm.html"><a href="glm.html#modelo-ajustado-1"><i class="fa fa-check"></i><b>4.2.4</b> Modelo ajustado</a></li>
-<li class="chapter" data-level="4.2.5" data-path="glm.html"><a href="glm.html#inferencia-1"><i class="fa fa-check"></i><b>4.2.5</b> Inferencia</a></li>
-<li class="chapter" data-level="4.2.6" data-path="glm.html"><a href="glm.html#medidas-de-desempeño-1"><i class="fa fa-check"></i><b>4.2.6</b> Medidas de desempeño</a></li>
-<li class="chapter" data-level="" data-path="glm.html"><a href="glm.html#matriz-de-confusión"><i class="fa fa-check"></i>Matriz de confusión</a></li>
+<li class="chapter" data-level="4.2.4" data-path="glm.html"><a href="glm.html#evaluación-del-modelo"><i class="fa fa-check"></i><b>4.2.4</b> Evaluación del modelo</a></li>
+<li class="chapter" data-level="4.2.5" data-path="glm.html"><a href="glm.html#predicción-1"><i class="fa fa-check"></i><b>4.2.5</b> Predicción</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="glm.html"><a href="glm.html#regresión-poisson"><i class="fa fa-check"></i><b>4.3</b> Regresión Poisson</a>
 <ul>
 <li class="chapter" data-level="4.3.1" data-path="glm.html"><a href="glm.html#introducción-2"><i class="fa fa-check"></i><b>4.3.1</b> Introducción</a></li>
-<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#por-qué-2"><i class="fa fa-check"></i><b>4.3.2</b> Por qué?</a></li>
+<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#por-qué-1"><i class="fa fa-check"></i><b>4.3.2</b> Por qué?</a></li>
 <li class="chapter" data-level="4.3.3" data-path="glm.html"><a href="glm.html#ejemplo-2"><i class="fa fa-check"></i><b>4.3.3</b> Ejemplo</a></li>
 <li class="chapter" data-level="4.3.4" data-path="glm.html"><a href="glm.html#modelo-ajustado-2"><i class="fa fa-check"></i><b>4.3.4</b> Modelo ajustado</a></li>
 <li class="chapter" data-level="4.3.5" data-path="glm.html"><a href="glm.html#inferencia-para-lambda"><i class="fa fa-check"></i><b>4.3.5</b> Inferencia para <span class="math inline">\(\lambda\)</span></a></li>
@@ -404,7 +402,7 @@ Figura 1.3: Página oficial del <code>R</code>. Note que la versión más recien
 Figura 1.4: Algnos paquetes de <code>R</code>.
 </p>
 </div>
-<p>Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">aquí</a>. A la fecha existen 18221 paquetes; algunos ejemplos conocidos son <code>MASS</code>, <code>ggplot2</code>, <code>shiny</code>, y <code>caret</code>, entre otros.</p>
+<p>Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">aquí</a>. A la fecha existen 18233 paquetes; algunos ejemplos conocidos son <code>MASS</code>, <code>ggplot2</code>, <code>shiny</code>, y <code>caret</code>, entre otros.</p>
 <p>Para utilizar un paquete, debemos seguir dos pasos</p>
 <ol style="list-style-type: decimal">
 <li>Instalar el paquete; y</li>
@@ -549,9 +547,13 @@ Figura 1.9: Resultado de escribir <code>?mean</code> en la consola del <code>R</
 <ol start="2" style="list-style-type: decimal">
 <li><code>apropos('word')</code>. Esta función en <code>R</code> permite encontrar <em>todas</em> las funciones del espacio de tabajo que contienen la palabra <code>word</code>. Por ejemplo, <code>apropos('mean')</code> produce</li>
 </ol>
-<pre><code>##  [1] &quot;.colMeans&quot;     &quot;.rowMeans&quot;     &quot;colMeans&quot;      &quot;kmeans&quot;       
-##  [5] &quot;mean&quot;          &quot;mean.Date&quot;     &quot;mean.default&quot;  &quot;mean.difftime&quot;
-##  [9] &quot;mean.POSIXct&quot;  &quot;mean.POSIXlt&quot;  &quot;rowMeans&quot;      &quot;weighted.mean&quot;</code></pre>
+<pre><code>##  [1] &quot;.colMeans&quot;        &quot;.rowMeans&quot;        &quot;colMeans&quot;        
+##  [4] &quot;kmeans&quot;           &quot;mean&quot;             &quot;mean_cl_boot&quot;    
+##  [7] &quot;mean_cl_normal&quot;   &quot;mean_sdl&quot;         &quot;mean_se&quot;         
+## [10] &quot;mean.Date&quot;        &quot;mean.default&quot;     &quot;mean.difftime&quot;   
+## [13] &quot;mean.POSIXct&quot;     &quot;mean.POSIXlt&quot;     &quot;rollmean&quot;        
+## [16] &quot;rollmean.default&quot; &quot;rollmeanr&quot;        &quot;rowMeans&quot;        
+## [19] &quot;weighted.mean&quot;</code></pre>
 <p>Si queremos saber qué hace <code>rowMeans</code> o cuáles son sus argumentos, basta con escribir <code>?rowMeans</code> o <code>help(rowMeans)</code> en la consola.</p>
 <ol start="3" style="list-style-type: decimal">
 <li><p><code>RSiteSearch()</code>. Esta función busca información en las páginas de ayuda de las todas las funciones y en las viñetas de todos los paquetes de <code>CRAN</code>, así como en <a href="https://cran.r-project.org/web/views/"><code>CRAN Task Views</code></a>.</p></li>

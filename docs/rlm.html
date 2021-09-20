@@ -24,7 +24,7 @@
 <meta name="author" content="Jorge I. Vélez" />
 
 
-<meta name="date" content="2021-09-18" />
+<meta name="date" content="2021-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -258,17 +258,15 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="glm.html"><a href="glm.html#regresión-logística"><i class="fa fa-check"></i><b>4.2</b> Regresión Logística</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="glm.html"><a href="glm.html#introducción-1"><i class="fa fa-check"></i><b>4.2.1</b> Introducción</a></li>
-<li class="chapter" data-level="4.2.2" data-path="glm.html"><a href="glm.html#por-qué-1"><i class="fa fa-check"></i><b>4.2.2</b> Por qué?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="glm.html"><a href="glm.html#formulación-del-modelo"><i class="fa fa-check"></i><b>4.2.2</b> Formulación del modelo</a></li>
 <li class="chapter" data-level="4.2.3" data-path="glm.html"><a href="glm.html#ejemplo-1"><i class="fa fa-check"></i><b>4.2.3</b> Ejemplo</a></li>
-<li class="chapter" data-level="4.2.4" data-path="glm.html"><a href="glm.html#modelo-ajustado-1"><i class="fa fa-check"></i><b>4.2.4</b> Modelo ajustado</a></li>
-<li class="chapter" data-level="4.2.5" data-path="glm.html"><a href="glm.html#inferencia-1"><i class="fa fa-check"></i><b>4.2.5</b> Inferencia</a></li>
-<li class="chapter" data-level="4.2.6" data-path="glm.html"><a href="glm.html#medidas-de-desempeño-1"><i class="fa fa-check"></i><b>4.2.6</b> Medidas de desempeño</a></li>
-<li class="chapter" data-level="" data-path="glm.html"><a href="glm.html#matriz-de-confusión"><i class="fa fa-check"></i>Matriz de confusión</a></li>
+<li class="chapter" data-level="4.2.4" data-path="glm.html"><a href="glm.html#evaluación-del-modelo"><i class="fa fa-check"></i><b>4.2.4</b> Evaluación del modelo</a></li>
+<li class="chapter" data-level="4.2.5" data-path="glm.html"><a href="glm.html#predicción-1"><i class="fa fa-check"></i><b>4.2.5</b> Predicción</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="glm.html"><a href="glm.html#regresión-poisson"><i class="fa fa-check"></i><b>4.3</b> Regresión Poisson</a>
 <ul>
 <li class="chapter" data-level="4.3.1" data-path="glm.html"><a href="glm.html#introducción-2"><i class="fa fa-check"></i><b>4.3.1</b> Introducción</a></li>
-<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#por-qué-2"><i class="fa fa-check"></i><b>4.3.2</b> Por qué?</a></li>
+<li class="chapter" data-level="4.3.2" data-path="glm.html"><a href="glm.html#por-qué-1"><i class="fa fa-check"></i><b>4.3.2</b> Por qué?</a></li>
 <li class="chapter" data-level="4.3.3" data-path="glm.html"><a href="glm.html#ejemplo-2"><i class="fa fa-check"></i><b>4.3.3</b> Ejemplo</a></li>
 <li class="chapter" data-level="4.3.4" data-path="glm.html"><a href="glm.html#modelo-ajustado-2"><i class="fa fa-check"></i><b>4.3.4</b> Modelo ajustado</a></li>
 <li class="chapter" data-level="4.3.5" data-path="glm.html"><a href="glm.html#inferencia-para-lambda"><i class="fa fa-check"></i><b>4.3.5</b> Inferencia para <span class="math inline">\(\lambda\)</span></a></li>
@@ -851,14 +849,14 @@ C_p = p+\frac{\text{SSE}_p}{\text{MSE}_\text{todos}} - (n-2p) = \begin{cases}
 <span id="cb97-4"><a href="rlm.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb97-5"><a href="rlm.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="do">## primeras 3 filas</span></span>
 <span id="cb97-6"><a href="rlm.html#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d, <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##          y         x1          x2         x3         x4         x5         x6
-## 1 22.49879 -0.4248450  0.19997792 -0.5225479  0.5691505  0.9721086 -0.2927878
-## 2 17.60173  0.5766103 -0.33435292  0.9247179 -0.9811402 -0.7258651 -0.2671171
-## 3 22.50649 -0.1820462 -0.02277393  0.2027315  0.5581318  0.8106192 -0.4257997
-##           x7         x8          x9        x10
-## 1 -0.5255406  0.6898671 -0.05863633 0.84739843
-## 2  0.3729807 -0.4797351 -0.26830905 0.08519674
-## 3 -0.5483632 -0.9537110 -0.75745589 0.70472920</code></pre>
+<pre><code>##          y         x1          x2         x3         x4         x5
+## 1 22.49879 -0.4248450  0.19997792 -0.5225479  0.5691505  0.9721086
+## 2 17.60173  0.5766103 -0.33435292  0.9247179 -0.9811402 -0.7258651
+## 3 22.50649 -0.1820462 -0.02277393  0.2027315  0.5581318  0.8106192
+##           x6         x7         x8          x9        x10
+## 1 -0.2927878 -0.5255406  0.6898671 -0.05863633 0.84739843
+## 2 -0.2671171  0.3729807 -0.4797351 -0.26830905 0.08519674
+## 3 -0.4257997 -0.5483632 -0.9537110 -0.75745589 0.70472920</code></pre>
 <p>En total se tienen 100 unidades experimentales. Dado que en los datos sólo existen la variable respuesta y las covariables, podemos utilizar la siguiente sintaxis para ajustar el modelo de RLM:</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="rlm.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="do">## modelo de RLM ajustado</span></span>
 <span id="cb99-2"><a href="rlm.html#cb99-2" aria-hidden="true" tabindex="-1"></a>fit_inyectora <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> d)</span>
@@ -910,17 +908,17 @@ C_p = p+\frac{\text{SSE}_p}{\text{MSE}_\text{todos}} - (n-2p) = \begin{cases}
 <p>Por ejemplo, si queremos seleccionar el <em>mejor</em> modelo utilizando el <span class="math inline">\(R^2_\text{adj}\)</span>, basta con escribir</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="rlm.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mejor modelo basado en el R^2_{adj}</span></span>
 <span id="cb103-2"><a href="rlm.html#cb103-2" aria-hidden="true" tabindex="-1"></a>k[<span class="fu">which.max</span>(k[,<span class="st">&#39;adjr&#39;</span>]), ]</span></code></pre></div>
-<pre><code>##      mindex  n                     predictors   rsquare      adjr   predrsq
-## 1023   1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579 0.9715036
-##      cp      aic     sbic      sbc     msep       fpe        apc        hsp
-## 1023 11 284.1403 3.041157 315.4024 88.79029 0.9845406 0.02774113 0.01007924</code></pre>
+<pre><code>##      Index  N                     Predictors  R-Square Adj. R-Square
+## 1023  1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571     0.9752579
+##      Mallow&#39;s Cp
+## 1023          11</code></pre>
 <p>Si usamos el <a href="https://es.wikipedia.org/wiki/Criterio_de_informaci%C3%B3n_de_Akaike">AIC</a>, el <em>mejor</em> modelo será:</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="rlm.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mejor modelo basado en el Cp</span></span>
 <span id="cb105-2"><a href="rlm.html#cb105-2" aria-hidden="true" tabindex="-1"></a>k[<span class="fu">which.min</span>(<span class="fu">with</span>(k, (cp<span class="sc">-</span>n)<span class="sc">^</span><span class="dv">2</span>)), ]</span></code></pre></div>
-<pre><code>##      mindex  n                     predictors   rsquare      adjr   predrsq
-## 1023   1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579 0.9715036
-##      cp      aic     sbic      sbc     msep       fpe        apc        hsp
-## 1023 11 284.1403 3.041157 315.4024 88.79029 0.9845406 0.02774113 0.01007924</code></pre>
+<pre><code>##      Index  N                     Predictors  R-Square Adj. R-Square
+## 1023  1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571     0.9752579
+##      Mallow&#39;s Cp
+## 1023          11</code></pre>
 <p>Otra posibilidad es utilizar <strong>dos criterios</strong> selección a la vez:</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="rlm.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="do">## selección usando el R^2_{adj} y el AIC</span></span>
 <span id="cb107-2"><a href="rlm.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
@@ -936,16 +934,16 @@ Figura 3.7: AIC vs. <span class="math inline">\(R^2\)</span> ajustado en todas 
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="rlm.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="do">## selección de modelos competitivos</span></span>
 <span id="cb108-2"><a href="rlm.html#cb108-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(k)</span>
 <span id="cb108-3"><a href="rlm.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(k, aic <span class="sc">&lt;</span> <span class="dv">350</span> <span class="sc">&amp;</span> adjr <span class="sc">&gt;</span> <span class="fl">0.8</span>, <span class="at">select =</span> n<span class="sc">:</span>aic)</span></code></pre></div>
-<pre><code>##       n                     predictors   rsquare      adjr   predrsq       cp
-## 998   8       x1 x3 x4 x5 x6 x7 x9 x10 0.9650304 0.9619562 0.9577212 57.92307
-## 1021  9    x1 x3 x4 x5 x6 x7 x8 x9 x10 0.9723781 0.9696159 0.9653333 30.52284
-## 1015  9    x1 x2 x3 x4 x5 x6 x7 x9 x10 0.9708818 0.9679700 0.9640209 36.51001
-## 1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579 0.9715036 11.00000
-##           aic
-## 998  325.3860
-## 1021 303.7989
-## 1015 309.0744
-## 1023 284.1403</code></pre>
+<pre><code>##       n                     predictors   rsquare      adjr   predrsq
+## 998   8       x1 x3 x4 x5 x6 x7 x9 x10 0.9650304 0.9619562 0.9577212
+## 1021  9    x1 x3 x4 x5 x6 x7 x8 x9 x10 0.9723781 0.9696159 0.9653333
+## 1015  9    x1 x2 x3 x4 x5 x6 x7 x9 x10 0.9708818 0.9679700 0.9640209
+## 1023 10 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 0.9777571 0.9752579 0.9715036
+##            cp      aic
+## 998  57.92307 325.3860
+## 1021 30.52284 303.7989
+## 1015 36.51001 309.0744
+## 1023 11.00000 284.1403</code></pre>
 <p>Por ejemplo, el modelo <code>968</code> no incluye <code>x2</code> ni <code>x8</code> y tiene un <span class="math inline">\(R^2_{\text{adj}}=0.9619\)</span>, mientras el modelo <code>1023</code> tiene el <span class="math inline">\(R^2_{\text{adj}}\)</span> más alto e incluye 10 variables predictoras. A pesar de que este modelo es <em>levemente</em> mejor el <code>968</code>, la ganancia en <span class="math inline">\(R^2_{\text{adj}}\)</span> es ínfima y podría no justificar la medición en proceso de dos factores controlables más. En términos del AIC, se tiene que los modelos <code>1021</code> y <code>1015</code> son similares.</p>
 </div>
 <div id="selección-secuencial" class="section level3" number="3.8.2">
