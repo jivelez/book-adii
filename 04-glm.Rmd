@@ -782,6 +782,11 @@ Anteriormente encontramos que se esperan, en promedio,  $\hat{\lambda}|_{x_1, x_
 ```{r numeroderrores, eval=TRUE, tidy=FALSE, size = 'normalsize', cache=FALSE, message=FALSE}
 ## número de articulos defectuosos en 1000 cajas
 ## cuando x1 = 2, x2 = -1 y x3 = 'M1'
+## lambda
+lambda_est <- predict(fit, 
+                      newdata = data.frame(x1 = 2, x2 = -1, x3 = 'M1'), 
+                      type = 'response')
+
 ## semilla aleatoria
 set.seed(123)
 
@@ -789,7 +794,7 @@ set.seed(123)
 N <- 1000
 
 ## número de artículos defectuosos en cada caja
-yhat <- rpois(N, 13.325)
+yhat <- rpois(N, lambda_est)
 
 ## intervalo de confianza del 95% para Y_0
 (ci <- quantile(yhat, probs = c(0.025, 0.975)))
@@ -803,7 +808,7 @@ pred <- data.frame(yhat)
 ggplot(pred, aes(x = yhat)) + geom_bar(fill = "midnightblue") +   xlab("Número de artículos defectuosos en la próxima caja") +
   ylab("Frecuencia") +
   geom_vline(xintercept = ci, color = "green") +
-  geom_vline(xintercept = lambdahat, color = "red") +
+  geom_vline(xintercept = lambda_est, color = "red") +
   theme_minimal() 
 ```
 
@@ -831,5 +836,5 @@ $$
 
 
 ### Variaciones
-El modelo de Regresión Poisson tiene algunas variaciones. Para mayor información, se sugiere consultar el documento _Regression Models for Count Data in R_ [@count].
+El modelo de Regresión Poisson tiene algunas variaciones. Para mayor información, se sugiere consultar la documentación del paquete `pscl`\index{pscl}[@pscl].
 

@@ -479,7 +479,7 @@ además de la variable <span class="math inline">\(x_1\)</span> que corresponde 
 <span id="cb115-5"><a href="glm.html#cb115-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb115-6"><a href="glm.html#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="do">## grafico de dispersion</span></span>
 <span id="cb115-7"><a href="glm.html#cb115-7" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(d, <span class="fu">plot</span>(x1, y, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">ylab =</span> <span class="st">&quot;Unidad conforme?&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Cambio en la apertura&quot;</span>))</span></code></pre></div>
-<p><img src="book-adii_files/figure-html/unnamed-chunk-115-1.png" width="768" /></p>
+<p><img src="book-adii_files/figure-html/unnamed-chunk-108-1.png" width="768" /></p>
 <p>Otra posibilidad para estudiar la distribución de la apertura de válvula dependiendo de la característica final del producto consiste en usar un <a href="https://www.r-graph-gallery.com/294-basic-ridgeline-plot.html"><code>ridglineplot</code></a>:</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="glm.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dispnibilidad de pauuetes</span></span>
 <span id="cb116-2"><a href="glm.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
@@ -492,7 +492,7 @@ además de la variable <span class="math inline">\(x_1\)</span> que corresponde 
 <span id="cb116-9"><a href="glm.html#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>() <span class="sc">+</span></span>
 <span id="cb116-10"><a href="glm.html#cb116-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ridges</span>() <span class="sc">+</span> </span>
 <span id="cb116-11"><a href="glm.html#cb116-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="book-adii_files/figure-html/unnamed-chunk-116-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="book-adii_files/figure-html/unnamed-chunk-109-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>De acuerdo con estos resultados, podemos afirmar que el producto cumple con las especificaciones (i.e., <span class="math inline">\(Y=1\)</span>) para valores de apertura de válcula tal que <span class="math inline">\(x_1&gt;0\)</span>. En particular, cuando <span class="math inline">\(x_1\approx 2\)</span>, el producto es <em>conforme</em>. el reto es entonces encontrar la relación entre <span class="math inline">\(\theta\)</span> y <span class="math inline">\(x_1\)</span>, además de un rango de valores de <span class="math inline">\(x_1\)</span> tal que <span class="math inline">\(a&lt;\hat{\theta}&lt;b\)</span>.</p>
 <div id="modelo-ajustado-1" class="section level4 unnumbered">
 <h4>Modelo ajustado</h4>
@@ -631,8 +631,8 @@ Figura 4.2: Ejemplo de una curva ROC.
 <span id="cb124-5"><a href="glm.html#cb124-5" aria-hidden="true" tabindex="-1"></a>theta_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">type =</span> <span class="st">&#39;response&#39;</span>)</span>
 <span id="cb124-6"><a href="glm.html#cb124-6" aria-hidden="true" tabindex="-1"></a>ROC <span class="ot">&lt;-</span> <span class="fu">roc</span>(y <span class="sc">~</span> theta_hat, <span class="at">data =</span> d)</span>
 <span id="cb124-7"><a href="glm.html#cb124-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ROC, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-121"></span>
-<img src="book-adii_files/figure-html/unnamed-chunk-121-1.png" alt="Curva ROC para el problema de la válvula." width="480" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-114"></span>
+<img src="book-adii_files/figure-html/unnamed-chunk-114-1.png" alt="Curva ROC para el problema de la válvula." width="480" />
 <p class="caption">
 Figura 4.3: Curva ROC para el problema de la válvula.
 </p>
@@ -658,7 +658,7 @@ Figura 4.3: Curva ROC para el problema de la válvula.
 <p><br></p>
 <p><strong>Cálculo del pseudo <span class="math inline">\(R^2\)</span></strong></p>
 <p>Así como en RLS y RLM, en el modelo de Regresión Logística es posible calcular <em>pseudo</em> <span class="math inline">\(R^2\)</span>. Aunque el <span class="math inline">\(R^2_\text{pseudo} \in (0,1)\)</span>, la interpretación es levemente diferente. En particular, valores de <span class="math inline">\(R^2_{\text{McFadden}}\)</span> entre 0.2 y 0.4 sugieren un excelente ajuste del modelo de Regresión Logística. Por otro lado, valores cercanos a 0 indican que el modelo no tiene ningún poder predictivo. Para más detalles, ver <a href="https://stats.stackexchange.com/questions/82105/mcfaddens-pseudo-r2-interpretation">esta</a> discusión en <code>stackexchange</code>.</p>
-<p>El <span class="math inline">\(R^2_\text{pseudo}\)</span> del modelo ajustado, el <em>pseudo</em> <span class="math inline">\(R^2\)</span> puede obtenerse a través de la función <code>pR2</code> del paquete <code>pscl</code><span class="citation">(<a href="#ref-pscl" role="doc-biblioref">Zeileis, Kleiber, and Jackman 2008a</a>)</span>:</p>
+<p>El <span class="math inline">\(R^2_\text{pseudo}\)</span> del modelo ajustado, el <em>pseudo</em> <span class="math inline">\(R^2\)</span> puede obtenerse a través de la función <code>pR2</code> del paquete <code>pscl</code><span class="citation">(<a href="#ref-pscl" role="doc-biblioref">Zeileis, Kleiber, and Jackman 2008</a>)</span>:</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="glm.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="do">## paquete pscl</span></span>
 <span id="cb129-2"><a href="glm.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(pscl)</span>
 <span id="cb129-3"><a href="glm.html#cb129-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -980,17 +980,22 @@ n_0 = n\,P(Y=0|\lambda) = n\,e^{-\lambda}
 <p>Anteriormente encontramos que se esperan, en promedio, <span class="math inline">\(\hat{\lambda}|_{x_1, x_2, x_3} = 13.325\)</span> artículos defectuosos por caja. Utilizando <em>simulación</em>, es fácil determinar la distribución del número de artículos defectuosos que se obtendrían en 1000 cajas producidas bajo estas condiciones. A partir de estos resultados podemos entonces calcular un intervalo de confianza del 95% para <span class="math inline">\(Y_0\)</span>, no para <span class="math inline">\(\lambda\)</span>.</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="glm.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="do">## número de articulos defectuosos en 1000 cajas</span></span>
 <span id="cb157-2"><a href="glm.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="do">## cuando x1 = 2, x2 = -1 y x3 = &#39;M1&#39;</span></span>
-<span id="cb157-3"><a href="glm.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="do">## semilla aleatoria</span></span>
-<span id="cb157-4"><a href="glm.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb157-5"><a href="glm.html#cb157-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-6"><a href="glm.html#cb157-6" aria-hidden="true" tabindex="-1"></a><span class="do">## número de cajas a empacar</span></span>
-<span id="cb157-7"><a href="glm.html#cb157-7" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb157-8"><a href="glm.html#cb157-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-9"><a href="glm.html#cb157-9" aria-hidden="true" tabindex="-1"></a><span class="do">## número de artículos defectuosos en cada caja</span></span>
-<span id="cb157-10"><a href="glm.html#cb157-10" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> <span class="fu">rpois</span>(N, <span class="fl">13.325</span>)</span>
-<span id="cb157-11"><a href="glm.html#cb157-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-12"><a href="glm.html#cb157-12" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalo de confianza del 95% para Y_0</span></span>
-<span id="cb157-13"><a href="glm.html#cb157-13" aria-hidden="true" tabindex="-1"></a>(ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(yhat, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)))</span></code></pre></div>
+<span id="cb157-3"><a href="glm.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="do">## lambda</span></span>
+<span id="cb157-4"><a href="glm.html#cb157-4" aria-hidden="true" tabindex="-1"></a>lambda_est <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, </span>
+<span id="cb157-5"><a href="glm.html#cb157-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="dv">2</span>, <span class="at">x2 =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">x3 =</span> <span class="st">&#39;M1&#39;</span>), </span>
+<span id="cb157-6"><a href="glm.html#cb157-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">type =</span> <span class="st">&#39;response&#39;</span>)</span>
+<span id="cb157-7"><a href="glm.html#cb157-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-8"><a href="glm.html#cb157-8" aria-hidden="true" tabindex="-1"></a><span class="do">## semilla aleatoria</span></span>
+<span id="cb157-9"><a href="glm.html#cb157-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb157-10"><a href="glm.html#cb157-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-11"><a href="glm.html#cb157-11" aria-hidden="true" tabindex="-1"></a><span class="do">## número de cajas a empacar</span></span>
+<span id="cb157-12"><a href="glm.html#cb157-12" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb157-13"><a href="glm.html#cb157-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-14"><a href="glm.html#cb157-14" aria-hidden="true" tabindex="-1"></a><span class="do">## número de artículos defectuosos en cada caja</span></span>
+<span id="cb157-15"><a href="glm.html#cb157-15" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> <span class="fu">rpois</span>(N, lambda_est)</span>
+<span id="cb157-16"><a href="glm.html#cb157-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-17"><a href="glm.html#cb157-17" aria-hidden="true" tabindex="-1"></a><span class="do">## intervalo de confianza del 95% para Y_0</span></span>
+<span id="cb157-18"><a href="glm.html#cb157-18" aria-hidden="true" tabindex="-1"></a>(ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(yhat, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)))</span></code></pre></div>
 <pre><code>##  2.5% 97.5% 
 ##     7    21</code></pre>
 <p>Si trabajamos bajo estas condiciones de operación, el número de artículos defectuosos <em>esperado</em> en la <em>próxima</em> caja estará entre 7 y 21, con una confianza del 95%. Gráficamente tendríamos:</p>
@@ -998,7 +1003,7 @@ n_0 = n\,P(Y=0|\lambda) = n\,e^{-\lambda}
 <span id="cb159-2"><a href="glm.html#cb159-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(yhat)</span>
 <span id="cb159-3"><a href="glm.html#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred, <span class="fu">aes</span>(<span class="at">x =</span> yhat)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;midnightblue&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Número de artículos defectuosos en la próxima caja&quot;</span>) <span class="sc">+</span></span>
 <span id="cb159-4"><a href="glm.html#cb159-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>) <span class="sc">+</span></span>
-<span id="cb159-5"><a href="glm.html#cb159-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> lambdahat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<span id="cb159-5"><a href="glm.html#cb159-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> lambda_est, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplotnumeroderrores"></span>
 <img src="book-adii_files/figure-html/barplotnumeroderrores-1.png" alt="Número de artículos defectuosos _esperado_ en la próxima caja." width="480" />
 <p class="caption">
@@ -1023,7 +1028,7 @@ P(Y = 3 | 2, -1, \texttt{M1}) = \frac{e^{-13.325}{13.325}^3}{3!} \approx 0.
 </div>
 <div id="variaciones" class="section level3" number="4.3.8">
 <h3><span class="header-section-number">4.3.8</span> Variaciones</h3>
-<p>El modelo de Regresión Poisson tiene algunas variaciones. Para mayor información, se sugiere consultar el documento <em>Regression Models for Count Data in R</em> <span class="citation">(<a href="#ref-count" role="doc-biblioref">Zeileis, Kleiber, and Jackman 2008b</a>)</span>.</p>
+<p>El modelo de Regresión Poisson tiene algunas variaciones. Para mayor información, se sugiere consultar la documentación del paquete <code>pscl</code><span class="citation">(<a href="#ref-pscl" role="doc-biblioref">Zeileis, Kleiber, and Jackman 2008</a>)</span>.</p>
 
 </div>
 </div>
@@ -1037,13 +1042,10 @@ Fawcett, Tom. 2006. <span>“An Introduction to ROC Analysis.”</span> <em>Patt
 Lele, Subhash R., Jonah L. Keim, and Peter Solymos. 2019. <em>ResourceSelection: Resource Selection (Probability) Functions for Use-Availability Data</em>. <a href="https://CRAN.R-project.org/package=ResourceSelection">https://CRAN.R-project.org/package=ResourceSelection</a>.
 </div>
 <div id="ref-pROC" class="csl-entry">
-Robin, Xavier, Natacha Turck, Alexandre Hainard, Natalia Tiberti, Frédérique Lisacek, Jean-Charles Sanchez, and Markus Müller. 2011. <span>“pROC: An Open-Source Package for r and s+ to Analyze and Compare ROC Curves.”</span> <em>BMC Bioinformatics</em> 12: 77.
+Robin, Xavier, Natacha Turck, Alexandre Hainard, Natalia Tiberti, Frédérique Lisacek, Jean-Charles Sanchez, and Markus Müller. 2011. <span>“pROC: An Open-Source Package for <span>R</span> and <span>S+</span> to Analyze and Compare ROC Curves.”</span> <em>BMC Bioinformatics</em> 12: 77.
 </div>
 <div id="ref-pscl" class="csl-entry">
-Zeileis, Achim, Christian Kleiber, and Simon Jackman. 2008a. <span>“Regression Models for Count Data in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 27 (8). <a href="http://www.jstatsoft.org/v27/i08/">http://www.jstatsoft.org/v27/i08/</a>.
-</div>
-<div id="ref-count" class="csl-entry">
-———. 2008b. <span>“Regression Models for Count Data in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 27 (8): 1–25. <a href="http://www.jstatsoft.org/v27/i08/">http://www.jstatsoft.org/v27/i08/</a>.
+Zeileis, Achim, Christian Kleiber, and Simon Jackman. 2008. <span>“Regression Models for Count Data in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 27 (8): 1–25. <a href="http://www.jstatsoft.org/v27/i08/">http://www.jstatsoft.org/v27/i08/</a>.
 </div>
 </div>
             </section>
