@@ -23,7 +23,8 @@ Write an introductory paragraph to the Chapter.
 
 ## Regresión Logística
 
-El [_Modelo Lineal Generalizado_](https://es.wikipedia.org/wiki/Modelo_lineal_generalizado)(MLG) fue formulado por John Nelder y Robert Wedderburn en 1972 como una familia de modelos de regresión en los que la _naturaleza_ de la variable respuesta _puede_ ser distinta a una distribución Normal. En la práctica, esto se refiere a que la variable respuesta $Y$ no necesariamente debe ser continua o simétrica.
+El [_Modelo Lineal Generalizado_](https://es.wikipedia.org/wiki/Modelo_lineal_generalizado) (MLG) fue formulado por [John Nelder](https://en.wikipedia.org/wiki/John_Nelder) y Robert Wedderburn en 1972 como una familia de modelos de regresión en los que la _naturaleza_ de la variable respuesta _puede_ ser distinta a una distribución Normal. En la práctica, esto se refiere a que la variable respuesta $Y$ no necesariamente debe ser continua o simétrica. Sin embargo, el trabajo seminal de John Nelder y [Peter McCullagh](https://en.wikipedia.org/wiki/Peter_McCullagh) en 1983  (ver Figura \@ref(fig:nelder), izquierda) popularizó este modelo y los hizo merecedores de varios premios.
+
 
 En términos generales,
 
