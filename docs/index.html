@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Modelos de Regresión: Una aproximación práctica con R</title>
   <meta name="description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Modelos de Regresión: Una aproximación práctica con R" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
   <meta name="github-repo" content="https://github.com/jivelez/book-adii" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jorge I. Vélez" />
 
 
-<meta name="date" content="2021-09-20" />
+<meta name="date" content="2024-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 
 <link rel="next" href="intro.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,14 +49,16 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -193,11 +197,11 @@ div.csl-indent {
 <li class="chapter" data-level="2.2" data-path="rls.html"><a href="rls.html#minimos"><i class="fa fa-check"></i><b>2.2</b> Estimación</a></li>
 <li class="chapter" data-level="2.3" data-path="rls.html"><a href="rls.html#tabla-anova-y-medidas-de-desempeño"><i class="fa fa-check"></i><b>2.3</b> Tabla ANOVA y medidas de desempeño</a>
 <ul>
-<li><a href="rls.html#estimación-de-sigma2">Estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
-<li><a href="rls.html#inferencia-para-sigma2">Inferencia para <span class="math inline">\(\sigma^2\)</span></a></li>
-<li><a href="rls.html#coeficiente-de-determinación-r2">Coeficiente de determinación <span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-de-sigma2"><i class="fa fa-check"></i>Estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#inferencia-para-sigma2"><i class="fa fa-check"></i>Inferencia para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#coeficiente-de-determinación-r2"><i class="fa fa-check"></i>Coeficiente de determinación <span class="math inline">\(R^2\)</span></a></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#validación-del-modelo-de-rls"><i class="fa fa-check"></i>Validación del modelo de RLS</a></li>
-<li><a href="rls.html#inferencia-para-beta_0-y-beta_1">Inferencia para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#inferencia-para-beta_0-y-beta_1"><i class="fa fa-check"></i>Inferencia para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="rls.html"><a href="rls.html#residuales"><i class="fa fa-check"></i><b>2.4</b> Análisis de Residuales</a>
 <ul>
@@ -205,8 +209,8 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="rls.html"><a href="rls.html#predicción"><i class="fa fa-check"></i><b>2.5</b> Predicción</a>
 <ul>
-<li><a href="rls.html#intervalo-de-confianza-para-eyxx_0">Intervalo de confianza para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
-<li><a href="rls.html#intervalo-de-predicción-para-eyxx_0">Intervalo de predicción para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#intervalo-de-confianza-para-eyxx_0"><i class="fa fa-check"></i>Intervalo de confianza para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#intervalo-de-predicción-para-eyxx_0"><i class="fa fa-check"></i>Intervalo de predicción para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>3</b> Regresión Lineal Múltiple</a>
@@ -327,38 +331,38 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Modelos de Regresión: Una aproximación práctica con R</h1>
 <p class="author"><em>Jorge I. Vélez</em></p>
-<p class="date"><em>2021-09-20</em></p>
+<p class="date"><em>2024-08-11</em></p>
 </div>
-<div id="bienvenido" class="section level1 unnumbered">
-<h1>Bienvenido</h1>
+<div id="bienvenido" class="section level1 unnumbered hasAnchor">
+<h1>Bienvenido<a href="index.html#bienvenido" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><img src="images/bookcover.png" width="45%" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p>Este libro está destinado para estudiantes de ingeniería, psicología, economía, estadística, matemáticas y áreas afines interesados en el análisis de datos, especialmente en la formulación, ajuste, validación e implementación de modelos de regresión avanzados, pronósticos en series de tiempo y métodos no paramétricos utilizando <a href="https://www.r-project.org/"><code>R</code></a>.</p>
 <p>En este texto se recopilan los elementos básicos del curso de <a href="https://pomelo.uninorte.edu.co/pls/prod/bwckctlg.p_disp_course_detail?cat_term_in=201910&amp;subj_code_in=EST&amp;crse_numb_in=1051">Análisis de Datos en Ingeniería II</a> del <a href="https://www.uninorte.edu.co/web/ingenieria-industrial">Programa de Ingeniería Industrial</a> de la <a href="https://www.uninorte.edu.co">Universidad del Norte</a>, y está pensado como una guía para dicho curso.</p>
 <p>Por supuesto, los errores presentes a lo largo de todo el documento son sólo mi responsabilidad.</p>
-<div id="estructura-del-libro" class="section level2 unnumbered">
-<h2>Estructura del libro</h2>
+<div id="estructura-del-libro" class="section level2 unnumbered hasAnchor">
+<h2>Estructura del libro<a href="index.html#estructura-del-libro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>En el Capítulo <a href="intro.html#intro">1</a> se presentan algunos conceptos básicos de Análisis de Datos, además de qué es <a href="https://www.r-project.org"><code>R</code></a>, cómo instalarlo, dónde y cómo buscar ayuda y la estructura básica del programa.</p>
 <p>En el capítulo <a href="rls.html#rls">2</a> se discute el Modelo de Regresión Lineal Simple y en el capítulo <a href="rlm.html#rlm">3</a> el Modelo de Regresión Lineal Múltiple. En el capítulo <a href="glm.html#glm">4</a> se extienden estos modelos para el caso donde la variable respuesta puede tomar valores discretos, y se discuten los modelos de Regresión Logística y Regresión Poisson.</p>
 <p>Posteriormente, en el capítulo <a href="series.html#series">5</a>, se realiza una corta Introducción a Series de Tiempo. Como parte de ello, se discuten algunos conceptos generales y se presentan tres estrategias diferentes para realizar pronósticos.</p>
 <p>Finalmente, en el capítulo <a href="enp.html#enp">6</a>, se introducen conceptos básicos de Estadística No Paramétrica entre los que se incluyen las pruebas de signo, rangos con signos, Mann-Whitney-Wilcoxon y Kruskal-Wallis, además de algunas estrategias para el análisis de tablas de contingencia.</p>
 <p>Para afianzar el proceso de aprendizaje, en cada capítulo se presentan una serie de ejercicios donde el estudiante puede poner en práctica los conceptos teóricos a través de la solución de problemas que comúnmente se presentan en ingeniería.</p>
 </div>
-<div id="software-y-convenciones" class="section level2 unnumbered">
-<h2>Software y convenciones</h2>
-<p>Este libro está construido utilizando los paquetes <code>knitr</code> <span class="citation">(<a href="#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span> y <code>bookdown</code> <span class="citation">(<a href="#ref-R-bookdown" role="doc-biblioref">Xie 2019</a>)</span> de <code>R</code>.</p>
+<div id="software-y-convenciones" class="section level2 unnumbered hasAnchor">
+<h2>Software y convenciones<a href="index.html#software-y-convenciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este libro está construido utilizando los paquetes <code>knitr</code> <span class="citation">(<a href="#ref-xie2015">Xie 2015</a>)</span> y <code>bookdown</code> <span class="citation">(<a href="#ref-R-bookdown">Xie 2019</a>)</span> de <code>R</code>.</p>
 <p>En todo el libro se presentarán códigos que el lector puede seleccionar y posteriormente ejecutar en su consola de <code>R</code> para obtener los mismos resultados del libro. El código se destaca en una recuadro de color similar al que se muestra a continuación:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">7</span> </span>
-<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">11</span>)</span>
-<span id="cb1-3"><a href="index.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> x</span>
-<span id="cb1-4"><a href="index.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">7</span> </span>
+<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">11</span>)</span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> x</span>
+<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span></code></pre></div>
 <p>Los <em>resultados</em> obtenidos de cualquier código <code>R</code> se destacan con los símbolos <code>##</code> al inicio de cada renglón. Por ejemplo, el resultado de</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">7</span></span></code></pre></div>
 <p>será mostrado como</p>
 <pre><code>## [1] 10</code></pre>
 </div>
-<div id="bloques-informativos" class="section level2 unnumbered">
-<h2>Bloques informativos</h2>
+<div id="bloques-informativos" class="section level2 unnumbered hasAnchor">
+<h2>Bloques informativos<a href="index.html#bloques-informativos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>En varias partes del libro se usarán bloques informativos para resaltar algún aspecto importante:</p>
 
 <div class="rmdnote">
@@ -373,18 +377,18 @@ Sugerencia.
 Advertencia.
 </div>
 </div>
-<div id="dedicatoria" class="section level2 unnumbered">
-<h2>Dedicatoria</h2>
+<div id="dedicatoria" class="section level2 unnumbered hasAnchor">
+<h2>Dedicatoria<a href="index.html#dedicatoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Dedicado a <a href="https://www.instagram.com/yolimaespinosamarykay/?hl=es">Yolima</a>, por su amor incondicional, su infinita comprensión y paciencia; a Gabriela, mi <em>monstruo peludo</em>, por darme fuerzas cuando no había razones para continuar; a
 Lilyam y Abraham por su apoyo; a Norma Botero por mostrarme el camino; a mis maestros y amigos, <a href="https://scholar.google.com.co/citations?user=MZlwFqgAAAAJ&amp;hl=en">Mauricio Arcos-Burgos</a> y <a href="http://ciencias.medellin.unal.edu.co/index.php/component/teachers/?escuela=Escuela%20de%20Estad%C3%ADstica&amp;letra=&amp;correo=jccorrea@unal.edu.co">Juan Carlos Correa</a> por sus enseñanzas y acompañamiento.</p>
 </div>
-<div id="sobre-el-autor" class="section level2 unnumbered">
-<h2>Sobre el autor</h2>
+<div id="sobre-el-autor" class="section level2 unnumbered hasAnchor">
+<h2>Sobre el autor<a href="index.html#sobre-el-autor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://jivelez.github.io">Jorge I. Vélez</a> es Profesor Asistente del Departamento de Ingeniería Industrial de la Universidad del Norte en Barranquilla, Colombia en las áreas de Analítica de Datos y Diseño de Experimentos para los programas de Pregrado, Maestría y Doctorado en Ingeniería Industrial. Experto en Analítica de Datos, Bioinformática, Genómica Predictiva, Genética de Poblaciones, Epidemiología Genética y Estadística Computacional y Genética, el Profesor Vélez es instructor en las áreas de Genética de Poblaciones, Diseño de Experimentos, Bioinformática, y Bioestadística en los programas de Maestría y Doctorado en Ciencias Biomédicas del Departamento de Medicina de la Universidad del Norte. Sus intereses de investigación incluyen Analítica de Datos, Bioinformática y Genómica Predictiva aplicadas a enfermedad de Alzheimer, Trastorno de Déficit de Atención con Hiperactividad y Enfermedades Autoinmunes.</p>
 
 </div>
 </div>
-<h3>Referencias</h3>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-xie2015" class="csl-entry">
 Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.
@@ -459,7 +463,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

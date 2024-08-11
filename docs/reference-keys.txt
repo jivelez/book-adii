@@ -111,3 +111,11 @@ prueba-de-kruskal-wallis
 ejemplos-3
 ejercicios-1
 palabras-finales
+fig:unnamed-chunk-3
+fig:unnamed-chunk-4
+fig:unnamed-chunk-20
+fig:unnamed-chunk-34
+fig:unnamed-chunk-5
+fig:unnamed-chunk-21
+fig:unnamed-chunk-35
+fig:unnamed-chunk-17

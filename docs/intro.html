@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 1 Introducción | Modelos de Regresión: Una aproximación práctica con R</title>
   <meta name="description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 1 Introducción | Modelos de Regresión: Una aproximación práctica con R" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Este libro recopila mi años de experiencia en el aprendizaje de R (R Core Team 2019), y está escrito como una guía para aquellos que recién comienzan." />
   <meta name="github-repo" content="https://github.com/jivelez/book-adii" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jorge I. Vélez" />
 
 
-<meta name="date" content="2021-09-20" />
+<meta name="date" content="2024-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="rls.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,14 +49,16 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -193,11 +197,11 @@ div.csl-indent {
 <li class="chapter" data-level="2.2" data-path="rls.html"><a href="rls.html#minimos"><i class="fa fa-check"></i><b>2.2</b> Estimación</a></li>
 <li class="chapter" data-level="2.3" data-path="rls.html"><a href="rls.html#tabla-anova-y-medidas-de-desempeño"><i class="fa fa-check"></i><b>2.3</b> Tabla ANOVA y medidas de desempeño</a>
 <ul>
-<li><a href="rls.html#estimación-de-sigma2">Estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
-<li><a href="rls.html#inferencia-para-sigma2">Inferencia para <span class="math inline">\(\sigma^2\)</span></a></li>
-<li><a href="rls.html#coeficiente-de-determinación-r2">Coeficiente de determinación <span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-de-sigma2"><i class="fa fa-check"></i>Estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#inferencia-para-sigma2"><i class="fa fa-check"></i>Inferencia para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#coeficiente-de-determinación-r2"><i class="fa fa-check"></i>Coeficiente de determinación <span class="math inline">\(R^2\)</span></a></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#validación-del-modelo-de-rls"><i class="fa fa-check"></i>Validación del modelo de RLS</a></li>
-<li><a href="rls.html#inferencia-para-beta_0-y-beta_1">Inferencia para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#inferencia-para-beta_0-y-beta_1"><i class="fa fa-check"></i>Inferencia para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="rls.html"><a href="rls.html#residuales"><i class="fa fa-check"></i><b>2.4</b> Análisis de Residuales</a>
 <ul>
@@ -205,8 +209,8 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="rls.html"><a href="rls.html#predicción"><i class="fa fa-check"></i><b>2.5</b> Predicción</a>
 <ul>
-<li><a href="rls.html#intervalo-de-confianza-para-eyxx_0">Intervalo de confianza para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
-<li><a href="rls.html#intervalo-de-predicción-para-eyxx_0">Intervalo de predicción para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#intervalo-de-confianza-para-eyxx_0"><i class="fa fa-check"></i>Intervalo de confianza para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#intervalo-de-predicción-para-eyxx_0"><i class="fa fa-check"></i>Intervalo de predicción para <span class="math inline">\(E[Y|X=x_0]\)</span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>3</b> Regresión Lineal Múltiple</a>
@@ -324,8 +328,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1" number="1">
-<h1><span class="header-section-number">Capítulo 1</span> Introducción</h1>
+<div id="intro" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Capítulo 1</span> Introducción<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>El análisis de datos es el pilar fundamental de <em>Data Analytics</em> y <em>Data Science</em>. Por supuesto, el uso herramientas computacionales es importante. A lo largo de este materal usaremos el <a href="https://www.r-project.org/"><code>R</code></a>, pero muchos de los conceptos aquí expuestos pueden trabajarse, sin problema, en otro lenguaje como <a href="https://www.python.org/"><code>Python</code></a> o <a href="https://julialang.org/"><code>Julia</code></a>.</p>
 <p>En la <a href="https://www.uninorte.edu.co/">Universidad del Norte</a>, los estudiantes tienen la posibilidad de tomar, a nivel de pregrado, cursos de Análisis de Datos. Parcticularmente, los estudiantes de la <a href="https://www.uninorte.edu.co/web/ingenierias">División de Ingenierías</a> pueden tomar los cursos de :</p>
 <ol style="list-style-type: decimal">
@@ -336,20 +340,20 @@ div.csl-indent {
 </ol>
 <p>Estos cursos, cuya dificultad aumenta conforme a la enumeración anterior, permiten a los estudiantes de la División de Ingenierías tener herramientas básicas, intermedias y avanzadoas para convertir <em>datos</em> en <em>información</em>.</p>
 <!-- El curso de _Análisis de Datos en Ingeniería I_ introduce los conceptos básicos de analítica descriptiva, algunos elementos de probabilidad, el concepto de variables aleatorias, las distribuciones de probabilidad más utilizadas, así como pruebas de bondad de ajuste, procedimientos de pruebas de hipótesis y el modelo de Regresión Lineal Simple. -->
-<div id="analítica-de-datos" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Analítica de Datos</h2>
-<div id="conceptos-básicos" class="section level3" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> Conceptos básicos</h3>
+<div id="analítica-de-datos" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Analítica de Datos<a href="intro.html#analítica-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="conceptos-básicos" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Conceptos básicos<a href="intro.html#conceptos-básicos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="gráficos-básicos" class="section level3" number="1.1.2">
-<h3><span class="header-section-number">1.1.2</span> Gráficos básicos</h3>
+<div id="gráficos-básicos" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Gráficos básicos<a href="intro.html#gráficos-básicos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="tópicos-avanzados" class="section level3" number="1.1.3">
-<h3><span class="header-section-number">1.1.3</span> Tópicos avanzados</h3>
+<div id="tópicos-avanzados" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Tópicos avanzados<a href="intro.html#tópicos-avanzados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 </div>
-<div id="r" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> <code>R</code></h2>
+<div id="r" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> <code>R</code><a href="intro.html#r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>R</code> es un entorno de programación <em>multiplataforma</em> y un lenguaje de programación <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos">orientado a objetos</a> similar a <a href="https://en.wikipedia.org/wiki/S_(programming_language)"><code>S</code></a>, pero bajo licencia <a href="https://www.gnu.org/home.en.html">GNU</a>, para el análisis gráfico y estadístico de datos creado en por <a href="https://www.linkedin.com/in/robert-gentleman-06845098">Robert Gentleman</a> y <a href="https://www.stat.auckland.ac.nz/~ihaka/">Ross Ihaka</a> en Agosto de 1993. La página oficial de <code>R</code> es <a href="https://www.r-project.org/">https://www.r-project.org/</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logoR"></span>
 <img src="images/Rlogo.png" alt="Logo oficial del `R`." width="25%" />
@@ -367,17 +371,17 @@ Figura 1.2: Qué es <code>R</code>? Ver <a href="https://www.youtube.com/watch?v
 <p>Desde su concepción y gracias a su constante evolución,
 <code>R</code> proporciona una gran cantidad de métodos estadísticos y gráficos, y es altamente extendible. Esta última característica permite el desarrollo e implementación de <em>nuevos</em> métodos estadísticos y <em>nuevos</em> tipos de gráficos, además de la automatización de reportes con relativa facilidad.</p>
 <!-- ![Logo oficial del `R`.](images/Rlogo.png){width=50%} -->
-<div id="por-qué-r" class="section level3" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Por qué <code>R</code>?</h3>
+<div id="por-qué-r" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Por qué <code>R</code>?<a href="intro.html#por-qué-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="cran" class="section level3" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> <code>CRAN</code></h3>
+<div id="cran" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> <code>CRAN</code><a href="intro.html#cran" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>CRAN</code> es el acrónimo de <code>C</code>omprehensive, <code>R</code>, <code>A</code>rchive, <code>N</code>etwork, y corresponde a una red de servidores ftp y web de todo el mundo que almacenan versiones idénticas y actualizadas de código y documentación para <code>R</code>.</p>
 <p>El sitio web oficial es <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a></p>
 </div>
-<div id="descarga-e-instalación" class="section level3" number="1.2.3">
-<h3><span class="header-section-number">1.2.3</span> Descarga e instalación</h3>
-<p>A Septiembre de 2021, la versión más reciente de <code>R</code> es la 4.1.1, también denominada “Kick Things.”</p>
+<div id="descarga-e-instalación" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Descarga e instalación<a href="intro.html#descarga-e-instalación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Septiembre de 2021, la versión más reciente de <code>R</code> es la 4.1.1, también denominada “Kick Things”.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:downloadR"></span>
 <img src="images/downloadR.png" alt="Página oficial del `R`. Note que la  versión más reciente es la 4.1.1." width="95%" />
 <p class="caption">
@@ -393,8 +397,8 @@ Figura 1.3: Página oficial del <code>R</code>. Note que la versión más recien
 <p>Las versiones de <code>R</code> tienen un ciclo de actualización cada 6 meses, y es altamente recomendable tener instalada la última versión del programa en el computador.</p>
 <p>Una vez descargado el instalador, basta con seguir las instrucciones para instalar el programa con las opciones por defecto.</p>
 </div>
-<div id="paquetes" class="section level3" number="1.2.4">
-<h3><span class="header-section-number">1.2.4</span> Paquetes</h3>
+<div id="paquetes" class="section level3 hasAnchor" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> Paquetes<a href="intro.html#paquetes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los paquetes o <em>packages</em> son colecciones de funciones y/o datos que ayudan a potencializar las funcionalidades de <code>R</code>. Cada paquete tiene su documentación y, en muchos casos, ejemplos concretos que permiten comenzar a utilizarlos de inmediato.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:packages"></span>
 <img src="images/rpackages.png" alt="Algnos paquetes de `R`." width="80%" />
@@ -402,29 +406,29 @@ Figura 1.3: Página oficial del <code>R</code>. Note que la versión más recien
 Figura 1.4: Algnos paquetes de <code>R</code>.
 </p>
 </div>
-<p>Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">aquí</a>. A la fecha existen 18233 paquetes; algunos ejemplos conocidos son <code>MASS</code>, <code>ggplot2</code>, <code>shiny</code>, y <code>caret</code>, entre otros.</p>
+<p>Existen paquetes para visualización, minería de texto, automatización de reportes y mucho más. La lista completa de paquetes se encuentra <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">aquí</a>. A la fecha existen href=“available_packages_by_date.html” paquetes; algunos ejemplos conocidos son <code>MASS</code>, <code>ggplot2</code>, <code>shiny</code>, y <code>caret</code>, entre otros.</p>
 <p>Para utilizar un paquete, debemos seguir dos pasos</p>
 <ol style="list-style-type: decimal">
 <li>Instalar el paquete; y</li>
 <li>cargarlo a la sesión de trabajo.</li>
 </ol>
 <p>La instalación de los paquetes se realiza utilizando la función <code>install.packages('PackageName')</code>, donde el argumento <code>PackageName</code> corresponde al <em>nombre</em> del paquete que quiere instalarse. Por ejemplo, si quisiéramos instalar el paquete <code>DescTools</code>, escribimos:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## instalación del paquete DescTools</span></span>
-<span id="cb4-2"><a href="intro.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;DescTools&#39;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" tabindex="-1"></a><span class="do">## instalación del paquete DescTools</span></span>
+<span id="cb1-2"><a href="intro.html#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;DescTools&#39;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Posteriormente, aparecerán algunos mensajes que nos indican el progreso de dicha instalación.</p>
 <p>Cuando el proceso concluya, procedemos <em>cargar</em> el paquete a la sesión de trabajo. Para ello, utilizamos la función <code>library('PackageName')</code>. En nuestro caso, reemplazamos el argumento <code>PackageName</code> por el nombre del paquete que quieres utilizar:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## carga del paquete DescTools en la sesión de trabajo</span></span>
-<span id="cb5-2"><a href="intro.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DescTools&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" tabindex="-1"></a><span class="do">## carga del paquete DescTools en la sesión de trabajo</span></span>
+<span id="cb2-2"><a href="intro.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DescTools&#39;</span>)</span></code></pre></div>
 <p>Con esta instrucción, <code>R</code> importa las funciones contenidas en el paquete <code>DescTools</code> a la sesión de trabajo actual.</p>
 
 <div class="rmdwarning">
 La instrucción <code>install.packages('PackageName')</code> sólo debe ejecutarse <em>una vez</em>. Sin embargo, es necesario ejecutar <code>library('PackageName')</code> cada que inicies una sesión en <code>R</code>. Esto se debe a que aunque hayas instalado las funciones de un paquete con anterioridad, las sesiones de <code>R</code> se inician sólo con los objetos y funciones de base.
 </div>
 </div>
-<div id="operadores-básicos" class="section level3" number="1.2.5">
-<h3><span class="header-section-number">1.2.5</span> Operadores básicos</h3>
-<div id="operadores-aritméticos" class="section level4 unnumbered">
-<h4>Operadores aritméticos</h4>
+<div id="operadores-básicos" class="section level3 hasAnchor" number="1.2.5">
+<h3><span class="header-section-number">1.2.5</span> Operadores básicos<a href="intro.html#operadores-básicos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="operadores-aritméticos" class="section level4 unnumbered hasAnchor">
+<h4>Operadores aritméticos<a href="intro.html#operadores-aritméticos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:operadores"></span>
 <img src="images/artimeticos.png" alt="Operadores artiméticos en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-aritmeticos.html)." width="95%" />
 <p class="caption">
@@ -432,8 +436,8 @@ Figura 1.5: Operadores artiméticos en <code>R</code>. Tomado de <a href="https:
 </p>
 </div>
 </div>
-<div id="operadores-relacionales" class="section level4 unnumbered">
-<h4>Operadores relacionales</h4>
+<div id="operadores-relacionales" class="section level4 unnumbered hasAnchor">
+<h4>Operadores relacionales<a href="intro.html#operadores-relacionales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:relacionales"></span>
 <img src="images/relacionales.png" alt="Operadores relacionales en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-relacionales.html)." width="95%" />
 <p class="caption">
@@ -441,8 +445,8 @@ Figura 1.6: Operadores relacionales en <code>R</code>. Tomado de <a href="https:
 </p>
 </div>
 </div>
-<div id="operadores-lógicos" class="section level4 unnumbered">
-<h4>Operadores lógicos</h4>
+<div id="operadores-lógicos" class="section level4 unnumbered hasAnchor">
+<h4>Operadores lógicos<a href="intro.html#operadores-lógicos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logicos"></span>
 <img src="images/logicos.png" alt="Operadores lógicos en `R`. Tomado de [R para principantes](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-logicos.html)." width="95%" />
 <p class="caption">
@@ -451,17 +455,17 @@ Figura 1.7: Operadores lógicos en <code>R</code>. Tomado de <a href="https://bo
 </div>
 </div>
 </div>
-<div id="creación-de-funciones" class="section level3" number="1.2.6">
-<h3><span class="header-section-number">1.2.6</span> Creación de funciones</h3>
+<div id="creación-de-funciones" class="section level3 hasAnchor" number="1.2.6">
+<h3><span class="header-section-number">1.2.6</span> Creación de funciones<a href="intro.html#creación-de-funciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Una de las grandes ventajas de <code>R</code> es la posibilidad de construir y/o agregar funciones propias. Como se mencionó anteriormente, los paquetes están conformados por funciones, además de datos.</p>
 <p>Una función es un conjunto de instrucciones organizadas para realizar una tarea específica y corresponde a un objeto que el intérprete de <code>R</code> es capaz de entender y utilizar sus argumentos para completar una acción.</p>
 <p>Algunas funciones disponibles <em>por defecto</em> en <code>R</code> son</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## funciones R por defecto</span></span>
-<span id="cb6-2"><a href="intro.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>()</span>
-<span id="cb6-3"><a href="intro.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>()</span>
-<span id="cb6-4"><a href="intro.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>()</span>
-<span id="cb6-5"><a href="intro.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>()</span>
-<span id="cb6-6"><a href="intro.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" tabindex="-1"></a><span class="do">## funciones R por defecto</span></span>
+<span id="cb3-2"><a href="intro.html#cb3-2" tabindex="-1"></a><span class="fu">sqrt</span>()</span>
+<span id="cb3-3"><a href="intro.html#cb3-3" tabindex="-1"></a><span class="fu">mean</span>()</span>
+<span id="cb3-4"><a href="intro.html#cb3-4" tabindex="-1"></a><span class="fu">summary</span>()</span>
+<span id="cb3-5"><a href="intro.html#cb3-5" tabindex="-1"></a><span class="fu">rowSums</span>()</span>
+<span id="cb3-6"><a href="intro.html#cb3-6" tabindex="-1"></a><span class="fu">colSums</span>()</span></code></pre></div>
 <p>La estructura de una función es</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fns"></span>
 <img src="images/Rfunctions.png" alt="Estructura de una funcíon en `R`. Tomado de [_Learn by_ &lt;_example_&gt;](https://www.learnbyexample.org/r-functions/)." width="70%" />
@@ -482,35 +486,35 @@ Figura 1.8: Estructura de una funcíon en <code>R</code>. Tomado de <a href="htt
 <p><span class="math display">\[CV = \frac{s}{\bar{x}}\]</span>
 donde <span class="math inline">\(s\)</span> es la desviación estándar y <span class="math inline">\(\bar{x}\)</span> es la media muestral.</p>
 <p>Si el vector de datos es</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## datos</span></span>
-<span id="cb7-2"><a href="intro.html#cb7-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">8</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" tabindex="-1"></a><span class="do">## datos</span></span>
+<span id="cb4-2"><a href="intro.html#cb4-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">8</span>) </span></code></pre></div>
 <p>entonces nuestra función, que llamaremos <code>CoefVar</code>, debe tener como argumento dicho vector. Internamente, <code>CoefVar</code> debe calcular la desviación estándar y la media muestral de <code>v</code>. Por lo tanto,</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo del coeficiente de variación</span></span>
-<span id="cb8-2"><a href="intro.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## v es un vector numérico</span></span>
-<span id="cb8-3"><a href="intro.html#cb8-3" aria-hidden="true" tabindex="-1"></a>CoefVar <span class="ot">&lt;-</span> <span class="cf">function</span>(v){</span>
-<span id="cb8-4"><a href="intro.html#cb8-4" aria-hidden="true" tabindex="-1"></a>   <span class="do">## cálculos</span></span>
-<span id="cb8-5"><a href="intro.html#cb8-5" aria-hidden="true" tabindex="-1"></a>   m <span class="ot">&lt;-</span> <span class="fu">mean</span>(v)      <span class="do">## media</span></span>
-<span id="cb8-6"><a href="intro.html#cb8-6" aria-hidden="true" tabindex="-1"></a>   s <span class="ot">&lt;-</span> <span class="fu">sd</span>(v)        <span class="do">## s</span></span>
-<span id="cb8-7"><a href="intro.html#cb8-7" aria-hidden="true" tabindex="-1"></a>   resultado <span class="ot">&lt;-</span> s<span class="sc">/</span>m  <span class="do">## CV</span></span>
-<span id="cb8-8"><a href="intro.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-9"><a href="intro.html#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## output</span></span>
-<span id="cb8-10"><a href="intro.html#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(resultado)</span>
-<span id="cb8-11"><a href="intro.html#cb8-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" tabindex="-1"></a><span class="do">## cálculo del coeficiente de variación</span></span>
+<span id="cb5-2"><a href="intro.html#cb5-2" tabindex="-1"></a><span class="do">## v es un vector numérico</span></span>
+<span id="cb5-3"><a href="intro.html#cb5-3" tabindex="-1"></a>CoefVar <span class="ot">&lt;-</span> <span class="cf">function</span>(v){</span>
+<span id="cb5-4"><a href="intro.html#cb5-4" tabindex="-1"></a>   <span class="do">## cálculos</span></span>
+<span id="cb5-5"><a href="intro.html#cb5-5" tabindex="-1"></a>   m <span class="ot">&lt;-</span> <span class="fu">mean</span>(v)      <span class="do">## media</span></span>
+<span id="cb5-6"><a href="intro.html#cb5-6" tabindex="-1"></a>   s <span class="ot">&lt;-</span> <span class="fu">sd</span>(v)        <span class="do">## s</span></span>
+<span id="cb5-7"><a href="intro.html#cb5-7" tabindex="-1"></a>   resultado <span class="ot">&lt;-</span> s<span class="sc">/</span>m  <span class="do">## CV</span></span>
+<span id="cb5-8"><a href="intro.html#cb5-8" tabindex="-1"></a>  </span>
+<span id="cb5-9"><a href="intro.html#cb5-9" tabindex="-1"></a>  <span class="do">## output</span></span>
+<span id="cb5-10"><a href="intro.html#cb5-10" tabindex="-1"></a>  <span class="fu">return</span>(resultado)</span>
+<span id="cb5-11"><a href="intro.html#cb5-11" tabindex="-1"></a>}</span></code></pre></div>
 <p>Ahora, para usar nuestra función <code>CoefVar</code> con el vector <code>v</code> hacemos</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cálculo del CV</span></span>
-<span id="cb9-2"><a href="intro.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">CoefVar</span>(v)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" tabindex="-1"></a><span class="do">## cálculo del CV</span></span>
+<span id="cb6-2"><a href="intro.html#cb6-2" tabindex="-1"></a><span class="fu">CoefVar</span>(v)</span></code></pre></div>
 <pre><code>## [1] 0.4784937</code></pre>
 <p>Teniendo el valor del CV, podríamos determinar si la media muestral es una cantidad representativa del conjunto de datos. Para ello comparamos el resultado de <span class="math inline">\(100\times\)</span><code>CoefVar</code> con 30%.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## función para determinar si la media representativa</span></span>
-<span id="cb11-2"><a href="intro.html#cb11-2" aria-hidden="true" tabindex="-1"></a>representativa <span class="ot">&lt;-</span> <span class="cf">function</span>(v, <span class="at">cutoff =</span> <span class="dv">30</span>){</span>
-<span id="cb11-3"><a href="intro.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  CV_p <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">CoefVar</span>(v)</span>
-<span id="cb11-4"><a href="intro.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  decision <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(CV_p <span class="sc">&gt;</span> cutoff, <span class="st">&#39;no&#39;</span>, <span class="st">&#39;si&#39;</span>)</span>
-<span id="cb11-5"><a href="intro.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">CV_p =</span> CV_p, <span class="at">decision =</span> decision)</span>
-<span id="cb11-6"><a href="intro.html#cb11-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1" tabindex="-1"></a><span class="do">## función para determinar si la media representativa</span></span>
+<span id="cb8-2"><a href="intro.html#cb8-2" tabindex="-1"></a>representativa <span class="ot">&lt;-</span> <span class="cf">function</span>(v, <span class="at">cutoff =</span> <span class="dv">30</span>){</span>
+<span id="cb8-3"><a href="intro.html#cb8-3" tabindex="-1"></a>  CV_p <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">CoefVar</span>(v)</span>
+<span id="cb8-4"><a href="intro.html#cb8-4" tabindex="-1"></a>  decision <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(CV_p <span class="sc">&gt;</span> cutoff, <span class="st">&#39;no&#39;</span>, <span class="st">&#39;si&#39;</span>)</span>
+<span id="cb8-5"><a href="intro.html#cb8-5" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">CV_p =</span> CV_p, <span class="at">decision =</span> decision)</span>
+<span id="cb8-6"><a href="intro.html#cb8-6" tabindex="-1"></a>}</span></code></pre></div>
 <p>Observe que en esta función incluimos un argumento denominado <code>cutoff</code>. Por defecto, <code>cutoff = 30</code>. Además. la eultima línea de la función comienza con <code>list</code>, lo cual implica que el resultado de la función será una lista de dos componentes: <code>CV_p</code> y <code>decision</code>.</p>
 <p>Veamos qué ocurre con el vector <code>v</code> utilizando los valores por defecto:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## aplicación de la función representativa</span></span>
-<span id="cb12-2"><a href="intro.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">representativa</span>(v)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1" tabindex="-1"></a><span class="do">## aplicación de la función representativa</span></span>
+<span id="cb9-2"><a href="intro.html#cb9-2" tabindex="-1"></a><span class="fu">representativa</span>(v)</span></code></pre></div>
 <pre><code>## $CV_p
 ## [1] 47.84937
 ## 
@@ -518,21 +522,21 @@ donde <span class="math inline">\(s\)</span> es la desviación estándar y <span
 ## [1] &quot;no&quot;</code></pre>
 <p>Por lo tanto, el CV del vector <code>v</code> es 0.478. Como <span class="math inline">\(100\times\)</span><code>CVp</code><span class="math inline">\(&gt;30\)</span>, la decisión es que la media <code>no</code> es representativa de los datos.</p>
 <p>Si queremos cambiar el argumento <code>cutoff</code> basta con hacer</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## representatividad con cutoff = 50</span></span>
-<span id="cb14-2"><a href="intro.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">representativa</span>(v, <span class="at">cutoff =</span> <span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1" tabindex="-1"></a><span class="do">## representatividad con cutoff = 50</span></span>
+<span id="cb11-2"><a href="intro.html#cb11-2" tabindex="-1"></a><span class="fu">representativa</span>(v, <span class="at">cutoff =</span> <span class="dv">50</span>)</span></code></pre></div>
 <pre><code>## $CV_p
 ## [1] 47.84937
 ## 
 ## $decision
 ## [1] &quot;si&quot;</code></pre>
 <p>Observe que <code>decision</code> es diferente esta vez. Si queremos extraer el <em>segundo</em> elemento del resultado obtenido con la función <code>representativa</code>, debemos asignar dicho resultado a un objeto y posteriormente operar sobre él de la siguiente manera:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## extrayendo la decisión</span></span>
-<span id="cb16-2"><a href="intro.html#cb16-2" aria-hidden="true" tabindex="-1"></a>decision <span class="ot">&lt;-</span> <span class="fu">representativa</span>(v, <span class="at">cutoff =</span> <span class="dv">50</span>)</span>
-<span id="cb16-3"><a href="intro.html#cb16-3" aria-hidden="true" tabindex="-1"></a>decision[[<span class="dv">2</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1" tabindex="-1"></a><span class="do">## extrayendo la decisión</span></span>
+<span id="cb13-2"><a href="intro.html#cb13-2" tabindex="-1"></a>decision <span class="ot">&lt;-</span> <span class="fu">representativa</span>(v, <span class="at">cutoff =</span> <span class="dv">50</span>)</span>
+<span id="cb13-3"><a href="intro.html#cb13-3" tabindex="-1"></a>decision[[<span class="dv">2</span>]]</span></code></pre></div>
 <pre><code>## [1] &quot;si&quot;</code></pre>
 </div>
-<div id="obteniendo-ayuda" class="section level3" number="1.2.7">
-<h3><span class="header-section-number">1.2.7</span> Obteniendo ayuda</h3>
+<div id="obteniendo-ayuda" class="section level3 hasAnchor" number="1.2.7">
+<h3><span class="header-section-number">1.2.7</span> Obteniendo ayuda<a href="intro.html#obteniendo-ayuda" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Hay múltiples formas de acceder a la ayuda cuando trabajamos con <code>R</code>. En <a href="https://www.r-project.org/help.html" class="uri">https://www.r-project.org/help.html</a> se encuentra una descripción de cómo hacerlo.</p>
 <p>Podemos buscar ayuda, principalmente, a través de la consola del <code>R</code> utilizando los siguientes mecanismos:</p>
 <ol style="list-style-type: decimal">
@@ -547,13 +551,9 @@ Figura 1.9: Resultado de escribir <code>?mean</code> en la consola del <code>R</
 <ol start="2" style="list-style-type: decimal">
 <li><code>apropos('word')</code>. Esta función en <code>R</code> permite encontrar <em>todas</em> las funciones del espacio de tabajo que contienen la palabra <code>word</code>. Por ejemplo, <code>apropos('mean')</code> produce</li>
 </ol>
-<pre><code>##  [1] &quot;.colMeans&quot;        &quot;.rowMeans&quot;        &quot;colMeans&quot;        
-##  [4] &quot;kmeans&quot;           &quot;mean&quot;             &quot;mean_cl_boot&quot;    
-##  [7] &quot;mean_cl_normal&quot;   &quot;mean_sdl&quot;         &quot;mean_se&quot;         
-## [10] &quot;mean.Date&quot;        &quot;mean.default&quot;     &quot;mean.difftime&quot;   
-## [13] &quot;mean.POSIXct&quot;     &quot;mean.POSIXlt&quot;     &quot;rollmean&quot;        
-## [16] &quot;rollmean.default&quot; &quot;rollmeanr&quot;        &quot;rowMeans&quot;        
-## [19] &quot;weighted.mean&quot;</code></pre>
+<pre><code>##  [1] &quot;.colMeans&quot;     &quot;.rowMeans&quot;     &quot;colMeans&quot;      &quot;kmeans&quot;       
+##  [5] &quot;mean&quot;          &quot;mean.Date&quot;     &quot;mean.default&quot;  &quot;mean.difftime&quot;
+##  [9] &quot;mean.POSIXct&quot;  &quot;mean.POSIXlt&quot;  &quot;rowMeans&quot;      &quot;weighted.mean&quot;</code></pre>
 <p>Si queremos saber qué hace <code>rowMeans</code> o cuáles son sus argumentos, basta con escribir <code>?rowMeans</code> o <code>help(rowMeans)</code> en la consola.</p>
 <ol start="3" style="list-style-type: decimal">
 <li><p><code>RSiteSearch()</code>. Esta función busca información en las páginas de ayuda de las todas las funciones y en las viñetas de todos los paquetes de <code>CRAN</code>, así como en <a href="https://cran.r-project.org/web/views/"><code>CRAN Task Views</code></a>.</p></li>
@@ -562,8 +562,8 @@ Figura 1.9: Resultado de escribir <code>?mean</code> en la consola del <code>R</
 <li><p><a href="https://stat.ethz.ch/mailman/listinfo/r-help-es">R-help-es</a>. Esta es una lista de correo, creada en 2009, para solicitar ayuda sobre <code>R</code> en español y se entiende como un complemento social a la documentación, libros, etc. disponibles sobre <code>R</code>. Puede acceder directamente a los archivos en <a href="https://stat.ethz.ch/pipermail/r-help-es/" class="uri">https://stat.ethz.ch/pipermail/r-help-es/</a></p></li>
 </ol>
 </div>
-<div id="lectura-de-datos" class="section level3" number="1.2.8">
-<h3><span class="header-section-number">1.2.8</span> Lectura de datos</h3>
+<div id="lectura-de-datos" class="section level3 hasAnchor" number="1.2.8">
+<h3><span class="header-section-number">1.2.8</span> Lectura de datos<a href="intro.html#lectura-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los datos se almacenan de múltiples formas. Los formatos más comunes son</p>
 <ol style="list-style-type: decimal">
 <li>Archivos de texto cuya extensión es <code>.txt</code>;</li>
@@ -574,24 +574,24 @@ Figura 1.9: Resultado de escribir <code>?mean</code> en la consola del <code>R</
 <li>archivos disponibles en Google Drive o Dropbox.</li>
 </ol>
 <p>En <code>R</code> existen diferentes funciones que permiten leer <em>casi</em> cualquier tipo de datos. Algunas funciones clave son</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="intro.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scan</span>()</span>
-<span id="cb19-2"><a href="intro.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.table</span>()</span>
-<span id="cb19-3"><a href="intro.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>()</span>
-<span id="cb19-4"><a href="intro.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">readLines</span>()</span>
-<span id="cb19-5"><a href="intro.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">read.xls</span>()  <span class="co"># del paquete gdata</span></span>
-<span id="cb19-6"><a href="intro.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fread</span>()     <span class="co"># del paquete data.table</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro.html#cb16-1" tabindex="-1"></a><span class="fu">scan</span>()</span>
+<span id="cb16-2"><a href="intro.html#cb16-2" tabindex="-1"></a><span class="fu">read.table</span>()</span>
+<span id="cb16-3"><a href="intro.html#cb16-3" tabindex="-1"></a><span class="fu">read.csv</span>()</span>
+<span id="cb16-4"><a href="intro.html#cb16-4" tabindex="-1"></a><span class="fu">readLines</span>()</span>
+<span id="cb16-5"><a href="intro.html#cb16-5" tabindex="-1"></a><span class="fu">read.xls</span>()  <span class="co"># del paquete gdata</span></span>
+<span id="cb16-6"><a href="intro.html#cb16-6" tabindex="-1"></a><span class="fu">fread</span>()     <span class="co"># del paquete data.table</span></span></code></pre></div>
 <p>Algunos ejemplos adicionales pueden encontrarse en el Capítulo8 del <a href="https://fhernanb.github.io/Manual-de-R/read.html">Manual de R</a>, o en el Capítulo 11 de <a href="https://es.r4ds.hadley.nz/importaci%C3%B3n-de-datos.html">R for Data Science</a>.</p>
 
 <div class="rmdtip">
 Se sugiere al lector consultar la ayuda de las funciones anteriores.
 </div>
 <p>Por ejemplo, si tenemos el URL <a href="https://bit.ly/2RmO1OR" class="uri">https://bit.ly/2RmO1OR</a> donde se encuentran almacenados unos datos, podemos utilizar la función <code>read.table</code> para leerlos en <code>R</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="intro.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## lectura de datos desde un URL</span></span>
-<span id="cb20-2"><a href="intro.html#cb20-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://bit.ly/2RmO1OR&quot;</span> </span>
-<span id="cb20-3"><a href="intro.html#cb20-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.table</span>(url, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-4"><a href="intro.html#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="intro.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="do">## primeras 10 filas</span></span>
-<span id="cb20-6"><a href="intro.html#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="intro.html#cb17-1" tabindex="-1"></a><span class="do">## lectura de datos desde un URL</span></span>
+<span id="cb17-2"><a href="intro.html#cb17-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://bit.ly/2RmO1OR&quot;</span> </span>
+<span id="cb17-3"><a href="intro.html#cb17-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.table</span>(url, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-4"><a href="intro.html#cb17-4" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="intro.html#cb17-5" tabindex="-1"></a><span class="do">## primeras 10 filas</span></span>
+<span id="cb17-6"><a href="intro.html#cb17-6" tabindex="-1"></a><span class="fu">head</span>(d, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Resistencia  Edad
 ## 1      2158.70 15.50
 ## 2      1678.15 23.75
@@ -604,25 +604,25 @@ Se sugiere al lector consultar la ayuda de las funciones anteriores.
 ## 9      2357.90  7.50
 ## 10     2256.70 11.00</code></pre>
 <p>Ahora, utilizar los datos contenidos en el objeto <code>d</code> podemos aplicar diferentes técnicas de Analítica de Datos para extrer información. Por ejemplo, podemos construir un diagrama de dispersión para explorar la relación que existe entre las variables <code>Resistencia</code> y <code>Edad</code>:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="intro.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## paquetes</span></span>
-<span id="cb22-2"><a href="intro.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb22-3"><a href="intro.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
-<span id="cb22-4"><a href="intro.html#cb22-4" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb22-5"><a href="intro.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="do">## gráfico</span></span>
-<span id="cb22-6"><a href="intro.html#cb22-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> Edad, <span class="at">y=</span> Resistencia)) <span class="sc">+</span></span>
-<span id="cb22-7"><a href="intro.html#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-8"><a href="intro.html#cb22-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb22-9"><a href="intro.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type=</span><span class="st">&quot;density&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-24"></span>
-<img src="book-adii_files/figure-html/unnamed-chunk-24-1.png" alt="Diagrama de dispersión y densidades para `Resistencia` vs. `Edad`." width="480" />
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="intro.html#cb19-1" tabindex="-1"></a><span class="do">## paquetes</span></span>
+<span id="cb19-2"><a href="intro.html#cb19-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-3"><a href="intro.html#cb19-3" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb19-4"><a href="intro.html#cb19-4" tabindex="-1"></a> </span>
+<span id="cb19-5"><a href="intro.html#cb19-5" tabindex="-1"></a><span class="do">## gráfico</span></span>
+<span id="cb19-6"><a href="intro.html#cb19-6" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> Edad, <span class="at">y=</span> Resistencia)) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="intro.html#cb19-7" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-8"><a href="intro.html#cb19-8" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb19-9"><a href="intro.html#cb19-9" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type=</span><span class="st">&quot;density&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<img src="book-adii_files/figure-html/unnamed-chunk-17-1.png" alt="Diagrama de dispersión y densidades para `Resistencia` vs. `Edad`." width="480" />
 <p class="caption">
 Figura 1.10: Diagrama de dispersión y densidades para <code>Resistencia</code> vs. <code>Edad</code>.
 </p>
 </div>
 </div>
 </div>
-<div id="rstudio" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> RStudio</h2>
+<div id="rstudio" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> RStudio<a href="intro.html#rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.rstudio.com/">RStudio</a> es un entorno de desarrollo integrado (IDE) para <code>R</code> disponible en ediciones comerciales y de código abierto y se ejecuta en el escritorio (Windows, macos y Linux).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:RStudioLogo"></span>
 <img src="images/RStudiologo.png" alt="Página oficial del `R`. Note que la  versión más reciente es la 4.1.1." width="50%" />
@@ -720,7 +720,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
